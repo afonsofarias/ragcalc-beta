@@ -7,6 +7,12 @@ function populateItemsSelect(selectId, itemList) {
     const job = document.querySelector('input[name="class"]:checked').value;
 
     itemList.forEach(item => {
+        // Nao adiciona itens que não sejam para a Classe
+        if (item.tags !== undefined){
+            if (!item.tags.includes(job))
+                return;
+        }
+
         const option = document.createElement('option');
         option.value = item.id;
         option.textContent = item.name;
@@ -15,17 +21,13 @@ function populateItemsSelect(selectId, itemList) {
         option.setAttribute('data-slot2', item.slot2);
         option.setAttribute('data-slot3', item.slot3);
         option.setAttribute('data-slot4', item.slot4);
-        let display = true;
-        if (item.tags !== undefined){
-            if (!item.tags.includes(job))
-                return;
-        }
+
         // Flag de Arma de Duas Mãos
         if (selectId === 'wea' && item.twoHanded)
             option.setAttribute('twoHanded', 'true');
 
         // Alguns acessórios dependem de lado para equipar
-        if (selectId === 'ac1' && display) {
+        if (selectId === 'ac1') {
             if (item.position !== '2')
                 select.appendChild(option);
         } else if (selectId === 'ac2') {
@@ -42,8 +44,17 @@ function populateItemsSelect(selectId, itemList) {
 // Function to populate the Costume Enchants and Shadow Equipments selects
 function populateCostumeShadowSelect(selectId, itemList) {
     const select = document.getElementById(selectId);
+    const firstOption = select.options[0];
+    select.innerHTML = "";
+    select.appendChild(firstOption);
+    const job = document.querySelector('input[name="class"]:checked').value;
 
     itemList.forEach(item => {
+        // Nao adiciona entradas que não sejam para a Classe
+        if (item.tags !== undefined){
+            if (!item.tags.includes(job))
+                return;
+        }
         const option = document.createElement('option');
         option.value = item.id;
         option.textContent = item.name;
@@ -57,7 +68,7 @@ function populateCostumeShadowSelect(selectId, itemList) {
 // Function to populate select slots with cards and enchants options
 function populateSlot(position) {
     let select = document.getElementById(position);
-
+    const job = document.querySelector('input[name="class"]:checked').value;
     updateImage(position, select.value);
 
     // For each of the 4 possible slots
@@ -77,17 +88,25 @@ function populateSlot(position) {
             slot.appendChild(option);
             // Populate with cards
             for (let j = 0; j < cards.length; j++) {
-                let position2 = position;
-                if (position === 'ac1' || position === 'ac2') {
-                    position2 = 'acc';
-                } else if (position === 'mid') {
-                    position2 = 'top';
+                // Nao adiciona cartas que não sejam interessantes para a Classe
+                let addCard = true;
+                if (cards[j].tags !== undefined){
+                    if (!cards[j].tags.includes(job))
+                        addCard = false;
                 }
-                if (cards[j].position === position2) {
-                    option = document.createElement('option');
-                    option.value = cards[j].id;
-                    option.textContent = cards[j].name;
-                    slot.appendChild(option);
+                if (addCard) {
+                    let position2 = position;
+                    if (position === 'ac1' || position === 'ac2') {
+                        position2 = 'acc';
+                    } else if (position === 'mid') {
+                        position2 = 'top';
+                    }
+                    if (cards[j].position === position2) {
+                        option = document.createElement('option');
+                        option.value = cards[j].id;
+                        option.textContent = cards[j].name;
+                        slot.appendChild(option);
+                    }
                 }
             }
         } else if (text !== "undefined" && text !== null) {
@@ -444,6 +463,18 @@ function classSelector(job) {
     populateItemsSelect('sho', shoes);
     populateItemsSelect('ac1', accessory);
     populateItemsSelect('ac2', accessory);
+    // Encantamentos Visuais
+    populateCostumeShadowSelect('c_top', c_top);
+    populateCostumeShadowSelect('c_mid', c_mid);
+    populateCostumeShadowSelect('c_low', c_low);
+    populateCostumeShadowSelect('c_gar', c_gar);
+    // Sombrios
+    populateCostumeShadowSelect('s_arm', s_armor);
+    populateCostumeShadowSelect('s_wea', s_weapon);
+    populateCostumeShadowSelect('s_shi', s_shield);
+    populateCostumeShadowSelect('s_sho', s_shoes);
+    populateCostumeShadowSelect('s_ear', s_earring);
+    populateCostumeShadowSelect('s_nec', s_necklace);
 }
 
 function updateJobSpecificOptions(job){
@@ -611,17 +642,17 @@ function load() {
     // populateItemsSelect('ac1', accessory);
     // populateItemsSelect('ac2', accessory);
     // Encantamentos Visuais
-    populateCostumeShadowSelect('c_top', c_top);
-    populateCostumeShadowSelect('c_mid', c_mid);
-    populateCostumeShadowSelect('c_low', c_low);
-    populateCostumeShadowSelect('c_gar', c_gar);
+    // populateCostumeShadowSelect('c_top', c_top);
+    // populateCostumeShadowSelect('c_mid', c_mid);
+    // populateCostumeShadowSelect('c_low', c_low);
+    // populateCostumeShadowSelect('c_gar', c_gar);
     // Sombrios
-    populateCostumeShadowSelect('s_arm', s_armor);
-    populateCostumeShadowSelect('s_wea', s_weapon);
-    populateCostumeShadowSelect('s_shi', s_shield);
-    populateCostumeShadowSelect('s_sho', s_shoes);
-    populateCostumeShadowSelect('s_ear', s_earring);
-    populateCostumeShadowSelect('s_nec', s_necklace);
+    // populateCostumeShadowSelect('s_arm', s_armor);
+    // populateCostumeShadowSelect('s_wea', s_weapon);
+    // populateCostumeShadowSelect('s_shi', s_shield);
+    // populateCostumeShadowSelect('s_sho', s_shoes);
+    // populateCostumeShadowSelect('s_ear', s_earring);
+    // populateCostumeShadowSelect('s_nec', s_necklace);
     // Chama a função para preencher os alvos
     populateTargetSelect();
     // Calculo dos atributos

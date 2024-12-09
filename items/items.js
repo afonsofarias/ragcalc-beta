@@ -297,36 +297,102 @@ const tops = [
         id: '19426', dbname: 'King_Of_Spirit_Circlet', name: 'Coroa do Espírito do Rei',
         tags: 'SORCERER',
         script: function () {
-            // Coroa do Espírito do Rei
-            // 19426 King_Of_Spirit_Circlet
-            //
-            // Uma coroa qe pertence ao primeiro rei de prontera. Lendas dizem que se espírito ainda se mantém na coroa.
-            // --------------------------
             // Pós-conjuração -10%.
+            equipStats.castdelay += 10;
             // Dano de [Castigo de Nerthus] e [Pó de Diamante] +10%.
-            // --------------------------
+            if (skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
+                multipliers.skill += 10;
             // Refino +9 ou mais:
-            // Pós-conjuração -5% adicional.
-            // Dano de [Castigo de Nerthus] e [Pó de Diamante] +15% adicional.
+            if (refinement.top >= 9){
+                // Pós-conjuração -5% adicional.
+                equipStats.castdelay += 5;
+                // Dano de [Castigo de Nerthus] e [Pó de Diamante] +15% adicional.
+                if (skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
+                    multipliers.skill += 15;
+            }
             // Refino +11 ou mais:
-            // Pós-conjuração -5% adicional.
-            // Dano de [Castigo de Nerthus] e [Pó de Diamante] +25% adicional.
+            if (refinement.top >= 11){
+                // Pós-conjuração -5% adicional.
+                equipStats.castdelay += 5;
+                // Dano de [Castigo de Nerthus] e [Pó de Diamante] +25% adicional.
+                if (skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
+                    multipliers.skill += 25;
+            }
             // Refino +13 ou mais:
-            // Ignora 100% da DEFM de todas as raças.
-            // --------------------------
+            if (refinement.top >= 13){
+                // Ignora 100% da DEFM de todas as raças.
+                equipStats.bypass += 100;
+            }
             // Ao aprender [Aquecer Terreno] nv.5:
             // Recarga de [Lanças dos Aesir] [Castigo de Nerthus] e [Pó de Diamante] -1 segundo.
-            // --------------------------
+            if (skill.id === "SO_VARETYR_SPEAR" || skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
+                skill.cooldown += -1;
             // Ao aprender [Escudo Elemental] nv.5:
             // Dano mágico contra monstros Chefes +25%.
-            // --------------------------
+            multipliers.protocol[BOSS] += 25;
             // A cada nível de [Empatia Elemental]:
             // Conjuração variável -4%.
-            // --------------------------
+            let empatiaLv = 5;
+            equipStats.VCT += empatiaLv * 4;
             // A cada refino até o +10:
             // Conjuração fixa -5%.
+            let percentFCTRed = Math.min(10, refinement.top) * 5;
+            if (equipStats.percentFCT < percentFCTRed)
+                equipStats.percentFCT = percentFCTRed;
         }
-    }
+    },
+    {
+        id: '400095', dbname: 'BioWeapon_Helm_SO', name: 'Espólio de Celia', slot1: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            // A cada 2 refinos: Dano mágico +2%. Regen. natural de SP +6%.
+            multipliers.matk += Math.floor(refinement.top/2) * 2;
+            // Refino +7 ou mais: Todos os atributos +3.
+            if (refinement.top >= 7){
+                equipStats.str += 3;
+                equipStats.agi += 3;
+                equipStats.vit += 3;
+                equipStats.int += 3;
+                equipStats.dex += 3;
+                equipStats.luk += 3;
+            }
+            // Refino +9 ou mais: Conjuração variável -10%.
+            if (refinement.top >= 9)
+                equipStats.VCT += 10;
+            // Refino +11 ou mais: Dano mágico de propriedade Neutro, Terra e Água +20%.
+            if (refinement.top >= 11){
+                multipliers.skill_property[NEUTRAL] += 20;
+                multipliers.skill_property[EARTH] += 20;
+                multipliers.skill_property[WATER] += 20;
+            }
+            // Conjunto [Lançarin]
+            if (document.getElementById('wea').value === '28633') {
+                // Dano mágico +2%.
+                multipliers.matk += 2;
+                // A cada refino da arma: Dano de [Lanças de Fogo] [Lanças de Gelo] e [Relâmpago] +3%.
+                if (skill.id === 'MG_FIREBOLT' || skill.id === 'MG_COLDBOLT' ||skill.id === 'MG_LIGHTNINGBOLT')
+                    multipliers.skill += refinement.weapon * 3;
+            }
+            // Conjunto [Castigo Diamante]
+            if (document.getElementById('wea').value === '26160'){
+                // Dano mágico de propriedade Terra e Água +3% adicional.
+                multipliers.skill_property[EARTH] += 3;
+                multipliers.skill_property[WATER] += 3;
+                // A cada refino da arma: Dano de [Pó de Diamante] +3%.
+                if (skill.id === 'SO_DIAMONDDUST')
+                    multipliers.skill += refinement.weapon * 3;
+            }
+            // Conjunto [Lança Psíquica]
+            if (document.getElementById('wea').value === '26159'){
+                // Dano mágico de propriedade Neutro e Vento +3% adicional.
+                multipliers.skill_property[NEUTRAL] += 3;
+                multipliers.skill_property[WIND] += 3;
+                // A cada refino da arma: Dano de [Lanças dos Aesir] +3%.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += refinement.weapon * 3;
+            }
+        }
+    },
 ];
 
 desentupidor = '4730,4710,4720,4750';

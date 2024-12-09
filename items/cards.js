@@ -12,10 +12,21 @@ const cards = [
         }
     },
     {
+        id: '4597', dbname: 'LichternB_Card', name: 'Carta Lichtern Laguz', position: 'top',
+        tags: 'SORCERER',
+        script: function () {
+            equipStats.flatMATK += 10;
+            multipliers.skill_property[WATER] += 5;
+            if (currentEquip === 'top' && refinement.top >= 9)
+                multipliers.skill_property[WATER] += 5;
+        }
+    },
+    {
         id: '27309',
         dbname: 'High_Sanare_Card',
         name: 'Carta Sanare Mutante',
         position: 'top',
+        tags: 'ARCHBISHOP',
         script: function () {
             equipStats.flatMATK += 10;
             multipliers.skill_property[HOLY] += 5;
@@ -67,6 +78,16 @@ const cards = [
     },
 
     // armor cards
+    {
+        id: '27113', dbname: 'AwakenKtullanux_Card', name: 'Carta Ktullanux de Cristal', position: 'arm',
+        tags: 'SORCERER',
+        script: function () {
+            // Dano mágico de propriedade Água +20%.
+            multipliers.skill_property[WATER] += 20;
+            // A cada refino da armadura: Dano mágico de propriedade Água +3%.
+            multipliers.skill_property[WATER] += refinement.armor * 3;
+        }
+    },
     {
         id: '4652',
         dbname: 'Grave_Amon_Ra_Card',
@@ -127,6 +148,7 @@ const cards = [
     // weapon cards
     {
         id: '4685', dbname: 'Real_Magaleta_Card', name: 'Carta Alma de Margaretha', position: 'wea',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (skill.id === "AB_ADORAMUS") {
                 multipliers.skill += 20;
@@ -158,6 +180,17 @@ const cards = [
         }
     },
     {
+        id: '27324', dbname: 'Brinaranea_Card', name: 'Carta Brinaranha', position: 'wea',
+        tags: 'SORCERER',
+        script: function () {
+            // Dano mágico de propriedade Água +15%.
+            multipliers.skill_property[WATER] += 15;
+            // Conjunto [Carta Skoll]
+            // Dano mágico de propriedade Água +10% adicional.
+            // ADICIONADO NA CARTA SKOLL
+        }
+    },
+    {
         id: '31023', dbname: 'XM_Celine_Kimi_Card', name: 'Carta Celine Kimi', position: 'wea',
         script: function () {
             multipliers.matk += 10;
@@ -185,6 +218,7 @@ const cards = [
     },
     {
         id: '300011', dbname: 'Holy_Frus_Card', name: 'Carta Frus Angelical', position: 'wea',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (weapon.class === ONE_HANDED_STAFF || weapon.class === TWO_HANDED_STAFF){
                 multipliers.skill_property[HOLY] += 10;
@@ -222,6 +256,24 @@ const cards = [
         }
     },
     {
+        id: '27325', name: 'Muspellskoll_Card', dbname: 'Carta Skoll', position: 'shi',
+        tags: 'SORCERER',
+        script: function () {
+            // Conjunto [Carta Brinaranha]
+            if (document.getElementById('wea_slot1').value === '27324' ||
+                document.getElementById('wea_slot2').value === '27324' ||
+                document.getElementById('wea_slot3').value === '27324' ||
+                document.getElementById('wea_slot4').value === '27324') {
+                // Dano físico e mágico contra oponentes de propriedade Fogo +10%.
+                multipliers.property[FIRE] += 10;
+                // Da Carta Brinaranha: Conjunto [Carta Skoll]
+                // Dano mágico de propriedade Água +10% adicional.
+                multipliers.skill_property[WATER] += 10;
+            }
+
+        }
+    },
+    {
         id: '4250', dbname: 'Executioner_Card', name: 'Carta Executor', position: 'shi',
         script: function () {
         }
@@ -246,6 +298,7 @@ const cards = [
     },
     {
         id: '4675', dbname: 'Archbishop_Card', name: 'Carta Arcebispa Margaretha', position: 'gar',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (refinement.garment >= 10) {
                 equipStats.str += 10;
@@ -266,7 +319,36 @@ const cards = [
         }
     },
     {
+        id: '4671', dbname: 'Sorcerer_Card', name: 'Carta Feiticeira Celia', position: 'gar',
+        tags: 'SORCERER',
+        script: function () {
+            // Feiticeiros e evoluções:
+            // HP máx. +10%.
+            // Dano mágico +10%.
+            multipliers.matk += 10;
+            // Refino +10 ou mais: Todos os atributos +10.
+            if (refinement.garment >= 10) {
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+            }
+            // Nv. base 175 ou mais: Todos os atributos +10 adicional.
+            if (stats.baseLv >= 175) {
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+            }
+        }
+    },
+    {
         id: '4675 ', dbname: 'Archbishop_Card', name: 'Carta Arcebispa Margaretha (Transformação)', position: 'gar',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (refinement.garment >= 10) {
                 equipStats.str += 10;
@@ -293,6 +375,43 @@ const cards = [
             }
         }
     },
+    // {
+    //     id: '4671 ', dbname: 'Sorcerer_Card', name: 'Carta Feiticeira Celia (Transformação)', position: 'gar',
+    //     tags: 'SORCERER',
+    //     script: function () {
+    //         // Feiticeiros e evoluções:
+    //         // HP máx. +10%.
+    //         // Dano mágico +10%.
+    //         multipliers.matk += 10;
+    //         // Refino +10 ou mais: Todos os atributos +10.
+    //         if (refinement.garment >= 10) {
+    //             equipStats.str += 10;
+    //             equipStats.agi += 10;
+    //             equipStats.vit += 10;
+    //             equipStats.int += 10;
+    //             equipStats.dex += 10;
+    //             equipStats.luk += 10;
+    //         }
+    //         // Nv. base 175 ou mais: Todos os atributos +10 adicional.
+    //         if (stats.baseLv >= 175) {
+    //             equipStats.str += 10;
+    //             equipStats.agi += 10;
+    //             equipStats.vit += 10;
+    //             equipStats.int += 10;
+    //             equipStats.dex += 10;
+    //             equipStats.luk += 10;
+    //         }
+    //         // Conjunto [Carta Alma de Celia]
+    //         if (document.getElementById('wea_slot1').value === '4692' ||
+    //             document.getElementById('wea_slot2').value === '4692' ||
+    //             document.getElementById('wea_slot3').value === '4692' ||
+    //             document.getElementById('wea_slot4').value === '4692') {
+    //             // Ao realizar ataques mágicos: 3% de chance de se transformar em Celia Alde por 6 segundos.
+    //             // Durante a transformação: ATQM +100.
+    //             equipStats.flatMATK += 100;
+    //         }
+    //     }
+    // },
     {
         id: '27381', dbname: 'C_Himel_Card', name: '(kRO) Phantom of Himmelmez Card', position: 'gar',
         script: function () {
@@ -303,6 +422,7 @@ const cards = [
     },
     {
         id: '300122', dbname: 'Pitaya_Y_Card', name: '(kRO) Yellow Pitaya Card', position: 'gar',
+        tags: 'ARCHBISHOP',
         script: function () {
             // Increases holy property magical damage by 3% per refine rate.
             multipliers.skill_property[HOLY] += refinement.garment * 3;
@@ -344,10 +464,48 @@ const cards = [
                 multipliers.skill_property[ALL] += 30;
         }
     },
+    {
+        id: '27362', dbname: 'Polluted_Spi_Q_Card', name: 'Carta Aranha Rainha', position: 'gar',
+        tags: 'SORCERER',
+        script: function () {
+            // Resistência a todas as propriedades -30%.
+            // Dano mágico de propriedade Água e Terra +100%.
+            multipliers.skill_property[WATER] += 100;
+            multipliers.skill_property[EARTH] += 100;
+        }
+    },
+    {
+        id: '300201', dbname: 'SLD_P_Spi_Q_Card', name: 'Carta Aranha Rainha Selada', position: 'gar',
+        tags: 'SORCERER',
+        script: function () {
+            // Resistência a todas as propriedades -60%.
+            // Dano mágico de propriedade Água e Terra +50%.
+            multipliers.skill_property[WATER] += 50;
+            multipliers.skill_property[EARTH] += 50;
+            // No refino +15 ou mais, os efeitos passam a ser:
+            // Resistência a todas as propriedades -40%.
+            // Dano mágico de propriedade Água e Terra +75%.
+            if (refinement.garment >= 15) {
+                multipliers.skill_property[WATER] += 25;
+                multipliers.skill_property[EARTH] += 25;
+            }
+        }
+    },
+    {
+        id: '27167', dbname: 'Faceworm_L_Card', name: 'Carta Larva de Verme', position: 'gar',
+        tags: 'SORCERER',
+        script: function () {
+            // Resistência a propriedade Neutro +15%.
+            // A cada refino:
+            // Dano mágico de propriedade Água +3%.
+            multipliers.skill_property[WATER] += refinement.garment * 3;
+        }
+    },
 
     // shoes cards
     {
         id: '27287', dbname: 'Shining_T_Bear_Card', name: 'Carta Ursinho Brilhante', position: 'sho',
+        tags: 'ARCHBISHOP',
         script: function () {
             multipliers.skill_property[HOLY] += refinement.shoes * 3;
         }
@@ -364,6 +522,7 @@ const cards = [
     },
     {
         id: '27259', dbname: 'Rechenier_Card', name: 'Carta Shaula', position: 'sho',
+        tags: 'ARCHBISHOP',
         script: function () {
             multipliers.matk += 3;
             multipliers.skill_property[HOLY] += 5;
@@ -397,6 +556,7 @@ const cards = [
     // acc cards
     {
         id: '27125', dbname: 'Headless_Mule_Card', name: 'Carta Mula Sem Cabeça', position: 'acc',
+        tags: 'ARCHBISHOP,SORCERER',
         script: function () {
             multipliers.skill_property[WATER] += 20;
             multipliers.skill_property[HOLY] += 20;

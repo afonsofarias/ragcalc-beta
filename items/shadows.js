@@ -1,6 +1,7 @@
 const s_armor = [
     {
         id: '24273', dbname: 'S_Priest_Armor', name: 'Malha Sombria de Sacerdote',
+        tags: 'ARCHBISHOP',
         script: function () {
             // Dano de [Magnus Exorcismus] +20%.
             // A cada refino: Dano de [Magnus Exorcismus] +5%.
@@ -85,6 +86,7 @@ const s_armor = [
 const s_weapon = [
     {
         id: '24292', dbname: 'S_Archbishop_Weapon', name: 'Luva Sombria de Arcebispo',
+        tags: 'ARCHBISHOP',
         script: function () {
             equipStats.flatMATK += s_refinement.weapon;
             // Conjunto
@@ -122,6 +124,7 @@ const s_weapon = [
     },
     {
         id: '24497', dbname: 'S_Magnus_Weapon', name: 'Luva Sombria Magnus',
+        tags: 'ARCHBISHOP',
         script: function () {
             // ATQ e ATQM +1 por refino.
             equipStats.flatMATK += s_refinement.weapon;
@@ -146,6 +149,7 @@ const s_weapon = [
 const s_shield = [
     {
         id: '24305', dbname: 'S_Archbishop_Shield', name: 'Escudo Sombrio de Arcebispo',
+        tags: 'ARCHBISHOP',
         script: function () {
             // Dano de [Adoramus] +20%.
             if (skill.id === 'AB_ADORAMUS')
@@ -213,6 +217,7 @@ const s_shield = [
 const s_shoes = [
     {
         id: '24260', dbname: 'S_Priest_Shoes', name: 'Greva Sombria de Sacerdote',
+        tags: 'ARCHBISHOP',
         script: function () {
         }
     },
@@ -284,6 +289,7 @@ const s_earring = [
     },
     {
         id: '24248', dbname: 'S_Acolyte_earring', name: 'Brinco Sombrio de Noviço',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (document.getElementById('s_nec').value === '24252') {
                 multipliers.matk += 1;
@@ -309,6 +315,7 @@ const s_earring = [
     },
     {
         id: '24499', dbname: 'S_Magnus_Earing', name: 'Brinco Sombrio Magnus',
+        tags: 'ARCHBISHOP',
         script: function () {
             // KEKW
         }
@@ -349,6 +356,7 @@ const s_necklace = [
     },
     {
         id: '24252', dbname: 'S_Acolyte_Pendant', name: 'Colar Sombrio de Noviço',
+        tags: 'ARCHBISHOP',
         script: function () {
             if (skill.id === "AL_HOLYLIGHT"){
                 multipliers.skill += 50 + (s_refinement.necklace * 10);
@@ -366,6 +374,7 @@ const s_necklace = [
     },
     {
         id: '24498', dbname: 'S_Magnus_Pendant', name: 'Colar Sombrio Magnus',
+        tags: 'ARCHBISHOP',
         script: function () {
             // Dano de [Magnus Exorcismus] +5%.
             // A cada 2 refinos: Dano de [Magnus Exorcismus] +2%.
