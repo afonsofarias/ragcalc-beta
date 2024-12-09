@@ -89,11 +89,25 @@ const s_weapon = [
         tags: 'ARCHBISHOP',
         script: function () {
             equipStats.flatMATK += s_refinement.weapon;
-            // Conjunto
-            // Escudo Sombrio de Arcebispo
-            // Recarga de [Adoramus] -1 segundo.
+            // Conjunto Escudo Sombrio de Arcebispo: Recarga de [Adoramus] -1 segundo.
             if (document.getElementById('s_shi').value === '24305' && skill.id === 'AB_ADORAMUS')
                 skill.cooldown = ( (skill.cooldown*10) - 10 )/10;
+        }
+    },
+    {
+        id: '24297', dbname: 'S_Sorcerer_Weapon', name: 'Luva Sombria de Feiticeiro',
+        tags: 'SORCERER',
+        script: function () {
+            equipStats.flatMATK += s_refinement.weapon;
+            // Recarga de [Pó de Diamante] -1 segundo.
+            // A cada refino: Recarga de [Pó de Diamante] -0,3 segundos.
+            if (skill.id === 'SO_DIAMONDDUST')
+                skill.cooldown = ( (skill.cooldown*10) - ( 10 + (s_refinement.weapon*0.3) ) )/10;
+            // Conjunto Escudo Sombrio de Feiticeiro
+            // Dano de [Pó de Diamante] e [Castigo de Nerthus] +20%..
+            if (document.getElementById('s_shi').value === '24310')
+                if (skill.id === 'SO_DIAMONDDUST' || skill.id === 'SO_EARTHGRAVE')
+                    multipliers.skill += 20;
         }
     },
     {
@@ -177,6 +191,39 @@ const s_shield = [
                 equipStats.int += 10;
                 equipStats.dex += 10;
                 equipStats.luk += 10;
+                if (target.type === NORMAL)
+                    equipStats.bypass += 50;
+            }
+        }
+    },
+    {
+        id: '24310', dbname: 'S_Sorcerer_Shield', name: 'Escudo Sombrio de Feiticeiro',
+        tags: 'SORCERER',
+        script: function () {
+            // Recarga de [Castigo de Nerthus] -1 segundo.
+            // A cada refino: Recarga de [Castigo de Nerthus] -0,3 segundos.
+            if (skill.id === 'SO_EARTHGRAVE')
+                skill.cooldown = ( (skill.cooldown*10) - ( 10 + (s_refinement.weapon*0.3) ) )/10;
+            // Conjunto
+            // Greva Sombria de Sábio
+            // Malha Sombria de Sábio
+            // Luva Sombria de Feiticeiro
+            // Brinco Sombrio de Mago
+            // Colar Sombrio de Mago
+            if (document.getElementById('s_arm').value === '24278' &&
+                document.getElementById('s_sho').value === '24265' &&
+                document.getElementById('s_ear').value === '24249' &&
+                document.getElementById('s_nec').value === '24254' &&
+                document.getElementById('s_wea').value === '24297') {
+                // Todos os atributos +10.
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+                // HP e SP máx. +5%.
+                // Ignora 50% da DEF e DEFM de monstros normais.
                 if (target.type === NORMAL)
                     equipStats.bypass += 50;
             }

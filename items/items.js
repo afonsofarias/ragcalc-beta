@@ -399,6 +399,19 @@ desentupidor = '4730,4710,4720,4750';
 
 const mid = [
     {
+        id: '410067', dbname: 'Professor_MiniGlass_', name: 'Mini Óculos', slot1: 'card', slot4: desentupidor,
+        tags: 'SORCERER',
+        script: function () {
+            // Dano mágico contra todos os Tamanhos +10%
+            multipliers.size[ALL] += 10;
+            // Ao aprender [Tornado] nv.5: Pós-conjuração -15%
+            equipStats.castdelay += 15;
+            // Ao aprender [Onda Psíquica] nv.5: Recarga de [Pó de Diamante] e [Castigo de Nerthus] -4 segundos
+            if (skill.id === 'SO_DIAMONDDUST' || skill.id === 'SO_EARTHGRAVE')
+                skill.cooldown += -4;
+        }
+    },
+    {
         id: '410028',
         dbname: 'Wonder_Egg_Basket_',
         name: 'Cesta das Maravilhas (+10% Tamanho)',
@@ -496,6 +509,34 @@ const low = [
         }
     },
     {
+        id: '420187',
+        dbname: 'Sacred_Lapel',
+        name: 'Lapela Sagrada',
+        tags: 'ARCHBISHOP',
+        script: function () {
+            equipStats.castdelay += 15;
+
+            if(learned_skills.genese >= 5){
+                multipliers.size[ALL] += 15;
+            }
+        }
+    },
+    {
+        id: '420182', dbname: 'Book_of_Sorcery', name: 'Livros de Feitiçaria',
+        tags: 'SORCERER',
+        script: function () {
+            // Pós-conjuração -15%.
+            equipStats.castdelay += 15;
+            // A cada nível de [Encanto de Órion]: Dano mágico contra todos os tamanhos +3%.
+            multipliers.size[ALL] += 15;
+            // Ao aprender [Tornado] nv.5:
+            // Ao realizar ataques mágicos, 3% de chance de ativar um [efeito] por 10 segundos.
+            // --------------------------
+            // Efeito:
+            // Custo de SP de [Onda Psíquica] -79.
+        }
+    },
+    {
         id: '28502', dbname: 'Mob_Scarf', name: 'Lenço Infame', script: function () {
             if (document.getElementById('wea').value === '2202') {
                 equipStats.flatMATK += Math.floor((stats.int + stats.dex) / 80) * 120;
@@ -517,19 +558,6 @@ const low = [
         slot4: '4730,4710,4720,4750,4883,4807',
         script: function () {
             equipStats.castdelay += Math.floor((stats.agi + stats.vit) / 50) * 3;
-        }
-    },
-    {
-        id: '420187',
-        dbname: 'Sacred_Lapel',
-        name: 'Lapela Sagrada',
-        tags: 'ARCHBISHOP',
-        script: function () {
-            equipStats.castdelay += 15;
-
-            if(learned_skills.genese >= 5){
-                multipliers.size[ALL] += 15;
-            }
         }
     },
     {
@@ -1055,6 +1083,67 @@ const weapons = [
             if (refinement.weapon >= 10)
                 if (equipStats.percentFCT < 70)
                     equipStats.percentFCT = 70;
+        }
+    },
+    {
+        id: '550013', dbname: 'Up_Freezing_Rod', name: 'Feitiço Primordial', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 195;
+            weapon.lv = 4;
+            weapon.class = ONE_HANDED_STAFF;
+            // A cada 2 refinos: ATQM +15.
+            equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 15;
+            // A cada 3 refinos: Dano de [Pó de Diamante] +12%.
+            if (skill.id === 'SO_DIAMONDDUST')
+                multipliers.skill += Math.floor(refinement.weapon / 3) * 12;
+            // Refino +7 ou mais:
+            if (refinement.weapon >= 7){
+                // Dano de [Lanças dos Aesir] +15%.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 15;
+                // Dano mágico contra oponentes de todas as propriedades +15%.
+                multipliers.property[ALL] += 15;
+            }
+            // Refino +9 ou mais:
+            if (refinement.weapon >= 9){
+                // Conjuração variável -7%.
+                equipStats.VCT += 7;
+                // Dano de [Lanças dos Aesir] +20% adicional.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 20;
+            }
+            // Refino +11 ou mais:
+            if (refinement.weapon >= 11){
+                // Conjuração variável -8% adicional.
+                equipStats.VCT += 8;
+                // Recarga de [Lanças dos Aesir] -2 segundos.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    skill.cooldown += -2;
+            }
+            // Conjunto [Botas Primordiais]
+            if (document.getElementById('sho').value === '22238'){
+                // INT +10.
+                equipStats.int += 10;
+                // Dano mágico +7%.
+                multipliers.matk += 7;
+            }
+        }
+    },
+    {
+        id: '1584', dbname: 'Chilly_Spell_Book', name: 'Livro de Feitiços do Frio', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 160;
+            weapon.lv = 4;
+            weapon.class = BOOK;
+            // DES +1.
+            equipStats.dex += 1;
+            // A cada refino:
+            // Dano de [Pó de Diamante] e [Lanças de Gelo] +3%.
+            // Custo de SP de [Pó de Diamante] e [Lanças de Gelo] +5.
+            if (skill.id === 'SO_DIAMONDDUST' || skill.id === 'MG_COLDBOLT')
+                multipliers.skill += refinement.weapon * 3;
         }
     },
     {
@@ -2204,13 +2293,12 @@ const accessory = [
             // [Castigo de Nerthus]
             // Tempo de recarga -2 segundos.
             // [Pó de Diamante]
-            // Tempo de recarga -2 segundos.
             if (skill.id === "SO_DIAMONDDUST"){
+                // Tempo de recarga -2 segundos.
                 skill.cooldown += -2;
+                // A cada 8 níveis de base: Dano de [Castigo de Nerthus] e [Pó de Diamante] +1%.
                 multipliers.skill += Math.floor(stats.baseLv/8);
             }
-            // A cada 8 níveis de base:
-            // Dano de [Castigo de Nerthus] e [Pó de Diamante] +1%.
         }
     },
 ];
