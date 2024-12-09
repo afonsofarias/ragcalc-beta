@@ -1292,6 +1292,27 @@ const weapons = [
 
 const shields = [
     {
+        id: '460050', dbname: 'Symbol_Of_Eden', name: 'Símbolo do Éden', slot1: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            // A cada refino: HP e SP máx. +1%.
+            // Refino +9 ou mais:
+            if (refinement.shield >= 9) {
+                // INT e DES +5.
+                equipStats.int += 5;
+                equipStats.dex += 5;
+            }
+            // Refino +12 ou mais:
+            if (refinement.shield >= 9) {
+                // INT e DES +10 adicional.
+                equipStats.int += 10;
+                equipStats.dex += 10;
+            }
+            // Conjunto [Fada do Éden]
+            // Resistência a propriedade Neutro +10%.
+        }
+    },
+    {
         id: '28946', dbname: 'Bloody_Knight_Shield__', name: 'Sanguinário Purificado (50% Bypass Chefe)', slot1: 'card',
         script: function () {
             if (target.type === BOSS)
@@ -1554,6 +1575,49 @@ const garments = [
         }
     },
     {
+        id: '480317', dbname: '', name: 'Constritor Mágico', slot1: 'card',
+        // tags: 'SORCERER',
+        script: function () {
+            // Resistência as raças Humano e Doram +5%.
+            // Resistência a monstros normais e chefes +5%.
+            // Dano mágico +5%.
+            multipliers.matk += 5;
+            // Velocidade de ataque +5%.]
+            equipStats.percentASPD += 5;
+            // Refino +7 ou mais:
+            if (refinement.garment >= 7){
+                // Dano mágico +5% adicional.
+                multipliers.matk += 5;
+                // Velocidade de ataque +5% adicional.
+                equipStats.percentASPD += 5;
+            }
+            // Refino +9 ou mais:
+            if (refinement.garment >= 9) {
+                // Dano mágico +10% adicional.
+                multipliers.matk += 10;
+                // Velocidade de ataque +10% adicional.
+                equipStats.percentASPD += 10;
+            }
+            // A cada nível de [Empatia Elemental]:
+            // INT +5.
+            // Pós-conjuração -5%.
+            let job = document.querySelector('input[name="class"]:checked').value;
+            if (job === 'SORCERER') {
+                let empatiaElementalLv = 5;
+                equipStats.int += empatiaElementalLv * 5;
+                equipStats.castdelay += empatiaElementalLv * 5;
+            }
+            // Ao aprender [Onda Psíquica] nv.5:
+            // Ao realizar ataques físicos, 15% de chance de autoconjurar [Lanças de Fogo] [Lanças de Gelo] [Relâmpago] [Coluna de Pedra] e [Onda Psíquica] no nível aprendido.
+            // --------------------------
+            // A cada nível de [Encanto de Órion]:
+            // Dano de [Lanças de Fogo] [Lanças de Gelo] [Relâmpago] e [Coluna de Pedra] +20%.
+            // --------------------------
+            // Ao aprender [Punho Arcano] nv.10:
+            // Ao realizar ataques físicos, 25% de chance de autoconjurar [Escudo Mágico] nv.3 ou no maior nível aprendido.
+        }
+    },
+    {
         id: '480025', dbname: 'Owl_Baron_Mantle', name: 'Manto do Barão', slot1: 'card',
         script: function () {
             equipStats.int += 2;
@@ -1777,12 +1841,22 @@ const shoes = [
         id: '470106 ', dbname: 'Shoes_Of_Judex_', name: 'Sapatos da Persistência', slot1: 'card',
         tags: 'ARCHBISHOP',
         script: function () {
-            equipStats.VCT += 20;
-            equipStats.castdelay += 10;
-            multipliers.property[ALL] += 25;
-            //
+            // Ao aprender [Oratio] nv.10:
+            if(learned_skills.oratio >= 10) {
+                // Conjuração variável -20%.
+                equipStats.VCT += 20;
+                // Pós-conjuração -10% adicional.
+                equipStats.castdelay += 10;
+            }
+            // Ao aprender [Gênese] nv.5:
+            if(learned_skills.genese >= 5){
+                // Dano mágico contra oponentes de todas as propriedades +25%.
+                multipliers.property[ALL] += 25;
+            }
+            // Refino +5 ou mais: Pós-conjuração -10%.
             if (refinement.shoes >= 5)
                 equipStats.castdelay += 10;
+            // Refino +7 ou mais: Pós-conjuração -10% adicional.
             if (refinement.shoes >= 7)
                 equipStats.castdelay += 10;
         }
@@ -2299,6 +2373,115 @@ const accessory = [
                 // A cada 8 níveis de base: Dano de [Castigo de Nerthus] e [Pó de Diamante] +1%.
                 multipliers.skill += Math.floor(stats.baseLv/8);
             }
+        }
+    },
+    {
+        id: '490038', dbname: 'Sixth_Sense_Ring', name: 'Anel do Sexto Sentido', slot1: 'card', slot4: tumulo,
+        tags: 'SORCERER',
+        script: function () {
+            // INT +7.
+            equipStats.int += 7;
+            // Dano mágico contra todos os Tamanhos +10%.
+            multipliers.size[ALL] += 10;
+            // A cada 5 níveis de base até o 170: Dano de [Onda Psíquica] +1%.
+            if (skill.id === 'SO_PSYCHIC_WAVE')
+                multipliers.skill += Math.floor(Math.min(170, stats.baseLv)/5);
+            // Ao aprender [Onda Psíquica] nv.5: Pós-conjuração -30%.
+            equipStats.castdelay += 30;
+            // Ao aprender [Encanto de Órion] nv.5:
+            // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento, Água e Terra +10%.
+            multipliers.skill_property[NEUTRAL] += 10;
+            multipliers.skill_property[FIRE] += 10;
+            multipliers.skill_property[WIND] += 10;
+            multipliers.skill_property[WATER] += 10;
+            multipliers.skill_property[EARTH] += 10;
+            // Ao aprender [Maldição de Jormungand] nv.5: Conjuração variável -15%.
+            equipStats.VCT += 15;
+            // Ao derrotar monstros com ataques mágicos, regenera 100 de HP e 10 de SP.
+            // Ao aprender [Tornado] nv.5:
+            // Custo de SP da [Onda Psíquica] -20.
+            // Recarga de [Onda Psíquica] -1 segundo.
+            if (skill.id === 'SO_PSYCHIC_WAVE')
+                skill.cooldown += -1;
+        }
+    },
+    {
+        id: '490170', dbname: 'Record_Mage2_TW', name: 'Manuscrito dos Magos', slot1: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            // Pós-conjuração -6%.
+            equipStats.castdelay += 6;
+            // Dano mágico contra todos os Tamanhos +6%.
+            multipliers.size[ALL] += 6;
+            // Impede que um segundo acc ative efeitos de conjunto
+            if (document.getElementById('ac1').value === document.getElementById('ac2').value && currentEquip === 'ac2')
+                return
+            // Conjunto [Memorável Mistério da Magia]
+            // Dano de [Cometa] +30%.
+            // --------------------------
+            // Conjunto [Memorável Sussurro dos Elementos]
+            // INT +20.
+            // Habilita [Potencializar Veneno] nv.5.
+            // Recarga de [Implosão Tóxica] -0,5 segundos.
+            // --------------------------
+            // Conjunto [Carta Arquimaga Kathryne]:  Dano mágico contra monstros Chefes +30%.
+            if (document.getElementById('top_slot1').value === '4365' || document.getElementById('mid_slot1').value === '4365')
+                multipliers.protocol[BOSS] += 30;
+            // Conjunto [Carta Professora Celia] Dano mágico contra todas as propriedades +30%.
+            if (document.getElementById('arm_slot1').value === '4561')
+                multipliers.property[ALL] += 30;
+            // Conjunto [Broche da Celine] Dano mágico contra Chefes -50%.
+            if (document.getElementById('ac1').value === '28572' || document.getElementById('ac2').value === '28572')
+                multipliers.protocol[BOSS] += -50;
+        }
+    },
+    {
+        id: '490381', dbname: 'Majesty_of_Yggdrasil_', name: 'Amuleto de Yggdrasil', slot1: 'card',
+        script: function () {
+            // Pós-conjuração -15%.
+            equipStats.castdelay += 15;
+            // Todos os atributos +3.
+            equipStats.str += 3;
+            equipStats.agi += 3;
+            equipStats.vit += 3;
+            equipStats.int += 3;
+            equipStats.dex += 3;
+            equipStats.luk += 3;
+            // Velocidade de ataque +10%.
+            equipStats.percentASPD += 10;
+            // Dano físico e mágico contra todos os Tamanhos +15%.
+            multipliers.size[ALL] += 15;
+            // Impede que um segundo acc ative efeitos de conjunto
+            if (document.getElementById('ac1').value === document.getElementById('ac2').value && currentEquip === 'ac2')
+                return
+            // Conjunto [Asas de Yggdrasil]
+            if (document.getElementById('top').value === '400213'){
+                // Todos os atributos +10 adicional.
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+                // Aumenta a velocidade de movimento.
+
+            }
+        }
+    },
+    {
+        id: '490337', dbname: 'Amulet_of_GenesisStone', name: 'Amuleto Mitológico', position: '1', slot1: 'card', slot4: tumulo,
+        script: function () {
+            // Pós-conjuração -15%.
+            equipStats.castdelay += 15;
+            // Velocidade de ataque +15%.
+            equipStats.percentASPD += 15;
+            // Resistência as raças Doram e Humano +3%.
+            // A cada 2 níveis de base:
+            // HP máx. +50.
+            // SP máx. +5.
+            // ATQ e ATQM +1.
+            equipStats.flatMATK += Math.floor(stats.baseLv/2);
+
         }
     },
 ];

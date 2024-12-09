@@ -76,6 +76,20 @@ const cards = [
                 multipliers.matk += Math.floor(refinement.top / 2);
         }
     },
+    {
+        id: '4365', dbname: 'B_Katrinn_Card', name: 'Carta Arquimaga Kathryne', position: 'top',
+        tags: 'SORCERER',
+        script: function () {
+            // Conjuração variável +100%.
+            equipStats.VCT += -100;
+            // Ignora 100% da DEFM de monstros normais e personagens.
+            if (target.type === NORMAL)
+                equipStats.bypass += 100;
+            // Regeneração natural de SP -100%.
+            // Ao desequipar:
+            // Drena 2.000 de SP.
+        }
+    },
 
     // armor cards
     {
@@ -142,6 +156,19 @@ const cards = [
         id: '4451', dbname: 'Ant_Buyanne_Card', name: 'Carta Entweihen Crothen', position: 'arm',
         script: function () {
             equipStats.flatMATK += 100;
+        }
+    },
+    {
+        id: '4561', dbname: 'Professor_Card', name: 'Carta Professora Celia', position: 'arm',
+        tags: 'SORCERER',
+        script: function () {
+            // Dano mágico +7%.
+            multipliers.matk += 7;
+            // Ao receber danos mágicos:
+            // 10% de chance de autoconjurar [Proteger Terreno] nv. 5.
+            // DES base 110 ou mais: Dano mágico +7% adicional.
+            if (stats.dex >= 110)
+                multipliers.matk += 7;
         }
     },
 
