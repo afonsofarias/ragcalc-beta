@@ -2390,11 +2390,11 @@ const accessory = [
             equipStats.castdelay += 30;
             // Ao aprender [Encanto de Órion] nv.5:
             // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento, Água e Terra +10%.
-            multipliers.skill_property[NEUTRAL] += 10;
-            multipliers.skill_property[FIRE] += 10;
-            multipliers.skill_property[WIND] += 10;
-            multipliers.skill_property[WATER] += 10;
-            multipliers.skill_property[EARTH] += 10;
+            multipliers.property[NEUTRAL] += 10;
+            multipliers.property[FIRE] += 10;
+            multipliers.property[WIND] += 10;
+            multipliers.property[WATER] += 10;
+            multipliers.property[EARTH] += 10;
             // Ao aprender [Maldição de Jormungand] nv.5: Conjuração variável -15%.
             equipStats.VCT += 15;
             // Ao derrotar monstros com ataques mágicos, regenera 100 de HP e 10 de SP.
