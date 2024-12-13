@@ -441,7 +441,7 @@ function classSelector(job) {
             break;
         default:
             options = [
-                { value: "FEFEF", text: "FEFEFE" }
+                { value: "", text: "ERRO!" }
             ];
             break;
     }
@@ -478,28 +478,30 @@ function classSelector(job) {
 }
 
 function updateJobSpecificOptions(job){
-    const buffsTable = document.getElementById("buffsTable");
-    //const learnedSkills = document.getElementById("skillTable");
+    // Recupera as tabelas de buffs de todas as classes (filtra a tabela de stuffs
+    let buffsTables = document.querySelectorAll('.buffs');
+    buffsTables = Array.from(buffsTables).filter(buff => buff.id !== 'stuffsTable');
+    // Oculta as tabelas e limpa os inputs
+    buffsTables.forEach(buff => {
+        buff.style.display = "none";
+        let inputs = buff.querySelectorAll("input");
+        inputs.forEach(input => {
+            if (input.type === "checkbox" || input.type === "radio") {
+                input.checked = false;
+            }
+        });
+    });
     const button = Array.from(document.querySelectorAll("button.tablinks")).find(
         btn => btn.textContent.trim() === "Habilidades Pré-Requisito"
     );
+    // Mostra a tabela de buffs da Classe Selecionada
     switch(job) {
         case "ARCHBISHOP":
-            buffsTable.style.display = "table";
-            //learnedSkills.style.display = "table";
+            document.getElementById("buffsTableArchbishop").style.display = "table";
             button.style.display = "inline-block";
             break;
         case "SORCERER":
-            // Seleciona todos os inputs dentro da tabela e os desmarca
-            let inputs = buffsTable.querySelectorAll("input");
-            inputs.forEach(input => {
-                if (input.type === "checkbox" || input.type === "radio") {
-                    input.checked = false;
-                }
-            });
-            // Remove a visibilidade da tabela
-            buffsTable.style.display = "none";
-            //learnedSkills.style.display = "none";
+            document.getElementById("buffsTableSorcerer").style.display = "table";
             button.style.display = "none";
             if (button.classList.contains("active")){
                 let buffsButton = Array.from(document.querySelectorAll("button.tablinks")).find(
@@ -507,7 +509,6 @@ function updateJobSpecificOptions(job){
                 );
                 buffsButton.click();
             }
-
             break;
     }
 }
@@ -531,6 +532,7 @@ function updateJobSpecificOptions(job){
 //     image.src = "https://www.divine-pride.net/img/items/item/bRO/" + id;
 //
 // }
+
 function saveCalc() {
     const elements = document.querySelectorAll('input, select, textarea');
     const data = {};

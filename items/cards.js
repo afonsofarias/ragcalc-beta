@@ -283,7 +283,7 @@ const cards = [
         }
     },
     {
-        id: '27325', name: 'Muspellskoll_Card', dbname: 'Carta Skoll', position: 'shi',
+        id: '27325', dbname: 'Muspellskoll_Card', name: 'Carta Skoll', position: 'shi',
         tags: 'SORCERER',
         script: function () {
             // Conjunto [Carta Brinaranha]

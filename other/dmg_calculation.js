@@ -46,7 +46,9 @@ let buffs = {
     oratio: 0,
     lex_aeterna: false,
     mystical_amplification: 0,
-    recognized_spell: false
+    recognized_spell: false,
+    deluge: false,
+    fire_insignia: false,
 }
 
 let learned_skills = {
@@ -77,7 +79,7 @@ function damage_calculation() {
     // Calcula a variação do ATQM
     let variance = weaponMATKvariance();
     let over = overUpgradeBonus();
-    // Soma os ATQMs
+    // Calcula o ATQM proveniente de atributos
     let int = stats.int + equipStats.int;
     let dex = stats.dex + equipStats.dex;
     let luk = stats.luk + equipStats.luk;
@@ -131,6 +133,16 @@ function damage_calculation() {
     if (buffs.lex_aeterna){
         minMATK = minMATK * 2;
         maxMATK = maxMATK * 2;
+    }
+    // Dilúvio
+    if (buffs.deluge && skill.property===WATER) {
+        minMATK = Math.floor(minMATK*1.2);
+        maxMATK = Math.floor(maxMATK*1.2);
+    }
+    // Insignia de Fogo
+    if (buffs.fire_insignia && skill.property===WATER) {
+        minMATK = Math.floor(minMATK*1.5);
+        maxMATK = Math.floor(maxMATK*1.5);
     }
     // Divisibilidade do Dano, ex: Judex que causa 700% dividido em 3 hits
     if (skill.divisibility > 1) {
@@ -235,6 +247,8 @@ function init() {
     buffs.lex_aeterna = false;
     buffs.mystical_amplification = 0;
     buffs.recognized_spell = false;
+    buffs.deluge = false;
+    buffs.fire_insignia = false;
 }
 
 function retrieveJobStatBonus() {

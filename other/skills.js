@@ -173,4 +173,20 @@ buffs = [
                 skill.dmg = 6.25;
         },
     },
+    {
+        name: "Dilúvio",
+        id: "SA_DELUGE",
+        max_level: 5,
+        script(level) {
+            buffs.deluge = true;
+        }
+    },
+    {
+        name: "Insígnia do Fogo",
+        id: "SO_FIRE_INSIGNIA",
+        max_level: 3,
+        script(level) {
+            buffs.fire_insignia = true;
+        }
+    }
 ]
