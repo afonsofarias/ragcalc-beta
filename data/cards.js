@@ -1,4 +1,16 @@
-const cards = [
+import {
+    currentEquip,
+    equipStats,
+    multipliers,
+    refinement,
+    skill,
+    stats,
+    target,
+    weapon
+} from "../scripts/core/state.js";
+import {property, race, size, type, weaponClass} from "../scripts/core/constants.js";
+
+export const cards = [
     // headgear cards
     {
         id: '4374',
@@ -7,7 +19,7 @@ const cards = [
         position: 'top',
         script: function () {
             equipStats.dex += 2;
-            if (target.type === BOSS)
+            if (target.type === type.BOSS)
                 equipStats.bypass += 30;
         }
     },
@@ -16,9 +28,9 @@ const cards = [
         tags: 'SORCERER',
         script: function () {
             equipStats.flatMATK += 10;
-            multipliers.skill_property[WATER] += 5;
+            multipliers.skill_property[property.WATER] += 5;
             if (currentEquip === 'top' && refinement.top >= 9)
-                multipliers.skill_property[WATER] += 5;
+                multipliers.skill_property[property.WATER] += 5;
         }
     },
     {
@@ -29,9 +41,9 @@ const cards = [
         tags: 'ARCHBISHOP',
         script: function () {
             equipStats.flatMATK += 10;
-            multipliers.skill_property[HOLY] += 5;
+            multipliers.skill_property[property.HOLY] += 5;
             if (currentEquip === 'top' && refinement.top >= 9)
-                multipliers.skill_property[HOLY] += 5;
+                multipliers.skill_property[property.HOLY] += 5;
         }
     },
     {
@@ -83,7 +95,7 @@ const cards = [
             // Conjuração variável +100%.
             equipStats.VCT += -100;
             // Ignora 100% da DEFM de monstros normais e personagens.
-            if (target.type === NORMAL)
+            if (target.type === type.NORMAL)
                 equipStats.bypass += 100;
             // Regeneração natural de SP -100%.
             // Ao desequipar:
@@ -97,9 +109,9 @@ const cards = [
         tags: 'SORCERER',
         script: function () {
             // Dano mágico de propriedade Água +20%.
-            multipliers.skill_property[WATER] += 20;
+            multipliers.skill_property[property.WATER] += 20;
             // A cada refino da armadura: Dano mágico de propriedade Água +3%.
-            multipliers.skill_property[WATER] += refinement.armor * 3;
+            multipliers.skill_property[property.WATER] += refinement.armor * 3;
         }
     },
     {
@@ -108,10 +120,10 @@ const cards = [
         name: 'Carta Amon Ra do Pesadelo',
         position: 'arm',
         script: function () {
-            multipliers.race[DEMON] += 50;
-            multipliers.race[UNDEAD] += 50;
-            multipliers.property[DARK] += 50;
-            multipliers.property[UNDEAD] += 50;
+            multipliers.race[race.DEMON] += 50;
+            multipliers.race[race.UNDEAD] += 50;
+            multipliers.property[property.DARK] += 50;
+            multipliers.property[property.UNDEAD] += 50;
         }
     },
     {
@@ -119,18 +131,18 @@ const cards = [
         script: function () {
             // Dano mágico contra as raças Demônio e Morto-Vivo +25%.
             // Dano mágico contra as propriedades Sombrio e Maldito +25%.
-            multipliers.race[DEMON] += 25;
-            multipliers.race[UNDEAD] += 25;
-            multipliers.property[DARK] += 25;
-            multipliers.property[UNDEAD] += 25;
+            multipliers.race[race.DEMON] += 25;
+            multipliers.race[race.UNDEAD] += 25;
+            multipliers.property[property.DARK] += 25;
+            multipliers.property[property.UNDEAD] += 25;
             // Refino +15 ou mais:
             // Dano mágico contra as raças Demônio e Morto-Vivo +12% adicional.
             // Dano mágico contra as propriedades Sombrio e Maldito +12% adicional.
             if (refinement.armor >= 15){
-                multipliers.race[DEMON] += 12;
-                multipliers.race[UNDEAD] += 12;
-                multipliers.property[DARK] += 12;
-                multipliers.property[UNDEAD] += 12;
+                multipliers.race[race.DEMON] += 12;
+                multipliers.race[race.UNDEAD] += 12;
+                multipliers.property[property.DARK] += 12;
+                multipliers.property[property.UNDEAD] += 12;
             }
         }
     },
@@ -143,7 +155,7 @@ const cards = [
     {
         id: '300308', dbname: 'S_Meyer_Card', name: 'Carta Meyer', position: 'arm',
         script: function () {
-            multipliers.skill_property[ALL] += Math.floor(refinement.armor / 3) * 4;
+            multipliers.skill_property[property.ALL] += Math.floor(refinement.armor / 3) * 4;
         }
     },
     {
@@ -196,14 +208,14 @@ const cards = [
         id: '27286', dbname: 'Colorful_T_Bear_Card', name: 'Carta Ursinhos Coloridos', position: 'wea',
         script: function () {
             equipStats.flatMATK += 5;
-            multipliers.size[LARGE] += 15;
+            multipliers.size[size.LARGE] += 15;
         }
     },
     {
         id: '27289', dbname: 'Fragment_Of_Soul_Card', name: 'Carta Fragmento de Alma', position: 'wea',
         script: function () {
             equipStats.flatMATK += 5;
-            multipliers.size[MEDIUM] += 15;
+            multipliers.size[size.MEDIUM] += 15;
         }
     },
     {
@@ -211,7 +223,7 @@ const cards = [
         tags: 'SORCERER',
         script: function () {
             // Dano mágico de propriedade Água +15%.
-            multipliers.skill_property[WATER] += 15;
+            multipliers.skill_property[property.WATER] += 15;
             // Conjunto [Carta Skoll]
             // Dano mágico de propriedade Água +10% adicional.
             // ADICIONADO NA CARTA SKOLL
@@ -247,12 +259,12 @@ const cards = [
         id: '300011', dbname: 'Holy_Frus_Card', name: 'Carta Frus Angelical', position: 'wea',
         tags: 'ARCHBISHOP',
         script: function () {
-            if (weapon.class === ONE_HANDED_STAFF || weapon.class === TWO_HANDED_STAFF){
-                multipliers.skill_property[HOLY] += 10;
+            if (weapon.class === weaponClass.ONE_HANDED_STAFF || weapon.class === weaponClass.TWO_HANDED_STAFF){
+                multipliers.skill_property[property.HOLY] += 10;
                 if (refinement.weapon >= 10)
-                    multipliers.skill_property[HOLY] += 10;
+                    multipliers.skill_property[property.HOLY] += 10;
                 if (refinement.weapon >= 14)
-                    multipliers.skill_property[HOLY] += 10;
+                    multipliers.skill_property[property.HOLY] += 10;
             }
         }
     },
@@ -260,7 +272,7 @@ const cards = [
         id: '300550', dbname: 'CLB_SS_EA_Card', name: 'Carta Fei-Chai', position: 'wea',
         script: function () {
             // Dano mágico contra todos os tamanhos +10%.
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
         }
     },
 
@@ -277,9 +289,9 @@ const cards = [
         script: function () {
             // Custo de SP das habilidades +50%.
             // Dano mágico contra as raças Bruto, Doram e Planta +50%.
-            multipliers.race[BRUTE] += 50;
-            multipliers.race[DORAM] += 50;
-            multipliers.race[PLANT] += 50;
+            multipliers.race[race.BRUTE] += 50;
+            multipliers.race[race.DORAM] += 50;
+            multipliers.race[race.PLANT] += 50;
         }
     },
     {
@@ -292,12 +304,11 @@ const cards = [
                 document.getElementById('wea_slot3').value === '27324' ||
                 document.getElementById('wea_slot4').value === '27324') {
                 // Dano físico e mágico contra oponentes de propriedade Fogo +10%.
-                multipliers.property[FIRE] += 10;
+                multipliers.property[property.FIRE] += 10;
                 // Da Carta Brinaranha: Conjunto [Carta Skoll]
                 // Dano mágico de propriedade Água +10% adicional.
-                multipliers.skill_property[WATER] += 10;
+                multipliers.skill_property[property.WATER] += 10;
             }
-
         }
     },
     {
@@ -443,8 +454,8 @@ const cards = [
         id: '27381', dbname: 'C_Himel_Card', name: '(kRO) Phantom of Himmelmez Card', position: 'gar',
         script: function () {
             // Increases holy and neutral property magical damage by 100%.
-            multipliers.skill_property[HOLY] += 100;
-            multipliers.skill_property[NEUTRAL] += 100;
+            multipliers.skill_property[property.HOLY] += 100;
+            multipliers.skill_property[property.NEUTRAL] += 100;
         }
     },
     {
@@ -452,19 +463,19 @@ const cards = [
         tags: 'ARCHBISHOP',
         script: function () {
             // Increases holy property magical damage by 3% per refine rate.
-            multipliers.skill_property[HOLY] += refinement.garment * 3;
+            multipliers.skill_property[property.HOLY] += refinement.garment * 3;
         }
     },
     {
         id: '300424', dbname: 'S_Friedrich_Card', name: 'Carta Friedrich', position: 'gar',
         script: function () {
             // Increases all property magical damage by 5%.
-            multipliers.skill_property[ALL] += 5;
+            multipliers.skill_property[property.ALL] += 5;
             // Increases all property magical damage by additional 4% per 2 refine rate.
-            multipliers.skill_property[ALL] += Math.floor(refinement.garment / 2) * 4;
+            multipliers.skill_property[property.ALL] += Math.floor(refinement.garment / 2) * 4;
             // When equipped with Meyer Lugenburg Card, increases all property magical damage by 5%.
             if (document.getElementById('arm_slot1').value === '300308')
-                multipliers.skill_property[ALL] += 5;
+                multipliers.skill_property[property.ALL] += 5;
         }
     },
     {
@@ -488,7 +499,7 @@ const cards = [
             // Efetividade cura +30%.
             // Dano mágico de todas as propriedades +30%.
             if (stats.int >= 125)
-                multipliers.skill_property[ALL] += 30;
+                multipliers.skill_property[property.ALL] += 30;
         }
     },
     {
@@ -497,8 +508,8 @@ const cards = [
         script: function () {
             // Resistência a todas as propriedades -30%.
             // Dano mágico de propriedade Água e Terra +100%.
-            multipliers.skill_property[WATER] += 100;
-            multipliers.skill_property[EARTH] += 100;
+            multipliers.skill_property[property.WATER] += 100;
+            multipliers.skill_property[property.EARTH] += 100;
         }
     },
     {
@@ -507,14 +518,14 @@ const cards = [
         script: function () {
             // Resistência a todas as propriedades -60%.
             // Dano mágico de propriedade Água e Terra +50%.
-            multipliers.skill_property[WATER] += 50;
-            multipliers.skill_property[EARTH] += 50;
+            multipliers.skill_property[property.WATER] += 50;
+            multipliers.skill_property[property.EARTH] += 50;
             // No refino +15 ou mais, os efeitos passam a ser:
             // Resistência a todas as propriedades -40%.
             // Dano mágico de propriedade Água e Terra +75%.
             if (refinement.garment >= 15) {
-                multipliers.skill_property[WATER] += 25;
-                multipliers.skill_property[EARTH] += 25;
+                multipliers.skill_property[property.WATER] += 25;
+                multipliers.skill_property[property.EARTH] += 25;
             }
         }
     },
@@ -525,7 +536,7 @@ const cards = [
             // Resistência a propriedade Neutro +15%.
             // A cada refino:
             // Dano mágico de propriedade Água +3%.
-            multipliers.skill_property[WATER] += refinement.garment * 3;
+            multipliers.skill_property[property.WATER] += refinement.garment * 3;
         }
     },
 
@@ -534,7 +545,7 @@ const cards = [
         id: '27287', dbname: 'Shining_T_Bear_Card', name: 'Carta Ursinho Brilhante', position: 'sho',
         tags: 'ARCHBISHOP',
         script: function () {
-            multipliers.skill_property[HOLY] += refinement.shoes * 3;
+            multipliers.skill_property[property.HOLY] += refinement.shoes * 3;
         }
     },
     {
@@ -552,30 +563,30 @@ const cards = [
         tags: 'ARCHBISHOP',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[HOLY] += 5;
+            multipliers.skill_property[property.HOLY] += 5;
         }
     },
     {
         id: '4441', dbname: 'Fallen_Bishop_Card', name: 'Carta Bispo Decadente', position: 'sho',
         script: function () {
             multipliers.matk += 10;
-            multipliers.race[HUMAN] += 50;
-            multipliers.race[DEMI_HUMAN] += 50;
-            multipliers.race[ANGEL] += 50;
+            multipliers.race[race.HUMAN] += 50;
+            multipliers.race[race.DEMI_HUMAN] += 50;
+            multipliers.race[race.ANGEL] += 50;
         }
     },
     {
         id: '4539', dbname: 'Sealed_F_Bishop_Card', name: 'Carta Bispo Decadente Selada', position: 'sho',
         script: function () {
             multipliers.matk += 5;
-            multipliers.race[HUMAN] += 25;
-            multipliers.race[DEMI_HUMAN] += 25;
-            multipliers.race[ANGEL] += 25;
+            multipliers.race[race.HUMAN] += 25;
+            multipliers.race[race.DEMI_HUMAN] += 25;
+            multipliers.race[race.ANGEL] += 25;
             if (refinement.shoes >= 15) {
                 multipliers.matk += 3;
-                multipliers.race[HUMAN] += 8;
-                multipliers.race[DEMI_HUMAN] += 8;
-                multipliers.race[ANGEL] += 8;
+                multipliers.race[race.HUMAN] += 8;
+                multipliers.race[race.DEMI_HUMAN] += 8;
+                multipliers.race[race.ANGEL] += 8;
             }
         }
     },
@@ -585,8 +596,8 @@ const cards = [
         id: '27125', dbname: 'Headless_Mule_Card', name: 'Carta Mula Sem Cabeça', position: 'acc',
         tags: 'ARCHBISHOP,SORCERER',
         script: function () {
-            multipliers.skill_property[WATER] += 20;
-            multipliers.skill_property[HOLY] += 20;
+            multipliers.skill_property[property.WATER] += 20;
+            multipliers.skill_property[property.HOLY] += 20;
         }
     },
     {

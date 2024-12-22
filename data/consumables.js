@@ -1,4 +1,7 @@
-const consumables = [
+import {equipStats, multipliers} from "../scripts/core/state.js";
+import {property} from "../scripts/core/constants.js";
+
+export const consumables = [
     {
         id: '12883',
         dbname: 'Almighty',
@@ -19,7 +22,7 @@ const consumables = [
         name: 'Poção Infinita',
         script: function () {
             // Dano mágico de todas as propriedades +5%.
-            multipliers.skill_property[ALL] += 5;
+            multipliers.skill_property[property.ALL] += 5;
         }
     },
     {

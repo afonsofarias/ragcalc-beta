@@ -1,4 +1,4 @@
-const c_top = [
+export const c_top = [
     {
         id: '29513', dbname: 'Highpriest_Top', name: '(kRO) High Priest Stone (Upper)',
         tags: 'ARCHBISHOP',
@@ -31,7 +31,7 @@ const c_top = [
     },
 ];
 
-const c_mid = [
+export const c_mid = [
     {
         id: '29514', dbname: 'Highpriest_Middle', name: '(kRO) High Priest Stone (Middle)',
         tags: 'ARCHBISHOP',
@@ -66,7 +66,7 @@ const c_mid = [
 
 ];
 
-const c_low = [
+export const c_low = [
     {
         id: '29515', dbname: 'Highpriest_Bottom', name: '(kRO) High Priest Stone (Lower)',
         tags: 'ARCHBISHOP',
@@ -100,7 +100,7 @@ const c_low = [
     },
 ];
 
-const c_gar = [
+export const c_gar = [
     {
         id: '29516', dbname: 'Archbishop_Robe', name: '(kRO) Archbishop Stone (Garment)',
         tags: 'ARCHBISHOP',

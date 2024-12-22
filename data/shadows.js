@@ -1,4 +1,7 @@
-const s_armor = [
+import {equipStats, multipliers, s_refinement, skill, target} from "../scripts/core/state.js";
+import {property, race, size, type} from "../scripts/core/constants.js";
+
+export const s_armor = [
     {
         id: '24273', dbname: 'S_Priest_Armor', name: 'Malha Sombria de Sacerdote',
         tags: 'ARCHBISHOP',
@@ -41,7 +44,7 @@ const s_armor = [
             equipStats.bypass += Math.floor(s_refinement.armor / 2);
             // Refino +10 ou mais: Dano mágico contra todas as raças de monstros +3%.
             if (s_refinement.armor === 10)
-                multipliers.race[ALL] += 3;
+                multipliers.race[race.ALL] += 3;
             // Conjunto [Greva Sombria Tempestiva]
             // Dano mágico +2%.
             // Soma dos refinos do conjunto 18 ou mais: Ignora 100% da DEFM de todas as raças de monstros.
@@ -56,7 +59,7 @@ const s_armor = [
         id: '24728', dbname: 'S_M_AutoSpell_Armor', name: 'Malha Sombria de Automagia',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.armor / 2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.armor / 2);
             if (s_refinement.armor >= 9)
                 equipStats.flatASPD += 1;
             // Conjunto
@@ -70,20 +73,20 @@ const s_armor = [
         id: '24675', dbname: 'S_TrueGem_Armor', name: 'Malha Sombria de Pedras Preciosas',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.armor / 2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.armor / 2);
             if (s_refinement.armor >= 10)
                 equipStats.VCT += 3;
             if (document.getElementById('s_sho').value === '24676') {
                 multipliers.matk += 2;
                 if ((s_refinement.armor + s_refinement.shoes) >= 20) {
-                    multipliers.size[ALL] += 12
+                    multipliers.size[size.ALL] += 12
                 }
             }
         }
     },
 ];
 
-const s_weapon = [
+export const s_weapon = [
     {
         id: '24292', dbname: 'S_Archbishop_Weapon', name: 'Luva Sombria de Arcebispo',
         tags: 'ARCHBISHOP',
@@ -114,12 +117,12 @@ const s_weapon = [
         id: '24736', dbname: 'S_Clever_Weapon', name: 'Luva Sombria Pontual',
         script: function () {
             equipStats.flatMATK += s_refinement.weapon;
-            multipliers.skill_property[ALL] += 2;
+            multipliers.skill_property[property.ALL] += 2;
             multipliers.matk += Math.floor(s_refinement.weapon / 2)
             if (s_refinement.weapon >= 9)
                 equipStats.VCT += 5;
             if (s_refinement.weapon === 10)
-                multipliers.skill_property[ALL] += 7;
+                multipliers.skill_property[property.ALL] += 7;
         }
     },
     {
@@ -133,7 +136,7 @@ const s_weapon = [
         id: '24386', dbname: 'S_Infinity_Weapon', name: 'Luva Sombria do Infinito',
         script: function () {
             equipStats.flatMATK += s_refinement.weapon;
-            multipliers.size[ALL] += Math.floor(s_refinement.weapon / 3);
+            multipliers.size[size.ALL] += Math.floor(s_refinement.weapon / 3);
         }
     },
     {
@@ -143,13 +146,13 @@ const s_weapon = [
             // ATQ e ATQM +1 por refino.
             equipStats.flatMATK += s_refinement.weapon;
             // Dano mágico de propriedade Sagrado +3%.
-            multipliers.skill_property[HOLY] += 3;
+            multipliers.skill_property[property.HOLY] += 3;
             // Refino +7 ou mais: Dano mágico de propriedade Sagrado +3% adicional.
             if (s_refinement.weapon >= 7)
-                multipliers.skill_property[HOLY] += 3;
+                multipliers.skill_property[property.HOLY] += 3;
             // Refino +9 ou mais: Dano mágico de propriedade Sagrado +4% adicional.
             if (s_refinement.weapon >= 9)
-                multipliers.skill_property[HOLY] += 4;
+                multipliers.skill_property[property.HOLY] += 4;
             // Conjunto Escudo Sombrio de Arcebispo
             if (document.getElementById('s_shi').value === '24305') {
                 // Ignora 40% da DEFM de todas as raças de monstros.
@@ -160,7 +163,7 @@ const s_weapon = [
     }
 ];
 
-const s_shield = [
+export const s_shield = [
     {
         id: '24305', dbname: 'S_Archbishop_Shield', name: 'Escudo Sombrio de Arcebispo',
         tags: 'ARCHBISHOP',
@@ -191,7 +194,7 @@ const s_shield = [
                 equipStats.int += 10;
                 equipStats.dex += 10;
                 equipStats.luk += 10;
-                if (target.type === NORMAL)
+                if (target.type === type.NORMAL)
                     equipStats.bypass += 50;
             }
         }
@@ -224,7 +227,7 @@ const s_shield = [
                 equipStats.luk += 10;
                 // HP e SP máx. +5%.
                 // Ignora 50% da DEF e DEFM de monstros normais.
-                if (target.type === NORMAL)
+                if (target.type === type.NORMAL)
                     equipStats.bypass += 50;
             }
         }
@@ -251,17 +254,17 @@ const s_shield = [
     {
         id: '24737', dbname: 'S_Clever_Shield', name: 'Escudo Sombrio Pontual',
         script: function () {
-            multipliers.skill_property[ALL] += 2;
+            multipliers.skill_property[property.ALL] += 2;
             multipliers.matk += Math.floor(s_refinement.shield / 2)
             if (s_refinement.shield >= 9)
                 equipStats.VCT += 5;
             if (s_refinement.shield === 10)
-                multipliers.skill_property[ALL] += 7;
+                multipliers.skill_property[property.ALL] += 7;
         }
     },
 ];
 
-const s_shoes = [
+export const s_shoes = [
     {
         id: '24260', dbname: 'S_Priest_Shoes', name: 'Greva Sombria de Sacerdote',
         tags: 'ARCHBISHOP',
@@ -287,14 +290,14 @@ const s_shoes = [
             equipStats.bypass += Math.floor(s_refinement.shoes / 2);
             // Refino +10 ou mais: Dano mágico contra todas as raças de monstros +3%.
             if (s_refinement.shoes === 10)
-                multipliers.race[ALL] += 3;
+                multipliers.race[race.ALL] += 3;
         }
     },
     {
         id: '24729', dbname: 'S_M_AutoSpell_Shoes', name: 'Greva Sombria de Automagia',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.shoes / 2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.shoes / 2);
             if (s_refinement.shoes >= 9)
                 equipStats.percentASPD += 3;
         }
@@ -303,14 +306,14 @@ const s_shoes = [
         id: '24676', dbname: 'S_TrueGem_Shoes', name: 'Greva Sombria de Pedras Preciosas',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.shoes/2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.shoes/2);
             if (s_refinement.shoes >= 10)
                 equipStats.VCT += 3;
         }
     },
 ];
 
-const s_earring = [
+export const s_earring = [
     {
         id: '24339', dbname: 'S_AllMighty_Earring', name: 'Brinco Sombrio Total',
         script: function () {
@@ -331,7 +334,7 @@ const s_earring = [
             equipStats.bypass += Math.floor(s_refinement.earring / 2);
             // Refino +10 ou mais: Dano mágico contra todas as raças de monstros +3%.
             if (s_refinement.earring === 10)
-                multipliers.race[ALL] += 3;
+                multipliers.race[race.ALL] += 3;
         }
     },
     {
@@ -349,13 +352,13 @@ const s_earring = [
         id: '24677', dbname: 'S_TrueGem_Earring', name: 'Brinco Sombrio de Pedras Preciosas',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.earring/2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.earring/2);
             if (s_refinement.earring >= 10)
                 equipStats.VCT += 3;
             if (document.getElementById('s_nec').value === '24678'){
                 multipliers.matk += 2;
                 if ((s_refinement.earring+s_refinement.necklace)>=20){
-                    multipliers.size[ALL]+=12
+                    multipliers.size[size.ALL]+=12
                 }
             }
         }
@@ -369,7 +372,7 @@ const s_earring = [
     }
 ];
 
-const s_necklace = [
+export const s_necklace = [
     {
         id: '24340', dbname: 'S_AllMighty_Pendant', name: 'Colar Sombrio Total',
         script: function () {
@@ -390,7 +393,7 @@ const s_necklace = [
             equipStats.bypass += Math.floor(s_refinement.necklace / 2);
             // Refino +10 ou mais: Dano mágico contra todas as raças de monstros +3%.
             if (s_refinement.necklace === 10)
-                multipliers.race[ALL] += 3;
+                multipliers.race[race.ALL] += 3;
             // Conjunto [Brinco Sombrio Tempestivo]
             // Dano mágico +2%.
             // Soma dos refinos do conjunto 18 ou mais: Ignora 100% da DEFM de todas as raças de monstros.
@@ -414,7 +417,7 @@ const s_necklace = [
         id: '24678', dbname: 'S_TrueGem_Pendant', name: 'Colar Sombrio de Pedras Preciosas',
         script: function () {
             multipliers.matk += 3;
-            multipliers.skill_property[ALL] += Math.floor(s_refinement.necklace/2);
+            multipliers.skill_property[property.ALL] += Math.floor(s_refinement.necklace/2);
             if (s_refinement.necklace >= 10)
                 equipStats.VCT += 3;
         }

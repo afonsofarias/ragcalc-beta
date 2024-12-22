@@ -1,4 +1,4 @@
-function calcularPontos() {
+export function calcularPontos() {
     // Obter o valor do nível
     var nivel = document.getElementById("base_lvl").value;
 
@@ -17,8 +17,6 @@ function calcularPontos() {
     // Obter o valor do atributo
     //var atributo = document.getElementById("atributo").value;
     var atributos  = document.getElementsByClassName("atributo");
-    //alert(atributos[0].value);
-    //alert(atributos[1].value);
 
     var custo = 0;
     for (var j = 0; j < 6; j++) {
@@ -31,8 +29,7 @@ function calcularPontos() {
         }
     }
     custo = pontos - custo;
-
-    // Atualizar o texto na página
+    // Atualiza o texto na página
     document.getElementById("custoAtributo").textContent = "Pontos: " + custo;
 }
 
@@ -68,7 +65,7 @@ function calcularPontos() {
 //     document.getElementById("custoAtributo").textContent = "Pontos: " + custo;
 // }
 
-function imposeMinMax(el) {
+export function imposeMinMax(el) {
     let value = el.value;
     if (value != "") {
         value = parseInt(el.value);

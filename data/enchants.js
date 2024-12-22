@@ -1,4 +1,7 @@
-const enchants = [
+import {currentEquip, equipStats, multipliers, refinement, skill} from "../scripts/core/state.js";
+import {property} from "../scripts/core/constants.js";
+
+export const enchants = [
     // Pedras de Atributo AGI
     {id: '4730', dbname: 'Agility1', name: 'AGI +1', script:function() { equipStats.agi+=1;}},
     {id: '4731', dbname: 'Agility2', name: 'AGI +2', script:function() { equipStats.agi+=2;}},
@@ -153,7 +156,7 @@ const enchants = [
             if (document.getElementById('wea').value === '2057'){
                 if (skill.id === "AB_ADORAMUS")
                     multipliers.skill += Math.floor(refinement.weapon/3) * 5;
-                multipliers.skill_property[HOLY] += Math.floor(refinement.weapon/3) * 5;
+                multipliers.skill_property[property.HOLY] += Math.floor(refinement.weapon/3) * 5;
             }
         },
     },

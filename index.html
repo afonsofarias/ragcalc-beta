@@ -68,16 +68,8 @@
     <div class="column" id="character">
         <table class="character">
             <tr>
-                <td><span>Base: </span><input type="number" id="base_lvl"
-                                              class="atributo-input" min="1" max="200"
-                                              value="185"
-                                              onkeypress="return /[0-9]/i.test(event.key)"
-                                              style="width: 50px;"
-                                              oninput="imposeMinMax(this);calcularPontos()"></td>
-                <td>Classe: <input type="number" id="job_lvl" class="atributo-input" min="1" max="70" value="65"
-                                   onkeypress="return /[0-9]/i.test(event.key)"
-                                   style="width: 50px;"
-                                   oninput="imposeMinMax(this);calcularPontos()"></td>
+                <td><span>Base: </span><input type="number" id="base_lvl" class="atributo-input" min="1" max="200" value="185" style="width: 50px;"></td>
+                <td>Classe: <input type="number" id="job_lvl" class="atributo-input" min="1" max="70" value="65" style="width: 50px;"></td>
             </tr>
         </table>
         <br>
@@ -89,18 +81,9 @@
                 <td><label for="base_vit">VIT:</label></td>
             </tr>
             <tr>
-                <td><input type="number" id="base_str" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span style="min-width: 16px"> + X </span>
-                </td>
-                <td><input type="number" id="base_agi" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span class="bonus_stat"> + X </span>
-                </td>
-                <td><input type="number" id="base_vit" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span> + X </span>
-                </td>
+                <td><input type="number" id="base_str" class="atributo" min="1" max="130" value="1"><span style="min-width: 16px"> + X </span></td>
+                <td><input type="number" id="base_agi" class="atributo" min="1" max="130" value="1"><span class="bonus_stat"> + X </span></td>
+                <td><input type="number" id="base_vit" class="atributo" min="1" max="130" value="1"><span> + X </span></td>
             </tr>
             <tr>
                 <td><label for="base_int">INT:</label></td>
@@ -108,20 +91,12 @@
                 <td><label for="base_luk">SOR:</label></td>
             </tr>
             <tr>
-                <td><input type="number" id="base_int" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span> + 300 </span>
-                </td>
-                <td><input type="number" id="base_dex" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span> + X </span>
-                </td>
-                <td><input type="number" id="base_luk" class="atributo" min="1" max="130" value="1"
-                           onkeypress="return /[0-9]/i.test(event.key)"
-                           oninput="imposeMinMax(this);calcularPontos()"><span> + X </span>
-                </td>
+                <td><input type="number" id="base_int" class="atributo" min="1" max="130" value="1"><span> + 300 </span></td>
+                <td><input type="number" id="base_dex" class="atributo" min="1" max="130" value="1"><span> + X </span></td>
+                <td><input type="number" id="base_luk" class="atributo" min="1" max="130" value="1"><span> + X </span></td>
             </tr>
         </table>
+
 
         <p id="custoAtributo" class="atributo-custo">Pontos: 0</p>
     </div>
@@ -130,8 +105,7 @@
             <tr>
                 <td style="height: 29px; min-width: 31px;">
                     <span>Alvo: </span><select id="target_name"
-                                               style="width: 200px;height: 21px;padding: 0;  margin-bottom: 0;"
-                                               onchange="loadTarget(this.value);">
+                                               style="width: 200px;height: 21px;padding: 0;  margin-bottom: 0;">
                     <option></option>
                 </select>
                 </td>
@@ -201,7 +175,7 @@
         <option value="PR_MAGNUS">Magnus Exorcismus</option>
     </select>
     
-    <button onclick="damage_calculation();" style="text-align:center; width: 65px;
+    <button id="calculateButton" style="text-align:center; width: 65px;
     max-width: 65px;
     height: 21px;
     padding: 0;
@@ -225,19 +199,19 @@
         <option value="6">Slot 7</option>
         <option value="7">Slot 8</option>
     </select>
-    <button onclick="saveCalc();" style="text-align:center; width: 65px;
+    <button style="text-align:center; width: 65px;
     max-width: 65px;
     height: 21px;
     padding: 0;
     margin-bottom: 0;
-    box-sizing: revert">Salvar
+    box-sizing: revert" id="saveButton">Salvar
     </button>
-    <button onclick="loadSavedCalc();" style="text-align:center; width: 65px;
+    <button style="text-align:center; width: 65px;
     max-width: 65px;
     height: 21px;
     padding: 0;
     margin-bottom: 0;
-    box-sizing: revert">Carregar
+    box-sizing: revert" id="loadButton">Carregar
     </button>
 <!--    <button onclick="saveCalc(true);" style="text-align:center; width: 65px;-->
 <!--    max-width: 65px;-->
@@ -250,11 +224,11 @@
 
 <br>
 <div class="tab" style="text-align: center">
-    <button class="tablinks" onclick="switchTab(event, 'Equipamentos')" id="defaultOpen">Equipamentos</button>
-    <button class="tablinks" onclick="switchTab(event, 'Equip. Sombrios')">Equip. Sombrios</button>
-    <button class="tablinks" onclick="switchTab(event, 'Buffs/Consumíveis')">Buffs/Consumíveis</button>
-    <button class="tablinks" onclick="switchTab(event, 'Skills')">Habilidades Pré-Requisito</button>
-    <button class="tablinks" style="position: absolute; margin-left: 695px;" onclick="switchTab(event, 'Detalhes')">☰</button>
+    <button class="tablinks" id="defaultOpen">Equipamentos</button>
+    <button class="tablinks">Equip. Sombrios</button>
+    <button class="tablinks">Buffs/Consumíveis</button>
+    <button class="tablinks">Habilidades Pré-Requisito</button>
+    <button class="tablinks" style="position: absolute; margin-left: 695px;">☰</button>
 </div>
 <div class="container split tabcontent" id="Equipamentos">
     <!-- TOP -->
@@ -263,7 +237,7 @@
         <img src="" id="top_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;"
              alt="">
         <select id="top_refine" class="refine" style="width: 75px;"></select>
-        <select id="top" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('top')">
+        <select id="top" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -275,7 +249,7 @@
     <div class="column">
         <label for="mid">Meio</label>
         <img src="" id="mid_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="mid" style="width:calc(100%)" class="select-icon" onchange="populateSlot('mid')">
+        <select id="mid" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -287,7 +261,7 @@
     <div class="column">
         <label for="low">Baixo</label>
         <img src="" id="low_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="low" style="width:calc(100%)" class="select-icon" onchange="populateSlot('low')">
+        <select id="low" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -300,7 +274,7 @@
         <label for="arm">Armadura</label>
         <img src="" id="arm_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="arm_refine" class="refine" style="width: 75px"></select>
-        <select id="arm" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('arm')">
+        <select id="arm" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -313,7 +287,7 @@
         <label for="wea">Arma</label>
         <img src="" id="wea_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="wea_refine" class="refine" style="width: 75px"></select>
-        <select id="wea" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('wea')">
+        <select id="wea" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -326,7 +300,7 @@
         <label for="shi">Escudo</label>
         <img src="" id="shi_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="shi_refine" class="refine" style="width: 75px"></select>
-        <select id="shi" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('shi')">
+        <select id="shi" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -339,7 +313,7 @@
         <label for="gar">Capa</label>
         <img src="" id="gar_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="gar_refine" class="refine" style="width: 75px"></select>
-        <select id="gar" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('gar')">
+        <select id="gar" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -352,7 +326,7 @@
         <label for="sho">Calçado</label>
         <img src="" id="sho_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="sho_refine" class="refine" style="width: 75px"></select>
-        <select id="sho" style="width:calc(100% - 79px)" class="select-icon" onchange="populateSlot('sho')">
+        <select id="sho" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -364,7 +338,7 @@
     <div class="column">
         <label for="ac1">Acessório Direito</label>
         <img src="" id="ac1_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="ac1" style="width:calc(100%)" class="select-icon" onchange="populateSlot('ac1')">
+        <select id="ac1" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -376,7 +350,7 @@
     <div class="column">
         <label for="ac2">Acessório Esquerdo</label>
         <img src="" id="ac2_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="ac2" style="width:calc(100%)" class="select-icon" onchange="populateSlot('ac2')">
+        <select id="ac2" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -395,7 +369,7 @@
         <label for="c_top">Topo</label>
         <img src="" id="c_top_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;"
              alt="">
-        <select id="c_top" style="width:calc(100%)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="c_top" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
     </div>
@@ -403,7 +377,7 @@
     <div class="column">
         <label for="c_mid">Meio</label>
         <img src="" id="c_mid_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="c_mid" style="width:calc(100%)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="c_mid" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
     </div>
@@ -411,7 +385,7 @@
     <div class="column">
         <label for="c_low">Baixo</label>
         <img src="" id="c_low_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="c_low" style="width:calc(100%)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="c_low" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
     </div>
@@ -420,7 +394,7 @@
         <label for="s_arm">Malha Sombria</label>
         <img src="" id="s_arm_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="s_arm_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_arm" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_arm" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -431,7 +405,7 @@
         <label for="s_wea">Luva Sombria</label>
         <img src="" id="s_wea_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="s_wea_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_wea" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_wea" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -442,7 +416,7 @@
         <label for="s_shi">Escudo Sombrio</label>
         <img src="" id="s_shi_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="s_shi_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_shi" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_shi" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -452,7 +426,7 @@
     <div class="column">
         <label for="c_gar">Capa</label>
         <img src="" id="c_gar_img" style="position: absolute; margin-left: 6px; margin-top: 3px; pointer-events: none;">
-        <select id="c_gar" style="width:calc(100%)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="c_gar" style="width:calc(100%)" class="select-icon">
             <option value=""></option>
         </select>
     </div>
@@ -461,7 +435,7 @@
         <label for="s_sho">Grevas Sombrias</label>
         <img src="" id="s_sho_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="s_sho_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_sho" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_sho" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -472,7 +446,7 @@
         <label for="s_ear">Brinco Sombrio</label>
         <img src="" id="s_ear_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select id="s_ear_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_ear" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_ear" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -483,7 +457,7 @@
         <label for="s_nec">Colar Sombrio</label>
         <img src="" id="s_nec_img" style="position: absolute; margin-left: 85px; margin-top: 3px; pointer-events: none;">
         <select href='https://www.divine-pride.net/database/item/311357/archbishop-stone-middle' id="s_nec_refine" class="s_refine" style="width: 75px"></select>
-        <select id="s_nec" style="width:calc(100% - 79px)" class="select-icon" onchange="updateImage(this.id, value);">
+        <select id="s_nec" style="width:calc(100% - 79px)" class="select-icon">
             <option value=""></option>
         </select>
         <div class="card-section">
@@ -596,130 +570,27 @@
                 <td>
                     <label for="Combat_Pill" class="consumable" id="12791" style="font-weight: normal">
                         <img src="https://www.divine-pride.net/img/items/item/bRO/12791" alt="">
-                        <br><input type="checkbox" id="Combat_Pill" value="12791" onclick="pillSelector(this)">Pílula de Combate</label>
+                        <br><input type="checkbox" id="Combat_Pill" value="12791">Pílula de Combate</label>
                 </td>
                 <td>
                     <label for="P_Combat_Pill" class="consumable" id="12792" style="font-weight: normal">
                         <img src="https://www.divine-pride.net/img/items/item/bRO/12792" alt="">
-                        <br><input type="checkbox" id="P_Combat_Pill" value="12792" onclick="pillSelector(this)">Grande Pílula de Combate</label>
+                        <br><input type="checkbox" id="P_Combat_Pill" value="12792">Grande Pílula de Combate</label>
                 </td>
             </tr>
         </table>
+
     </div>
 </div>
 
-<div class="container tabcontent" id="Skills">
+<div class="container tabcontent" id="Habilidades Pré-Requisito">
     <div style="padding-top: 8px">
-        <label for="skillTable">Skills</label>
-        <table id="skillTable" class="skills">
-            <!--3rd Buffs -->
-            <tr>
-                <td>
-                    <label for="skill_judex"><img src="https://static.divine-pride.net/images/skill/2038.png" id="skill_judex_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_judex" name="judex" style="width: 30px; margin-right:4px;" min="1" max="10" value="10">Judex</label>
-                </td>
-                <td>
-                    <label for="skill_adoramus"><img src="https://static.divine-pride.net/images/skill/2040.png" id="skill_adoramus_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_adoramus" name="adoramus" style="width: 30px; margin-right:4px;" min="1" max="10" value="10">Adoramus</label>
-                </td>
-                <td>
-                    <label for="skill_oratio"><img src="https://static.divine-pride.net/images/skill/2046.png" id="skill_oratio_ung" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_oratio" name="oratio" style="width: 30px; margin-right:4px;" min="0" max="10" value="10">Oratio</label>
-                </td>
-                <td>
-                    <label for="skill_praefatio"><img src="https://static.divine-pride.net/images/skill/2045.png" id="skill_praefatio_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_praefatio" name="praefatio" style="width: 30px; margin-right:4px;" min="0" ma max="10" value="10">Praefatio</label>
-                </td>
-                <td>
-                    <label for="skill_genese"><img src="https://static.divine-pride.net/images/skill/2052.png" id="skill_genese_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_genese" name="genese" style="width: 30px; margin-right:4px;" min="0" max="5" value="5">Gênese</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="skill_lauda_agnus"><img src="https://static.divine-pride.net/images/skill/2047.png" id="skill_lauda_agnus_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_lauda_agnus" name="lauda_agnus" style="width: 30px; margin-right:4px;" min="0" max="4" value="4">Lauda Agnus</label>
-                </td>
-                <td>
-                    <label for="skill_lauda_ramus"><img src="https://static.divine-pride.net/images/skill/2048.png" id="skill_lauda_ramus_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_lauda_ramus" name="lauda_ramus" style="width: 30px; margin-right:4px;" min="0" max="4" value="4">Lauda Ramus</label>
-                </td>
-                <td>
-                    <label for="skill_impositio_manus"><img src="https://static.divine-pride.net/images/skill/66.png" id="skill_impositio_manus_img" alt=""></label>
-                    <label style="font-weight: normal"><input type="number" class="level_skill" id="skill_impositio_manus" name="impositio_manus" style="width: 30px; margin-right:4px;" min="0" max="5" value="5">Impositio Manus</label>
-                </td>
-            </tr>
-
-            <!--2nd/Trans Buffs -->
-            <!-- <tr>
-                <td>
-                    <label for="PR_IMPOSITIO"><img src="https://static.divine-pride.net/images/skill/66.png" id="PR_IMPOSITIO_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="PR_IMPOSITIO" name="PR_IMPOSITIO" value="PR_IMPOSITIO">Impositio Manus</label>
-                </td>
-                <td>
-                    <label for="PR_LEXAETERNA"><img src="https://static.divine-pride.net/images/skill/78.png" id="PR_LEXAETERNA_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="PR_LEXAETERNA" name="PR_LEXAETERNA" value="PR_LEXAETERNA">Lex Aeterna</label>
-                </td>
-                <td>
-                    <label for="PR_GLORIA"><img src="https://static.divine-pride.net/images/skill/75.png" id="PR_GLORIA_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="PR_GLORIA" name="PR_GLORIA" value="PR_GLORIA">Glória</label>
-                </td>
-                <td>
-                    <label for="HP_BASILICA"><img src="https://static.divine-pride.net/images/skill/362.png" id="HP_BASILICA_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="HP_BASILICA" name="HP_BASILICA" value="HP_BASILICA">Basílica</label>
-                </td>
-            </tr> -->
-            <!--Outras -->
-            <!-- <tr>
-                <td>
-                    <label for="ALL_ODINS_POWER"><img src="https://static.divine-pride.net/images/skill/2537.png" id="ALL_ODINS_POWER_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="ALL_ODINS_POWER" name="ALL_ODINS_POWER" value="ALL_ODINS_POWER">Poder de Odin nv.2</label>
-                </td>
-                <td>
-                    <label for="HW_MAGICPOWER"><img src="https://static.divine-pride.net/images/skill/366.png" id="HW_MAGICPOWER_IMG" alt=""></label>
-                    <label style="font-weight: normal"><input type="checkbox" id="HW_MAGICPOWER" name="HW_MAGICPOWER" value="HW_MAGICPOWER">Amplificação Mística nv.5</label>
-                </td>
-            </tr> -->
-        </table>
-        <!--Consumíveis -->
-        <!-- <label for="stuffsTable">Consumíveis</label>
-        <table id="stuffsTable" class="buffs">
-            <tr>
-                <td>
-                    <label for="Almighty" class="consumable" id="12883" style="font-weight: normal"><img src="https://www.divine-pride.net/img/items/item/bRO/12883" alt="">
-                        <br><input type="checkbox" id="Almighty" value="12883">Bolinho Divino</label>
-                </td>
-                <td>
-                    <label for="Infinity_Drink" class="consumable" id="23475" style="font-weight: normal"><img src="https://www.divine-pride.net/img/items/item/bRO/23475" alt="">
-                        <br><input type="checkbox" id="Infinity_Drink" value="23475">Poção Infinita</label>
-                </td>
-                <td>
-                    <label for="Red_Booster" class="consumable" id="12796" style="font-weight: normal"><img src="https://www.divine-pride.net/img/items/item/bRO/12796" alt="">
-                        <br><input type="checkbox" id="Red_Booster" value="12796">Elixir Rubro</label>
-                </td>
-                <td>
-                    <label for="Tyr's_Blessing" class="consumable" id="14601" style="font-weight: normal">
-                        <img src="https://www.divine-pride.net/img/items/item/bRO/14601" alt="">
-                        <br><input type="checkbox" id="Tyr's_Blessing" value="14601">Bênção de Tyr</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <label for="Combat_Pill" class="consumable" id="12791" style="font-weight: normal">
-                        <img src="https://www.divine-pride.net/img/items/item/bRO/12791" alt="">
-                        <br><input type="checkbox" id="Combat_Pill" value="12791" onclick="pillSelector(this)">Pílula de Combate</label>
-                </td>
-                <td>
-                    <label for="P_Combat_Pill" class="consumable" id="12792" style="font-weight: normal">
-                        <img src="https://www.divine-pride.net/img/items/item/bRO/12792" alt="">
-                        <br><input type="checkbox" id="P_Combat_Pill" value="12792" onclick="pillSelector(this)">Grande Pílula de Combate</label>
-                </td>
-            </tr>
-        </table> -->
+        <!--Teste-->
+        <div id="tableContainer"></div>
     </div>
 </div>
 
-<div class="container tabcontent" id="Detalhes">
+<div class="container tabcontent" id="☰">
     <div style="text-align: left;padding: 10px; margin-left: auto;margin-right: auto;">
         <span id="matk" ></span><br>
         <span id="castDelay"></span><br>
@@ -743,25 +614,7 @@
 <!--        <tr><td>Dano contra Monstros Normais:</td><td>X</td></tr>-->
 <!--    </table>-->
 </div>
-
-<script src="other/define.js"></script>
-<script src="other/script.js"></script>
-<script src="other/stat.js"></script>
-<script src="other/dmg_calculation.js"></script>
-<script src="other/skills.js"></script>
-<script src="other/jobstatbonus.js"></script>
-<script src="items/monsters.js"></script>
-<script src="items/items.js"></script>
-<script src="items/shadows.js"></script>
-<script src="items/cards.js"></script>
-<script src="items/enchants.js"></script>
-<script src="items/costume_enchants.js"></script>
-<script src="items/random_options.js"></script>
-<script src="items/consumables.js"></script>
-<!--<script src="test/test.js"></script>-->
-<script type="text/javascript" src="other/tooltip.js"></script>
-<script>
-    load();
-</script>
+<script type="module" src="scripts/app.js"></script>
+<script type="text/javascript" src="scripts/ui/tooltip.js"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-ArchBishop = [
+const ArchBishop = [
     {level:  1, bonus: [0, 0, 0,  1, 0, 0]},
     {level:  2, bonus: [0, 0, 0,  1, 0, 0]},
     {level:  3, bonus: [0, 0, 1,  1, 0, 0]},
@@ -64,16 +64,14 @@ ArchBishop = [
     {level: 63, bonus: [6, 5, 7, 11, 7, 3]},
     {level: 64, bonus: [6, 5, 7, 11, 7, 3]},
     {level: 65, bonus: [6, 6, 7, 11, 7, 3]},
-    // Desconhecido
-    {level: 66, bonus: [6, 6, 7, 11, 7, 3]},
-    {level: 67, bonus: [6, 6, 7, 11, 7, 3]},
-    {level: 68, bonus: [6, 6, 7, 11, 7, 3]},
-    {level: 69, bonus: [6, 6, 7, 11, 7, 3]},
-    // Verificado
+    {level: 66, bonus: [6, 6, 7, 12, 7, 3]},
+    {level: 67, bonus: [6, 6, 7, 12, 7, 3]},
+    {level: 68, bonus: [6, 6, 7, 12, 7, 4]},
+    {level: 69, bonus: [6, 6, 7, 12, 7, 4]},
     {level: 70, bonus: [6, 7, 7, 12, 7, 4]}
 ];
 
-Sorcerer = [
+const Sorcerer = [
     {level: 1, bonus: [0, 0, 0, 1, 0, 0]},
     {level: 2, bonus: [0, 0, 0, 2, 0, 0]},
     {level: 3, bonus: [0, 0, 0, 2, 1, 0]},
@@ -149,3 +147,8 @@ Sorcerer = [
     // Verificado
     {level: 70, bonus: [4, 4, 8, 13, 9, 5]},
 ];
+
+export const jobStatBonus = {
+    ArchBishop,
+    Sorcerer,
+}

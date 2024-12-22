@@ -1,4 +1,16 @@
-const tops = [
+import {
+    currentEquip,
+    equipStats,
+    learned_skills,
+    multipliers,
+    refinement,
+    skill,
+    stats,
+    target, weapon
+} from "../scripts/core/state.js";
+import {property, race, size, type, weaponClass} from "../scripts/core/constants.js";
+
+export const tops = [
     {
         id: '19308',
         dbname: 'Amistr_Beret',
@@ -11,8 +23,8 @@ const tops = [
                 equipStats.VCT += 10;
             }
             if (refinement.top >= 9) {
-                multipliers.skill_property[NEUTRAL] += 10;
-                multipliers.skill_property[HOLY] += 10;
+                multipliers.skill_property[property.NEUTRAL] += 10;
+                multipliers.skill_property[property.HOLY] += 10;
             }
             if (refinement.top >= 11) {
                 multipliers.matk += 3;
@@ -85,32 +97,32 @@ const tops = [
             }
             // Ao aprender [Gênese] nv.5:
             if(learned_skills.genese >= 5){
-                multipliers.protocol[BOSS] += 25;
+                multipliers.protocol[type.BOSS] += 25;
             }
             
             
             // A cada nível de [Lauda Ramus]:
             if(learned_skills.lauda_ramus > 0){
                 // Dano mágico contra oponentes de propriedade Neutro, Terra, Maldito e Fantasma +5%.
-                multipliers.property[NEUTRAL] += 5 * learned_skills.lauda_ramus;
-                multipliers.property[EARTH] += 5 * learned_skills.lauda_ramus;
-                multipliers.property[UNDEAD] += 5 * learned_skills.lauda_ramus;
-                multipliers.property[GHOST] += 5 * learned_skills.lauda_ramus;
+                multipliers.property[property.NEUTRAL] += 5 * learned_skills.lauda_ramus;
+                multipliers.property[property.EARTH] += 5 * learned_skills.lauda_ramus;
+                multipliers.property[property.UNDEAD] += 5 * learned_skills.lauda_ramus;
+                multipliers.property[property.GHOST] += 5 * learned_skills.lauda_ramus;
             }
            
             // A cada nível de [Lauda Agnus]:
             if(learned_skills.lauda_agnus > 0){
                  // Dano mágico contra oponentes de propriedade Neutro, Terra, Maldito e Fantasma +5%.
-                multipliers.property[NEUTRAL] += 5 * learned_skills.lauda_agnus;
-                multipliers.property[EARTH] += 5 * learned_skills.lauda_agnus;
-                multipliers.property[UNDEAD] += 5 * learned_skills.lauda_agnus;
-                multipliers.property[GHOST] += 5 * learned_skills.lauda_agnus;
+                multipliers.property[property.NEUTRAL] += 5 * learned_skills.lauda_agnus;
+                multipliers.property[property.EARTH] += 5 * learned_skills.lauda_agnus;
+                multipliers.property[property.UNDEAD] += 5 * learned_skills.lauda_agnus;
+                multipliers.property[property.GHOST] += 5 * learned_skills.lauda_agnus;
             }
            
             // A cada refino:
             // Dano mágico contra as raças Humano e Humanoide +2%.
-            multipliers.race[HUMAN] += refinement.top * 2;
-            multipliers.race[DEMI_HUMAN] += refinement.top * 2;
+            multipliers.race[race.HUMAN] += refinement.top * 2;
+            multipliers.race[race.DEMI_HUMAN] += refinement.top * 2;
         }
     },
     {
@@ -119,13 +131,13 @@ const tops = [
         name: 'Asas de Yggdrasil',
         slot1: 'card',
         script: function () {
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
             if (refinement.top >= 10) {
                 equipStats.castdelay += 20;
-                multipliers.size[ALL] += 15;
+                multipliers.size[size.ALL] += 15;
             }
             if (refinement.top >= 12) {
-                multipliers.size[ALL] += 15;
+                multipliers.size[size.ALL] += 15;
             }
         }
     },
@@ -137,7 +149,7 @@ const tops = [
         script: function () {
             equipStats.castdelay += 20;
             if (refinement.top >= 10) {
-                multipliers.race[ALL] += 30;
+                multipliers.race[race.ALL] += 30;
             }
         }
     },
@@ -156,10 +168,10 @@ const tops = [
             // Conjunto [Carta Vesper]
             // Ignora 70% da DEFM de monstros Chefes.
             // Dano mágico de propriedade Neutro e Sagrado +30%.
-            if (target.type === BOSS)
+            if (target.type === type.BOSS)
                 equipStats.bypass += 100;
-            multipliers.skill_property[NEUTRAL] += 30;
-            multipliers.skill_property[HOLY] += 30;
+            multipliers.skill_property[property.NEUTRAL] += 30;
+            multipliers.skill_property[property.HOLY] += 30;
             // Carta Vesper
             // DES +2.
             equipStats.dex += 2;
@@ -235,7 +247,7 @@ const tops = [
                 equipStats.flatFCT = ( (equipStats.flatFCT*10) + 2 ) / 10;
             //Conjuntos
             if (document.getElementById('arm').value === '15146' || document.getElementById('arm').value === '15163') {
-                multipliers.race[ALL] += Math.floor(refinement.armor / 3) * 8;
+                multipliers.race[race.ALL] += Math.floor(refinement.armor / 3) * 8;
             }
         }
     },
@@ -262,12 +274,12 @@ const tops = [
             if (refinement.top >= 11){
                 // Dano físico contra todos os tamanhos +10%.
                 // Dano mágico de todas as propriedades +10%.
-                multipliers.skill_property[ALL] += 10;
+                multipliers.skill_property[property.ALL] += 10;
             }
             // Conjunto [Adorare]
             if (document.getElementById('wea').value === '2057') {
                 // Dano mágico de propriedade Sagrado +10%.
-                multipliers.skill_property[HOLY] += 10;
+                multipliers.skill_property[property.HOLY] += 10;
                 // A cada refino da arma: Dano de [Adoramus] +5%.
                 if (skill.id === "AB_ADORAMUS")
                     multipliers.skill += refinement.weapon * 5;
@@ -275,7 +287,7 @@ const tops = [
             // Conjunto [Penitência]
             if (document.getElementById('wea').value === '26161') {
                 // Dano mágico de propriedade Sagrado +10%.
-                multipliers.skill_property[HOLY] += 10;
+                multipliers.skill_property[property.HOLY] += 10;
                 // A cada refino da arma: Dano de [Judex] +10%.
                 if (skill.id === "AB_JUDEX")
                     multipliers.skill += refinement.weapon * 10;
@@ -325,15 +337,17 @@ const tops = [
             }
             // Ao aprender [Aquecer Terreno] nv.5:
             // Recarga de [Lanças dos Aesir] [Castigo de Nerthus] e [Pó de Diamante] -1 segundo.
-            if (skill.id === "SO_VARETYR_SPEAR" || skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
-                skill.cooldown += -1;
+            if(learned_skills["Aquecer Terreno"] === 5)
+                if (skill.id === "SO_VARETYR_SPEAR" || skill.id === "SO_EARTHGRAVE" || skill.id === "SO_DIAMONDDUST")
+                    skill.cooldown += -1;
             // Ao aprender [Escudo Elemental] nv.5:
             // Dano mágico contra monstros Chefes +25%.
-            multipliers.protocol[BOSS] += 25;
+            if(learned_skills["Escudo Elemental"] === 5)
+                multipliers.protocol[type.BOSS] += 25;
             // A cada nível de [Empatia Elemental]:
             // Conjuração variável -4%.
-            let empatiaLv = 5;
-            equipStats.VCT += empatiaLv * 4;
+            if (learned_skills["Empatia Elemental"]>0)
+                equipStats.VCT += learned_skills["Empatia Elemental"] * 4;
             // A cada refino até o +10:
             // Conjuração fixa -5%.
             let percentFCTRed = Math.min(10, refinement.top) * 5;
@@ -361,9 +375,9 @@ const tops = [
                 equipStats.VCT += 10;
             // Refino +11 ou mais: Dano mágico de propriedade Neutro, Terra e Água +20%.
             if (refinement.top >= 11){
-                multipliers.skill_property[NEUTRAL] += 20;
-                multipliers.skill_property[EARTH] += 20;
-                multipliers.skill_property[WATER] += 20;
+                multipliers.skill_property[property.NEUTRAL] += 20;
+                multipliers.skill_property[property.EARTH] += 20;
+                multipliers.skill_property[property.WATER] += 20;
             }
             // Conjunto [Lançarin]
             if (document.getElementById('wea').value === '28633') {
@@ -376,8 +390,8 @@ const tops = [
             // Conjunto [Castigo Diamante]
             if (document.getElementById('wea').value === '26160'){
                 // Dano mágico de propriedade Terra e Água +3% adicional.
-                multipliers.skill_property[EARTH] += 3;
-                multipliers.skill_property[WATER] += 3;
+                multipliers.skill_property[property.EARTH] += 3;
+                multipliers.skill_property[property.WATER] += 3;
                 // A cada refino da arma: Dano de [Pó de Diamante] +3%.
                 if (skill.id === 'SO_DIAMONDDUST')
                     multipliers.skill += refinement.weapon * 3;
@@ -385,8 +399,8 @@ const tops = [
             // Conjunto [Lança Psíquica]
             if (document.getElementById('wea').value === '26159'){
                 // Dano mágico de propriedade Neutro e Vento +3% adicional.
-                multipliers.skill_property[NEUTRAL] += 3;
-                multipliers.skill_property[WIND] += 3;
+                multipliers.skill_property[property.NEUTRAL] += 3;
+                multipliers.skill_property[property.WIND] += 3;
                 // A cada refino da arma: Dano de [Lanças dos Aesir] +3%.
                 if (skill.id === 'SO_VARETYR_SPEAR')
                     multipliers.skill += refinement.weapon * 3;
@@ -395,20 +409,22 @@ const tops = [
     },
 ];
 
-desentupidor = '4730,4710,4720,4750';
+const desentupidor = '4730,4710,4720,4750';
 
-const mid = [
+export const mid = [
     {
         id: '410067', dbname: 'Professor_MiniGlass_', name: 'Mini Óculos', slot1: 'card', slot4: desentupidor,
         tags: 'SORCERER',
         script: function () {
             // Dano mágico contra todos os Tamanhos +10%
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
             // Ao aprender [Tornado] nv.5: Pós-conjuração -15%
-            equipStats.castdelay += 15;
+            if (learned_skills["Tornado"] === 5)
+                equipStats.castdelay += 15;
             // Ao aprender [Onda Psíquica] nv.5: Recarga de [Pó de Diamante] e [Castigo de Nerthus] -4 segundos
-            if (skill.id === 'SO_DIAMONDDUST' || skill.id === 'SO_EARTHGRAVE')
-                skill.cooldown += -4;
+            if (learned_skills["Onda Psíquica"] === 5)
+                if (skill.id === 'SO_DIAMONDDUST' || skill.id === 'SO_EARTHGRAVE')
+                    skill.cooldown += -4;
         }
     },
     {
@@ -419,21 +435,21 @@ const mid = [
         script: function () {
             equipStats.percentASPD += 10;
             equipStats.flatMATK += 200;
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
         }
     },
     {
         id: '19380', dbname: 'Floating_Ball', name: 'Fogo Fátuo',
         script: function () {
             equipStats.flatMATK += 35;
-            multipliers.protocol[BOSS] += 2;
+            multipliers.protocol[type.BOSS] += 2;
             if (stats.dex >= 90) {
                 equipStats.flatMATK += 70;
-                multipliers.protocol[BOSS] += 3;
+                multipliers.protocol[type.BOSS] += 3;
             }
             if (stats.dex >= 125) {
                 equipStats.flatMATK += 140;
-                multipliers.protocol[BOSS] += 5;
+                multipliers.protocol[type.BOSS] += 5;
             }
         }
     },
@@ -463,7 +479,7 @@ const mid = [
         slot4: desentupidor,
         tags: 'ARCHBISHOP',
         script: function () {
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
             if(learned_skills.praefatio >= 10){
                 equipStats.castdelay += 15;
             }
@@ -490,10 +506,10 @@ const mid = [
     },
 ];
 
-const low = [
+export const low = [
     {
         id: '420110', dbname: 'ScarfOfHero_J', name: 'Cachecol Camuflado', script: function () {
-            multipliers.size[ALL] += Math.floor(stats.baseLv / 10);
+            multipliers.size[size.ALL] += Math.floor(stats.baseLv / 10);
         }
     },
     {
@@ -503,9 +519,9 @@ const low = [
         slot4: '4730,4710,4720,4750,4883,4807',
         script: function () {
             equipStats.percentASPD += Math.floor(stats.int / 50) * 2;
-            multipliers.size[ALL] += Math.floor(stats.int / 50) * 4;
+            multipliers.size[size.ALL] += Math.floor(stats.int / 50) * 4;
             equipStats.percentASPD += Math.floor(stats.dex / 50) * 2;
-            multipliers.size[ALL] += Math.floor(stats.dex / 50) * 4;
+            multipliers.size[size.ALL] += Math.floor(stats.dex / 50) * 4;
         }
     },
     {
@@ -517,7 +533,7 @@ const low = [
             equipStats.castdelay += 15;
 
             if(learned_skills.genese >= 5){
-                multipliers.size[ALL] += 15;
+                multipliers.size[size.ALL] += 15;
             }
         }
     },
@@ -528,7 +544,8 @@ const low = [
             // Pós-conjuração -15%.
             equipStats.castdelay += 15;
             // A cada nível de [Encanto de Órion]: Dano mágico contra todos os tamanhos +3%.
-            multipliers.size[ALL] += 15;
+            if (learned_skills["Encanto de Órion"] > 0)
+                multipliers.size[size.ALL] += learned_skills["Encanto de Órion"] * 3;
             // Ao aprender [Tornado] nv.5:
             // Ao realizar ataques mágicos, 3% de chance de ativar um [efeito] por 10 segundos.
             // --------------------------
@@ -568,9 +585,9 @@ const low = [
             // Increases damage against demihuman race enemies and angel race monster by 5%.
             // Inclui a raça humano jogador conforme descrição do twRO embora essa não tenha como ser selecionada como alvo KEKW
             // 對人類型、玩家人類型、天使型的傷害+5%。 -> +5% de dano a tipos humanos, jogadores-humanos e anjos.
-            multipliers.race[HUMAN]+=5;
-            multipliers.race[DEMI_HUMAN]+=5;
-            multipliers.race[ANGEL]+=5;
+            multipliers.race[race.HUMAN]+=5;
+            multipliers.race[race.DEMI_HUMAN]+=5;
+            multipliers.race[race.ANGEL]+=5;
             // When equipped with Darklord Essence Intelligence 3,
             // Increases all property magical damage by 20%.
             // Increases damage taken from all race enemies by 15%.
@@ -578,12 +595,12 @@ const low = [
             // Set Bonus Demon God's Apostle Shnaim Card
             // Increases physical and magical damage against all race enemies by 15%.
             if (document.getElementById('ac1_slot1').value === '27323' || document.getElementById('ac2_slot1').value === '27323') {
-                multipliers.race[ALL] += 15;
+                multipliers.race[race.ALL] += 15;
             }
             // Set Bonus Demon God's Apostle Ahat Card
             // Increases physical and magical damage against all size enemies by 15%.
             if (document.getElementById('ac1_slot1').value === '27322' || document.getElementById('ac2_slot1').value === '27322') {
-                multipliers.size[ALL] += 15;
+                multipliers.size[size.ALL] += 15;
             }
         }
     },
@@ -595,22 +612,22 @@ const low = [
             // Increases damage against demihuman race enemies and angel race monster by 5%.
             // Inclui a raça humano jogador conforme descrição do twRO embora essa não tenha como ser selecionada como alvo KEKW
             // 對人類型、玩家人類型、天使型的傷害+5%。 -> +5% de dano a tipos humanos, jogadores-humanos e anjos.
-            multipliers.race[HUMAN]+=5;
-            multipliers.race[DEMI_HUMAN]+=5;
-            multipliers.race[ANGEL]+=5;
+            multipliers.race[race.HUMAN]+=5;
+            multipliers.race[race.DEMI_HUMAN]+=5;
+            multipliers.race[race.ANGEL]+=5;
             // When equipped with Darklord Essence Intelligence 3,
             // Increases all property magical damage by 20%.
             // Increases damage taken from all race enemies by 15%.
-            multipliers.skill_property[ALL] += 20;
+            multipliers.skill_property[property.ALL] += 20;
             // Set Bonus Demon God's Apostle Shnaim Card
             // Increases physical and magical damage against all race enemies by 15%.
             if (document.getElementById('ac1_slot1').value === '27323' || document.getElementById('ac2_slot1').value === '27323') {
-                multipliers.race[ALL] += 15;
+                multipliers.race[race.ALL] += 15;
             }
             // Set Bonus Demon God's Apostle Ahat Card
             // Increases physical and magical damage against all size enemies by 15%.
             if (document.getElementById('ac1_slot1').value === '27322' || document.getElementById('ac2_slot1').value === '27322') {
-                multipliers.size[ALL] += 15;
+                multipliers.size[size.ALL] += 15;
             }
         }
     },
@@ -619,7 +636,7 @@ const low = [
     },
 ];
 
-const armors = [
+export const armors = [
     {
         id: '450179', dbname: 'Celine_Dress', name: 'Vestido Mágico da Celine', slot1: 'card',
         script: function () {
@@ -627,7 +644,7 @@ const armors = [
             if (refinement.armor >= 7)
                 equipStats.VCT += 10;
             if (refinement.armor >= 9)
-                multipliers.skill_property[ALL] += 10;
+                multipliers.skill_property[property.ALL] += 10;
             if (refinement.armor >= 11)
                 equipStats.castdelay += 10;
             if (refinement.armor >= 12)
@@ -638,10 +655,10 @@ const armors = [
                 // Dano mágico de propriedade Sagrado, Sombrio, Veneno e Fantasma +1%.
                 // A cada refino da Armadura:
                 // Dano mágico de propriedade Sagrado, Sombrio, Veneno e Fantasma +1%.
-                multipliers.skill_property[HOLY] += refinement.top + refinement.armor;
-                multipliers.skill_property[DARK] += refinement.top + refinement.armor;
-                multipliers.skill_property[POISON] += refinement.top + refinement.armor;
-                multipliers.skill_property[GHOST] += refinement.top + refinement.armor;
+                multipliers.skill_property[property.HOLY] += refinement.top + refinement.armor;
+                multipliers.skill_property[property.DARK] += refinement.top + refinement.armor;
+                multipliers.skill_property[property.POISON] += refinement.top + refinement.armor;
+                multipliers.skill_property[property.GHOST] += refinement.top + refinement.armor;
                 // Soma dos refinos +19 ou mais:
                 // Dano mágico +15%.
                 if ((refinement.top + refinement.armor) >= 19)
@@ -649,7 +666,7 @@ const armors = [
                 // Soma dos refinos +23 ou mais:
                 // Dano mágico de todas as propriedades +20% adicional.
                 if ((refinement.top + refinement.armor) >= 23)
-                    multipliers.property[ALL] += 20;
+                    multipliers.property[property.ALL] += 20;
             }
             // Conjunto [Adereço da Celine]
             if (document.getElementById('ac1').value === '32237' || document.getElementById('ac2').value === '32237') {
@@ -657,11 +674,11 @@ const armors = [
                 if (refinement.armor >= 9)
                     equipStats.VCT += 5;
                 if (refinement.armor >= 11) {
-                    multipliers.skill_property[WATER] += 10;
-                    multipliers.skill_property[WIND] += 10;
-                    multipliers.skill_property[EARTH] += 10;
-                    multipliers.skill_property[FIRE] += 10;
-                    multipliers.skill_property[NEUTRAL] += 10;
+                    multipliers.skill_property[property.WATER] += 10;
+                    multipliers.skill_property[property.WIND] += 10;
+                    multipliers.skill_property[property.EARTH] += 10;
+                    multipliers.skill_property[property.FIRE] += 10;
+                    multipliers.skill_property[property.NEUTRAL] += 10;
                 }
             }
         }
@@ -670,22 +687,22 @@ const armors = [
         id: '15254', dbname: 'Abyss_Dress_BR', name: 'Vestido Abissal', slot1: 'card',
         script: function () {
             if (refinement.armor >= 7) {
-                multipliers.race[DEMON] += 10;
-                multipliers.race[UNDEAD] += 10;
-                multipliers.property[DARK] += 10;
-                multipliers.property[UNDEAD] += 10;
+                multipliers.race[race.DEMON] += 10;
+                multipliers.race[race.UNDEAD] += 10;
+                multipliers.property[property.DARK] += 10;
+                multipliers.property[property.UNDEAD] += 10;
             }
             if (refinement.armor >= 9) {
-                multipliers.race[DEMON] += 15;
-                multipliers.race[UNDEAD] += 15;
-                multipliers.property[DARK] += 15;
-                multipliers.property[UNDEAD] += 15;
+                multipliers.race[race.DEMON] += 15;
+                multipliers.race[race.UNDEAD] += 15;
+                multipliers.property[property.DARK] += 15;
+                multipliers.property[property.UNDEAD] += 15;
             }
             if (refinement.armor >= 11) {
-                multipliers.race[DEMON] += 15;
-                multipliers.race[UNDEAD] += 15;
-                multipliers.property[DARK] += 15;
-                multipliers.property[UNDEAD] += 15;
+                multipliers.race[race.DEMON] += 15;
+                multipliers.race[race.UNDEAD] += 15;
+                multipliers.property[property.DARK] += 15;
+                multipliers.property[property.UNDEAD] += 15;
             }
         }
     },
@@ -693,28 +710,28 @@ const armors = [
         id: '15420', dbname: 'Icefall_Dress', name: 'Vestido Glacial',
         script: function () {
             if (refinement.armor >= 5) {
-                multipliers.race[FORMLESS] += 10;
-                multipliers.race[HUMAN] += 10;
-                multipliers.race[DEMI_HUMAN] += 10;
-                multipliers.race[DORAM] += 10;
-                multipliers.property[FIRE] += 10;
-                multipliers.property[WATER] += 10;
+                multipliers.race[race.FORMLESS] += 10;
+                multipliers.race[race.HUMAN] += 10;
+                multipliers.race[race.DEMI_HUMAN] += 10;
+                multipliers.race[race.DORAM] += 10;
+                multipliers.property[property.FIRE] += 10;
+                multipliers.property[property.WATER] += 10;
             }
             if (refinement.armor >= 7) {
-                multipliers.race[FORMLESS] += 15;
-                multipliers.race[HUMAN] += 15;
-                multipliers.race[DEMI_HUMAN] += 15;
-                multipliers.race[DORAM] += 15;
-                multipliers.property[FIRE] += 15;
-                multipliers.property[WATER] += 15;
+                multipliers.race[race.FORMLESS] += 15;
+                multipliers.race[race.HUMAN] += 15;
+                multipliers.race[race.DEMI_HUMAN] += 15;
+                multipliers.race[race.DORAM] += 15;
+                multipliers.property[property.FIRE] += 15;
+                multipliers.property[property.WATER] += 15;
             }
             if (refinement.armor >= 9) {
-                multipliers.race[FORMLESS] += 15;
-                multipliers.race[HUMAN] += 15;
-                multipliers.race[DEMI_HUMAN] += 15;
-                multipliers.race[DORAM] += 15;
-                multipliers.property[FIRE] += 15;
-                multipliers.property[WATER] += 15;
+                multipliers.race[race.FORMLESS] += 15;
+                multipliers.race[race.HUMAN] += 15;
+                multipliers.race[race.DEMI_HUMAN] += 15;
+                multipliers.race[race.DORAM] += 15;
+                multipliers.property[property.FIRE] += 15;
+                multipliers.property[property.WATER] += 15;
             }
         }
     },
@@ -722,25 +739,25 @@ const armors = [
         id: '15352', dbname: 'Nature_Dress', name: 'Vestido Natural',
         script: function () {
             if (refinement.armor >= 5) {
-                multipliers.race[HUMAN] += 10;
-                multipliers.race[DEMI_HUMAN] += 10;
-                multipliers.race[BRUTE] += 10;
-                multipliers.property[WIND] += 10;
-                multipliers.property[EARTH] += 10;
+                multipliers.race[race.HUMAN] += 10;
+                multipliers.race[race.DEMI_HUMAN] += 10;
+                multipliers.race[race.BRUTE] += 10;
+                multipliers.property[property.WIND] += 10;
+                multipliers.property[property.EARTH] += 10;
             }
             if (refinement.armor >= 7) {
-                multipliers.race[HUMAN] += 15;
-                multipliers.race[DEMI_HUMAN] += 15;
-                multipliers.race[BRUTE] += 15;
-                multipliers.property[WIND] += 15;
-                multipliers.property[EARTH] += 15;
+                multipliers.race[race.HUMAN] += 15;
+                multipliers.race[race.DEMI_HUMAN] += 15;
+                multipliers.race[race.BRUTE] += 15;
+                multipliers.property[property.WIND] += 15;
+                multipliers.property[property.EARTH] += 15;
             }
             if (refinement.armor >= 9) {
-                multipliers.race[HUMAN] += 15;
-                multipliers.race[DEMI_HUMAN] += 15;
-                multipliers.race[BRUTE] += 15;
-                multipliers.property[WIND] += 15;
-                multipliers.property[EARTH] += 15;
+                multipliers.race[race.HUMAN] += 15;
+                multipliers.race[race.DEMI_HUMAN] += 15;
+                multipliers.race[race.BRUTE] += 15;
+                multipliers.property[property.WIND] += 15;
+                multipliers.property[property.EARTH] += 15;
             }
         }
     },
@@ -748,22 +765,22 @@ const armors = [
         id: '450143', dbname: 'Samael_Dress', name: 'Vestido Infernal',
         script: function () {
             if (refinement.armor >= 5) {
-                multipliers.race[PLANT] += 10;
-                multipliers.race[BRUTE] += 10;
-                multipliers.property[HOLY] += 10;
-                multipliers.property[POISON] += 10;
+                multipliers.race[race.PLANT] += 10;
+                multipliers.race[race.BRUTE] += 10;
+                multipliers.property[property.HOLY] += 10;
+                multipliers.property[property.POISON] += 10;
             }
             if (refinement.armor >= 7) {
-                multipliers.race[PLANT] += 15;
-                multipliers.race[BRUTE] += 15;
-                multipliers.property[HOLY] += 15;
-                multipliers.property[POISON] += 15;
+                multipliers.race[race.PLANT] += 15;
+                multipliers.race[race.BRUTE] += 15;
+                multipliers.property[property.HOLY] += 15;
+                multipliers.property[property.POISON] += 15;
             }
             if (refinement.armor >= 9) {
-                multipliers.race[PLANT] += 15;
-                multipliers.race[BRUTE] += 15;
-                multipliers.property[HOLY] += 15;
-                multipliers.property[POISON] += 15;
+                multipliers.race[race.PLANT] += 15;
+                multipliers.race[race.BRUTE] += 15;
+                multipliers.property[property.HOLY] += 15;
+                multipliers.property[property.POISON] += 15;
             }
         }
     },
@@ -772,16 +789,16 @@ const armors = [
         script: function () {
             equipStats.castdelay += 10;
             if (refinement.armor >= 7)
-                multipliers.size[ALL] += 20;
+                multipliers.size[size.ALL] += 20;
             if (refinement.armor >= 9)
-                multipliers.size[ALL] += 20;
+                multipliers.size[size.ALL] += 20;
         }
     },
     {
         id: '450286', dbname: '', name: '[MEGA] Vestes de Cardeal', slot1: 'card',
         script: function () {
             equipStats.percentASPD += 10;
-            multipliers.size[ALL] += 40;
+            multipliers.size[size.ALL] += 40;
         }
     },
     {
@@ -821,7 +838,7 @@ const armors = [
     //                 multipliers.skill += 50;
     //         }
     //         if (refinement.armor >= 10) {
-    //             multipliers.skill_property[HOLY] += 15;
+    //             multipliers.skill_property[property.HOLY] += 15;
     //         }
     //         // A cada nível de [Oratio]:
     //         // INT +3. ATQM +15.
@@ -829,7 +846,7 @@ const armors = [
     //         equipStats.flatMATK += 150;
     //         // A cada nível de [Gênese]:
     //         // Dano mágico contra todas as raças +14%.
-    //         multipliers.race[ALL] += 70;
+    //         multipliers.race[race.ALL] += 70;
     //     }
     // },
     {
@@ -846,7 +863,7 @@ const armors = [
                     multipliers.skill += 50;
             }
             if (refinement.armor >= 13) {
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
         
              // A cada nível de [Oratio]:
@@ -859,7 +876,7 @@ const armors = [
             // A cada nível de [Gênese]:
             // Dano mágico contra todas as raças +4%.
             if(learned_skills.genese > 0) {
-                multipliers.race[ALL] += learned_skills.genese * 4;
+                multipliers.race[race.ALL] += learned_skills.genese * 4;
             }
            
             
@@ -893,10 +910,10 @@ const armors = [
             equipStats.flatMATK += 30 * refinement.armor;
             if (refinement.armor >= 7) {
                 equipStats.percentASPD += 10;
-                multipliers.race[ALL] += 15;
+                multipliers.race[race.ALL] += 15;
             }
             if (refinement.armor >= 9) {
-                multipliers.race[ALL] += 25;
+                multipliers.race[race.ALL] += 25;
             }            
         }
     },
@@ -924,13 +941,13 @@ const armors = [
         id: '15387', dbname: 'Jirant_Dress', name: 'Vestido da Bruxa', slot1: 'card',
         script: function () {
             // Ignora 50% da DEFM dos monstros Chefes.
-            if (target.type === BOSS)
+            if (target.type === type.BOSS)
                 equipStats.bypass += 50;
             // A cada refino:
             // ATQM +15.
             // Dano mágico de propriedade Vento +2%.
             equipStats.flatMATK += 15 * refinement.armor;
-            multipliers.skill_property[WIND] += 2 * refinement.armor;
+            multipliers.skill_property[property.WIND] += 2 * refinement.armor;
             // Conjunto [Manto da Bruxa]
             if (document.getElementById('gar').value === '20908'){
                 // A cada refino da capa:
@@ -957,16 +974,16 @@ const armors = [
     },
 ];
 
-malangdo = '29446,29445,4827,4826,4812,4813,4761';
-brasilis = '29446,4831';
-const weapons = [
+const malangdo = '29446,29445,4827,4826,4812,4813,4761';
+const brasilis = '29446,4831';
+export const weapons = [
     {
         id: '540011', dbname: 'Up_Demon_Hunting_Bible', name: 'Tomo Primordial', slot1: 'card', slot2: 'card',
         tags: 'ARCHBISHOP',
         script: function () {
             weapon.baseMATK = 190;
             weapon.lv = 4;
-            weapon.class = BOOK;
+            weapon.class = weaponClass.BOOK;
             // A cada 2 refinos:
             // ATQ e ATQM +10.
             equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 10;
@@ -976,7 +993,7 @@ const weapons = [
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 25;
             if (refinement.weapon >= 7) {
                 equipStats.percentASPD += 10;
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
             if (refinement.weapon >= 9)
                 if (skill.id === "AB_JUDEX")
@@ -989,9 +1006,9 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 190;
             weapon.lv = 4;
-            weapon.class = BOOK;
+            weapon.class = weaponClass.BOOK;
             // Random Options
-            multipliers.skill_property[HOLY] +=12;
+            multipliers.skill_property[property.HOLY] +=12;
             // A cada 2 refinos:
             // ATQ e ATQM +10.
             equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 10;
@@ -1001,7 +1018,7 @@ const weapons = [
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 25;
             if (refinement.weapon >= 7) {
                 equipStats.percentASPD += 10;
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
             if (refinement.weapon >= 9)
                 if (skill.id === "AB_JUDEX")
@@ -1014,10 +1031,10 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 190;
             weapon.lv = 4;
-            weapon.class = BOOK;
+            weapon.class = weaponClass.BOOK;
             // Random Options
-            multipliers.protocol[BOSS] += 12;
-            multipliers.skill_property[HOLY] +=12;
+            multipliers.protocol[type.BOSS] += 12;
+            multipliers.skill_property[property.HOLY] +=12;
             // A cada 2 refinos:
             // ATQ e ATQM +10.
             equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 10;
@@ -1027,7 +1044,7 @@ const weapons = [
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 25;
             if (refinement.weapon >= 7) {
                 equipStats.percentASPD += 10;
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
             if (refinement.weapon >= 9)
                 if (skill.id === "AB_JUDEX")
@@ -1040,7 +1057,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 140;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
         }
     },
     {
@@ -1049,7 +1066,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 170;
             weapon.lv = 4;
-            weapon.class = MACE;
+            weapon.class = weaponClass.MACE;
             multipliers.matk += 3;
             if (refinement.weapon >= 7)
                 equipStats.percentASPD += 7
@@ -1057,7 +1074,7 @@ const weapons = [
                 if (skill.id === "AB_ADORAMUS")
                     multipliers.skill += 20;
             if (refinement.weapon >= 11)
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
         }
     },
     {
@@ -1066,10 +1083,10 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 360;
             weapon.lv = 4;
-            weapon.class = MACE;
+            weapon.class = weaponClass.MACE;
             equipStats.int += 3;
             equipStats.dex += 5;
-            multipliers.skill_property[HOLY] += refinement.weapon * 10;
+            multipliers.skill_property[property.HOLY] += refinement.weapon * 10;
         }
     },
     {
@@ -1077,7 +1094,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 180;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
             multipliers.matk += refinement.weapon * 6;
             equipStats.castdelay += refinement.weapon;
             if (refinement.weapon >= 10)
@@ -1091,7 +1108,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 195;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
             // A cada 2 refinos: ATQM +15.
             equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 15;
             // A cada 3 refinos: Dano de [Pó de Diamante] +12%.
@@ -1103,7 +1120,7 @@ const weapons = [
                 if (skill.id === 'SO_VARETYR_SPEAR')
                     multipliers.skill += 15;
                 // Dano mágico contra oponentes de todas as propriedades +15%.
-                multipliers.property[ALL] += 15;
+                multipliers.property[property.ALL] += 15;
             }
             // Refino +9 ou mais:
             if (refinement.weapon >= 9){
@@ -1136,7 +1153,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 160;
             weapon.lv = 4;
-            weapon.class = BOOK;
+            weapon.class = weaponClass.BOOK;
             // DES +1.
             equipStats.dex += 1;
             // A cada refino:
@@ -1152,7 +1169,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 190;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
             //
             equipStats.int += 6;
             equipStats.vit += 2;
@@ -1161,7 +1178,7 @@ const weapons = [
             if (skill.id === "AB_JUDEX")
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 20;
             if (refinement.weapon >= 7) {
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
             if (refinement.weapon >= 9) {
                 if (skill.id === "AB_JUDEX")
@@ -1176,7 +1193,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 190;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
             //
             equipStats.int += 6;
             equipStats.vit += 2;
@@ -1185,7 +1202,7 @@ const weapons = [
             if (skill.id === "AB_JUDEX")
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 20;
             if (refinement.weapon >= 7) {
-                multipliers.skill_property[HOLY] += 15;
+                multipliers.skill_property[property.HOLY] += 15;
             }
             if (refinement.weapon >= 9) {
                 if (skill.id === "AB_JUDEX")
@@ -1193,7 +1210,7 @@ const weapons = [
                 equipStats.castdelay += 10;
             }
             if (refinement.weapon >= 11) {
-                multipliers.size[ALL] += 20;
+                multipliers.size[size.ALL] += 20;
             }
         }
     },
@@ -1203,17 +1220,17 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 200;
             weapon.lv = 4;
-            weapon.class = MACE;
+            weapon.class = weaponClass.MACE;
             multipliers.matk += 3;
-            multipliers.skill_property[HOLY] += Math.floor(refinement.weapon / 2);
+            multipliers.skill_property[property.HOLY] += Math.floor(refinement.weapon / 2);
             if (skill.id === "AB_ADORAMUS")
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 5;
             if (refinement.weapon >= 7) {
                 equipStats.VCT += 10;
-                multipliers.skill_property[HOLY] += 10;
+                multipliers.skill_property[property.HOLY] += 10;
             }
             if (refinement.weapon >= 9)
-                multipliers.race[ALL] += 15;
+                multipliers.race[race.ALL] += 15;
             if (refinement.weapon >= 11)
                 if (skill.id === "AB_ADORAMUS")
                     multipliers.skill += 15;
@@ -1228,15 +1245,15 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 165;
             weapon.lv = 4;
-            weapon.class = MACE;
+            weapon.class = weaponClass.MACE;
             multipliers.matk += 3;
-            multipliers.skill_property[HOLY] += Math.floor(refinement.weapon / 2);
+            multipliers.skill_property[property.HOLY] += Math.floor(refinement.weapon / 2);
             if (skill.id === "AB_ADORAMUS")
                 multipliers.skill += Math.floor(refinement.weapon / 3) * 5;
             if (refinement.weapon >= 9)
                 equipStats.VCT += 10;
             if (refinement.weapon >= 11)
-                multipliers.skill_property[HOLY] += 10
+                multipliers.skill_property[property.HOLY] += 10
         }
     }, // Adicionar BAs
     {
@@ -1250,7 +1267,7 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 125;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
             equipStats.dex += 1;
         }
     },
@@ -1261,9 +1278,9 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 240;
             weapon.lv = 4;
-            weapon.class = TWO_HANDED_STAFF;
+            weapon.class = weaponClass.TWO_HANDED_STAFF;
 
-            multipliers.skill_property[HOLY] += 5;
+            multipliers.skill_property[property.HOLY] += 5;
             equipStats.flatMATK += refinement.weapon * 4;
             if (refinement.weapon >= 9)
                 if (skill.id === "AB_ADORAMUS")
@@ -1277,9 +1294,9 @@ const weapons = [
         script: function () {
             weapon.baseMATK = 175;
             weapon.lv = 4;
-            weapon.class = ONE_HANDED_STAFF;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
 
-            multipliers.skill_property[HOLY] += 5;
+            multipliers.skill_property[property.HOLY] += 5;
             equipStats.flatMATK += refinement.weapon * 4;
             if (refinement.weapon >= 9)
                 if (skill.id === "PR_MAGNUS" || skill.id === "AB_JUDEX")
@@ -1290,7 +1307,7 @@ const weapons = [
     },
 ];
 
-const shields = [
+export const shields = [
     {
         id: '460091', dbname: '', name: 'Escudo Clerical', slot1: 'card',
         script: function () {
@@ -1341,7 +1358,7 @@ const shields = [
     {
         id: '28946', dbname: 'Bloody_Knight_Shield__', name: 'Sanguinário Purificado (50% Bypass Chefe)', slot1: 'card',
         script: function () {
-            if (target.type === BOSS)
+            if (target.type === type.BOSS)
                 equipStats.bypass += 50;
 
             multipliers.matk += 5;
@@ -1465,14 +1482,14 @@ const shields = [
                 // Dano mágico +5%.
                 multipliers.matk += 5;
                 // Ignora 25% da DEFM dos monstros Chefes.
-                if (target.type === BOSS)
+                if (target.type === type.BOSS)
                     equipStats.bypass += 25;
                 // Armadura com refino +8 ou mais:
                 if (refinement.armor >= 8){
                     // Dano mágico +5% adicional.
                     multipliers.matk += 5;
                     // Ignora +25% adicional da DEFM dos monstros Chefes.
-                    if (target.type === BOSS)
+                    if (target.type === type.BOSS)
                         equipStats.bypass += 25;
                 }
             }
@@ -1496,27 +1513,27 @@ const shields = [
     },
 ];
 
-explo_capa = '4856,4854,4858,4950,4949,4827,4826,4812,4872,4869'
-const garments = [
+const explo_capa = '4856,4854,4858,4950,4949,4827,4826,4812,4872,4869'
+export const garments = [
     {
         id: '480088', dbname: 'Ultio_Cape_TW', name: 'Capa Ultio-OS', slot1: 'card',
         script: function () {
             equipStats.flatMATK += Math.floor(refinement.garment / 2) * 10;
-            multipliers.skill_property[NEUTRAL] += Math.floor(refinement.garment / 4) * 3;
-            multipliers.skill_property[HOLY] += Math.floor(refinement.garment / 4) * 3;
+            multipliers.skill_property[property.NEUTRAL] += Math.floor(refinement.garment / 4) * 3;
+            multipliers.skill_property[property.HOLY] += Math.floor(refinement.garment / 4) * 3;
             if (refinement.garment >= 9)
                 multipliers.matk += 10;
             if (refinement.garment >= 11)
                 equipStats.castdelay += 12;
             if (refinement.garment >= 13)
-                if (target.type === BOSS)
+                if (target.type === type.BOSS)
                     equipStats.bypass += 10;
             if (document.getElementById('wea').value === '16089') {
                 equipStats.flatMATK += 30;
                 if (refinement.weapon >= 12) {
                     if (skill.id === "AB_ADORAMUS")
                         skill.cooldown += -0.5;
-                    if (target.race === DEMON || target.race === UNDEAD)
+                    if (target.race === race.DEMON || target.race === race.UNDEAD)
                         equipStats.bypass += 15;
                 }
             }
@@ -1526,24 +1543,24 @@ const garments = [
         id: '480088 ', dbname: 'Ultio_Cape_TW', name: 'Capa Ultio-OS (10% Chefe)', slot1: 'card',
         script: function () {
             // BA
-            multipliers.protocol[BOSS]+=10;
+            multipliers.protocol[type.BOSS]+=10;
             //
             equipStats.flatMATK += Math.floor(refinement.garment / 2) * 10;
-            multipliers.skill_property[NEUTRAL] += Math.floor(refinement.garment / 4) * 3;
-            multipliers.skill_property[HOLY] += Math.floor(refinement.garment / 4) * 3;
+            multipliers.skill_property[property.NEUTRAL] += Math.floor(refinement.garment / 4) * 3;
+            multipliers.skill_property[property.HOLY] += Math.floor(refinement.garment / 4) * 3;
             if (refinement.garment >= 9)
                 multipliers.matk += 10;
             if (refinement.garment >= 11)
                 equipStats.castdelay += 12;
             if (refinement.garment >= 13)
-                if (target.type === BOSS)
+                if (target.type === type.BOSS)
                     equipStats.bypass += 10;
             if (document.getElementById('wea').value === '16089') {
                 equipStats.flatMATK += 30;
                 if (refinement.weapon >= 12) {
                     if (skill.id === "AB_ADORAMUS")
                         skill.cooldown += -0.5;
-                    if (target.race === DEMON || target.race === UNDEAD)
+                    if (target.race === race.DEMON || target.race === race.UNDEAD)
                         equipStats.bypass += 15;
                 }
             }
@@ -1554,14 +1571,14 @@ const garments = [
         script: function () {
             equipStats.flatMATK += Math.floor(refinement.garment / 2) * 10;
             multipliers.matk += Math.floor(refinement.garment / 2);
-            multipliers.skill_property[ALL] += Math.floor(refinement.garment / 4) * 3;
+            multipliers.skill_property[property.ALL] += Math.floor(refinement.garment / 4) * 3;
             if (refinement.garment >= 7)
                 multipliers.matk += 7;
             if (refinement.garment >= 9)
-                if (target.race === BRUTE || target.race === DEMON)
+                if (target.race === race.BRUTE || target.race === race.DEMON)
                     equipStats.bypass += 20;
             if (refinement.garment >= 11)
-                if (target.race === BRUTE || target.race === DEMON)
+                if (target.race === race.BRUTE || target.race === race.DEMON)
                     equipStats.bypass += 10;
         }
     },
@@ -1570,11 +1587,11 @@ const garments = [
         script: function () {
             equipStats.flatMATK += Math.floor(refinement.garment / 2) * 5;
             multipliers.matk += Math.floor(refinement.garment / 2);
-            multipliers.size[ALL] += Math.floor(refinement.garment / 3) * 3;
+            multipliers.size[size.ALL] += Math.floor(refinement.garment / 3) * 3;
             if (refinement.garment >= 7)
                 equipStats.VCT += 7;
             if (refinement.garment >= 11)
-                multipliers.skill_property[ALL] += 10;
+                multipliers.skill_property[property.ALL] += 10;
         }
     },
     {
@@ -1627,11 +1644,9 @@ const garments = [
             // A cada nível de [Empatia Elemental]:
             // INT +5.
             // Pós-conjuração -5%.
-            let job = document.querySelector('input[name="class"]:checked').value;
-            if (job === 'SORCERER') {
-                let empatiaElementalLv = 5;
-                equipStats.int += empatiaElementalLv * 5;
-                equipStats.castdelay += empatiaElementalLv * 5;
+            if (learned_skills["Empatia Elemental"] > 0) {
+                equipStats.int += learned_skills["Empatia Elemental"] * 5;
+                equipStats.castdelay += learned_skills["Empatia Elemental"] * 5;
             }
             // Ao aprender [Onda Psíquica] nv.5:
             // Ao realizar ataques físicos, 15% de chance de autoconjurar [Lanças de Fogo] [Lanças de Gelo] [Relâmpago] [Coluna de Pedra] e [Onda Psíquica] no nível aprendido.
@@ -1651,13 +1666,13 @@ const garments = [
             equipStats.flatMATK += refinement.garment * 6;
             // Conjunto [Carta Executor]
             if (document.getElementById('shi_slot1').value === '4250')
-                multipliers.size[LARGE] += 25;
+                multipliers.size[size.LARGE] += 25;
             // Conjunto [Carta Tirfing]
             if (document.getElementById('shi_slot1').value === '4254')
-                multipliers.size[MEDIUM] += 25;
+                multipliers.size[size.MEDIUM] += 25;
             // Conjunto [Carta Mysteltainn]
             if (document.getElementById('shi_slot1').value === '4207')
-                multipliers.size[SMALL] += 25;
+                multipliers.size[size.SMALL] += 25;
         }
     },
     // {
@@ -1675,13 +1690,13 @@ const garments = [
     //             equipStats.percentASPD += 10;
     //         // Conjunto [Carta Executor]
     //         if (document.getElementById('shi_slot1').value === '4250')
-    //             multipliers.size[LARGE] += 25;
+    //             multipliers.size[size.LARGE] += 25;
     //         // Conjunto [Carta Tirfing]
     //         if (document.getElementById('shi_slot1').value === '4254')
-    //             multipliers.size[MEDIUM] += 25;
+    //             multipliers.size[size.MEDIUM] += 25;
     //         // Conjunto [Carta Mysteltainn]
     //         if (document.getElementById('shi_slot1').value === '4207')
-    //             multipliers.size[SMALL] += 25;
+    //             multipliers.size[size.SMALL] += 25;
     //     }
     // },
     {
@@ -1710,10 +1725,10 @@ const garments = [
                 equipStats.int += 10;
                 equipStats.dex += 10;
                 equipStats.luk += 10;
-                multipliers.property[ALL] += 10;
+                multipliers.property[property.ALL] += 10;
             }
             if (refinement.garment >= 12)
-                multipliers.property[ALL] += 15;
+                multipliers.property[property.ALL] += 15;
         }
     },
     {
@@ -1756,11 +1771,11 @@ const garments = [
         }
     },
 ];
-lab_sho4 = '4730,4731,4720,4721,4733,4734,4723,4724';
-lab_sho3 = '4950,4949,' + lab_sho4;
-lab_sho2 = '4856,4858,4854,' + lab_sho3;
+const lab_sho4 = '4730,4731,4720,4721,4733,4734,4723,4724';
+const lab_sho3 = '4950,4949,' + lab_sho4;
+const lab_sho2 = '4856,4858,4854,' + lab_sho3;
 
-const shoes = [
+export const shoes = [
     {
         id: '22225', dbname: 'Shoes_Of_Punishment_', name: 'Sapatos da Penitência [1]', slot1: 'card',
         tags: 'ARCHBISHOP',
@@ -1768,14 +1783,14 @@ const shoes = [
             if (skill.id === "AB_JUDEX")
                 multipliers.skill += 30;
             multipliers.matk += 2;
-            multipliers.skill_property[HOLY] += 2;
+            multipliers.skill_property[property.HOLY] += 2;
             if (refinement.shoes >= 5) {
                 multipliers.matk += 3;
-                multipliers.skill_property[HOLY] += 3;
+                multipliers.skill_property[property.HOLY] += 3;
             }
             if (refinement.shoes >= 7) {
                 multipliers.matk += 5;
-                multipliers.skill_property[HOLY] += 5;
+                multipliers.skill_property[property.HOLY] += 5;
             }
             // Conjunto [Vara Sagrada]
             if (document.getElementById('wea').value === '1631') {
@@ -1785,18 +1800,18 @@ const shoes = [
                 // A cada nível aprendido de [Oratio]:
                 // Conjuração variável de [Adoramus] e [Judex] -5%.
                 if (refinement.weapon >= 7) {
-                    multipliers.race[UNDEAD] += 30;
-                    multipliers.race[DEMON] += 30;
-                    multipliers.property[UNDEAD] += 30;
-                    multipliers.property[DARK] += 30;
+                    multipliers.race[race.UNDEAD] += 30;
+                    multipliers.race[race.DEMON] += 30;
+                    multipliers.property[property.UNDEAD] += 30;
+                    multipliers.property[property.DARK] += 30;
                 }
                 if (refinement.weapon >= 7) {
                     if (skill.id === "AB_ADORAMUS")
                         multipliers.skill += 20;
-                    multipliers.race[UNDEAD] += 20;
-                    multipliers.race[DEMON] += 20;
-                    multipliers.property[UNDEAD] += 20;
-                    multipliers.property[DARK] += 20;
+                    multipliers.race[race.UNDEAD] += 20;
+                    multipliers.race[race.DEMON] += 20;
+                    multipliers.property[property.UNDEAD] += 20;
+                    multipliers.property[property.DARK] += 20;
                 }
             }
         }
@@ -1807,13 +1822,13 @@ const shoes = [
         slot3: lab_sho3,
         slot4: lab_sho4,
         script: function () {
-            multipliers.protocol[BOSS] += 15;
+            multipliers.protocol[type.BOSS] += 15;
             equipStats.flatMATK += refinement.shoes * 5;
             equipStats.VCT += refinement.shoes * 2;
-            multipliers.property[EARTH] += refinement.shoes * 2;
-            multipliers.property[GHOST] += refinement.shoes * 2;
-            multipliers.property[NEUTRAL] += refinement.shoes * 2;
-            multipliers.property[UNDEAD] += refinement.shoes * 2;
+            multipliers.property[property.EARTH] += refinement.shoes * 2;
+            multipliers.property[property.GHOST] += refinement.shoes * 2;
+            multipliers.property[property.NEUTRAL] += refinement.shoes * 2;
+            multipliers.property[property.UNDEAD] += refinement.shoes * 2;
             equipStats.int += refinement.shoes * 10;
         }
     },
@@ -1822,8 +1837,8 @@ const shoes = [
         script: function () {
             multipliers.matk += 15;
             if (refinement.shoes >= 7) {
-                multipliers.skill_property[NEUTRAL] += 20;
-                multipliers.skill_property[DARK] += 20;
+                multipliers.skill_property[property.NEUTRAL] += 20;
+                multipliers.skill_property[property.DARK] += 20;
             }
             if (refinement.shoes >= 9)
                 multipliers.matk += 25;
@@ -1832,16 +1847,16 @@ const shoes = [
                 // Dano mágico +10% adicional.
                 multipliers.matk += 10;
                 // Dano mágico contra as raças Humano, Humanoide e Anjo +50%.
-                multipliers.race[HUMAN] += 50;
-                multipliers.race[DEMI_HUMAN] += 50;
-                multipliers.race[ANGEL] += 50;
+                multipliers.race[race.HUMAN] += 50;
+                multipliers.race[race.DEMI_HUMAN] += 50;
+                multipliers.race[race.ANGEL] += 50;
             }
             // Conjunto [Carta Bispo Decadente Selada]
             if (document.getElementById('sho_slot1').value === '4539') {
                 // Dano mágico contra as raças Humano, Humanoide e Anjo +20%.
-                multipliers.race[HUMAN] += 20;
-                multipliers.race[DEMI_HUMAN] += 20;
-                multipliers.race[ANGEL] += 20;
+                multipliers.race[race.HUMAN] += 20;
+                multipliers.race[race.DEMI_HUMAN] += 20;
+                multipliers.race[race.ANGEL] += 20;
             }
             // Conjunto [Epifania]
             if (document.getElementById('arm_slot3').value ==='4876' || document.getElementById('arm_slot3').value ==='4876 ') {
@@ -1860,7 +1875,7 @@ const shoes = [
             if (refinement.shoes >= 7)
                 equipStats.flatFCT += 0.5;
             if (refinement.shoes >= 9)
-                multipliers.skill_property[ALL]+=10;
+                multipliers.skill_property[property.ALL]+=10;
         }
     },
     {
@@ -1877,7 +1892,7 @@ const shoes = [
             // Ao aprender [Gênese] nv.5:
             if(learned_skills.genese >= 5){
                 // Dano mágico contra oponentes de todas as propriedades +25%.
-                multipliers.property[ALL] += 25;
+                multipliers.property[property.ALL] += 25;
             }
             // Refino +5 ou mais: Pós-conjuração -10%.
             if (refinement.shoes >= 5)
@@ -1923,11 +1938,11 @@ const shoes = [
     {
         id: '22244', dbname: 'Chic_Silent_Shoes', name: 'Sapato Grã-fino', slot1: 'card',
         script: function () {
-            multipliers.property[ALL] += 10;
+            multipliers.property[property.ALL] += 10;
             if (refinement.shoes >= 7)
-                multipliers.property[ALL] += 10;
+                multipliers.property[property.ALL] += 10;
             if (refinement.shoes >= 9)
-                multipliers.property[ALL] += 10;
+                multipliers.property[property.ALL] += 10;
         }
     },
     {
@@ -1941,7 +1956,7 @@ const shoes = [
     //     script: function () {
     //         equipStats.VCT += 50;
     //         equipStats.castdelay += 50;
-    //         multipliers.property[ALL] += 25;
+    //         multipliers.property[property.ALL] += 25;
     //         // Efeito
     //         if (skill.id === 'AB_JUDEX')
     //             multipliers.skill += stats.baseLv;
@@ -1986,7 +2001,7 @@ const shoes = [
             equipStats.flatMATK += 80;
             if (skill.id === "AB_JUDEX")
                 multipliers.skill += 100;
-            multipliers.skill_property[HOLY] += 20;
+            multipliers.skill_property[property.HOLY] += 20;
         }
     },
     {
@@ -2006,7 +2021,7 @@ const shoes = [
             // Refino +12 ou mais:
             // Dano mágico de todas as propriedades +15%.
             if (refinement.shoes >= 12)
-                multipliers.skill_property[ALL]+= 15;
+                multipliers.skill_property[property.ALL]+= 15;
             // Conjunto [Aura Fantasma]
             if (document.getElementById('low').value === '19439'){
                 // INT base 130 ou mais:
@@ -2034,7 +2049,7 @@ const shoes = [
             // Refino +12 ou mais:
             // Dano mágico de todas as propriedades +15%.
             if (refinement.shoes >= 12)
-                multipliers.skill_property[ALL]+= 15;
+                multipliers.skill_property[property.ALL]+= 15;
             // Conjunto [Aura Fantasma]
             if (document.getElementById('low').value === '19439'){
                 // INT base 130 ou mais:
@@ -2068,7 +2083,7 @@ const shoes = [
     //         // Refino +12 ou mais:
     //         // Dano mágico de todas as propriedades +15%.
     //         if (refinement.shoes >= 12)
-    //             multipliers.skill_property[ALL]+= 15;
+    //             multipliers.skill_property[property.ALL]+= 15;
     //         //Conjunto
     //         // [Penitência]
     //         // A cada nível de base:
@@ -2089,7 +2104,7 @@ const shoes = [
             // Refino +8 ou mais:
             // Dano mágico contra todas as raças +15%.
             if (refinement.shoes >= 8)
-                multipliers.race[ALL] += 15;
+                multipliers.race[race.ALL] += 15;
             // Refino +10 ou mais:
             // Conjuração fixa -0,5 segundos.
             if (refinement.shoes >= 10)
@@ -2100,7 +2115,7 @@ const shoes = [
             if (refinement.shoes >= 12){
                 equipStats.int += 10;
                 equipStats.dex += 10;
-                multipliers.property[ALL] += 15;
+                multipliers.property[property.ALL] += 15;
             }
             // Conjunto [Aura Fantasma]
             if (document.getElementById('low').value === '19439'){
@@ -2117,10 +2132,10 @@ const shoes = [
             // [Adorare]
             if (document.getElementById('wea').value === '2057') {
                 // Dano mágico contra monstros Chefes +20%.
-                multipliers.protocol[BOSS] += 20;
+                multipliers.protocol[type.BOSS] += 20;
                 // A cada refino do Calçado:
                 // Dano mágico contra todas as raças +2%.
-                multipliers.race[ALL] += refinement.shoes * 2;
+                multipliers.race[race.ALL] += refinement.shoes * 2;
                 // Soma dos refinos 18 ou mais:
                 // Recarga de [Adoramus] -0,3 segundos.
                 if ((refinement.shoes + refinement.weapon) >= 18 && skill.id === "AB_ADORAMUS")
@@ -2136,7 +2151,7 @@ const shoes = [
                 equipStats.percentASPD += 10;
                 // A cada refino do Calçado:
                 // Dano mágico contra todas as raças +2%.
-                multipliers.race[ALL] += refinement.shoes * 2;
+                multipliers.race[race.ALL] += refinement.shoes * 2;
                 // Soma dos refinos 18 ou mais:
                 // Recarga de [Magnus Exorcismus] -4 segundos.
                 if ((refinement.shoes + refinement.weapon) >= 18 && skill.id === "PR_MAGNUS")
@@ -2149,15 +2164,15 @@ const shoes = [
     }
 ];
 
-explo_acc = '4814,4815,4869,4872,4897';
-tumulo = '4721,4722,4723,4711,4713,4715,4813,4812,4826,4760,4883';
-const accessory = [
+const explo_acc = '4814,4815,4869,4872,4897';
+const tumulo = '4721,4722,4723,4711,4713,4715,4813,4812,4826,4760,4883';
+export const accessory = [
     {
         id: '490118', dbname: 'RingOfAdoramus', name: 'Anel de Adoramus', slot1: 'card', slot4: tumulo,
         tags: 'ARCHBISHOP',
         script: function () {
             equipStats.int += 7;
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
             if (skill.id === "AB_ADORAMUS" || skill.id === "AB_JUDEX")
                 multipliers.skill += Math.floor(stats.baseLv / 3);
             // Ao aprender [Adoramus] nv.10:
@@ -2166,9 +2181,9 @@ const accessory = [
             equipStats.VCT += 30;
             // Ao aprender [Gênese] nv.5:
             if(learned_skills.genese >= 5){
-                multipliers.skill_property[WIND] += 10;
-                multipliers.skill_property[HOLY] += 10;
-                multipliers.skill_property[NEUTRAL] += 10;
+                multipliers.skill_property[property.WIND] += 10;
+                multipliers.skill_property[property.HOLY] += 10;
+                multipliers.skill_property[property.NEUTRAL] += 10;
             }   
         }
     },
@@ -2180,12 +2195,12 @@ const accessory = [
             multipliers.matk += 10;
             // Ao usar [Amplificação Mística]:
             // Ativa um [efeito] por 10 segundos.
-            multipliers.property[NEUTRAL] += 30;
-            multipliers.property[WATER] += 30;
-            multipliers.property[FIRE] += 30;
-            multipliers.property[EARTH] += 30;
-            multipliers.property[WIND] += 30;
-            multipliers.property[HOLY] += 30;
+            multipliers.property[property.NEUTRAL] += 30;
+            multipliers.property[property.WATER] += 30;
+            multipliers.property[property.FIRE] += 30;
+            multipliers.property[property.EARTH] += 30;
+            multipliers.property[property.WIND] += 30;
+            multipliers.property[property.HOLY] += 30;
             // Impede que um segundo acc ative efeitos de conjunto
             if (document.getElementById('ac1').value === document.getElementById('ac2').value && currentEquip === 'ac2')
                 return
@@ -2194,18 +2209,18 @@ const accessory = [
             // Dano mágico contra todas as raças +10%.
             if (document.getElementById('wea_slot4').value === '29445' || document.getElementById('wea_slot3').value === '29445'){
                 equipStats.bypass+=70;
-                multipliers.race[ALL]+=10;
+                multipliers.race[race.ALL]+=10;
             }
             // Conjunto [Pedra de Amplificação 2]
             if (document.getElementById('wea_slot4').value === '29446' || document.getElementById('wea_slot3').value === '29446'){
                 equipStats.bypass+=70;
-                multipliers.race[ALL]+=10;
+                multipliers.race[race.ALL]+=10;
             }
             // Conjunto [Pedra de Amplificação 3]
             // Conjunto [Pedra de Amplificação 2]
             if (document.getElementById('arm_slot3').value === '29447'){
                 equipStats.bypass+=70;
-                multipliers.race[ALL]+=10;
+                multipliers.race[race.ALL]+=10;
             }
         }
     },
@@ -2222,7 +2237,7 @@ const accessory = [
             if (document.getElementById('top').value === '18849') {
                 if (equipStats.percentFCT < 50)
                     equipStats.percentFCT = 50;
-                multipliers.protocol[BOSS] += 20;
+                multipliers.protocol[type.BOSS] += 20;
                 let limit = Math.min(4, Math.floor(refinement.top / 3));
                 equipStats.str += limit;
                 equipStats.agi += limit;
@@ -2231,9 +2246,9 @@ const accessory = [
                 equipStats.dex += limit;
                 equipStats.luk += limit;
                 if (refinement.top >= 9)
-                    multipliers.protocol[BOSS] += 20;
+                    multipliers.protocol[type.BOSS] += 20;
                 if (refinement.top >= 11)
-                    multipliers.protocol[BOSS] += 20;
+                    multipliers.protocol[type.BOSS] += 20;
             }
         }
     },
@@ -2250,19 +2265,19 @@ const accessory = [
                 equipStats.flatFCT = ( (equipStats.flatFCT*10) + 3 ) / 10;
                 equipStats.flatMATK += refinement.top * 10;
                 if (refinement.top >= 7) {
-                    multipliers.race[HUMAN] += 10;
-                    multipliers.race[DEMI_HUMAN] += 10;
-                    multipliers.race[DEMON] += 10;
+                    multipliers.race[race.HUMAN] += 10;
+                    multipliers.race[race.DEMI_HUMAN] += 10;
+                    multipliers.race[race.DEMON] += 10;
                 }
                 if (refinement.top >= 9) {
-                    multipliers.skill_property[WATER] += 10;
-                    multipliers.skill_property[WIND] += 10;
-                    multipliers.skill_property[EARTH] += 10;
-                    multipliers.skill_property[FIRE] += 10;
-                    multipliers.skill_property[NEUTRAL] += 10;
+                    multipliers.skill_property[property.WATER] += 10;
+                    multipliers.skill_property[property.WIND] += 10;
+                    multipliers.skill_property[property.EARTH] += 10;
+                    multipliers.skill_property[property.FIRE] += 10;
+                    multipliers.skill_property[property.NEUTRAL] += 10;
                 }
                 if (refinement.top >= 11)
-                    multipliers.protocol[BOSS] += 20;
+                    multipliers.protocol[type.BOSS] += 20;
             }
         }
     },
@@ -2297,7 +2312,7 @@ const accessory = [
             // A cada nível de [Impositio Manus]:
             if(learned_skills.impositio_manus >= 0){
                 // Dano mágico contra todos os tamanhos +3%.
-                multipliers.size[ALL] += 3 * learned_skills.impositio_manus;
+                multipliers.size[size.ALL] += 3 * learned_skills.impositio_manus;
             }
             // A cada 2 níveis de base: Dano de [Magnus Exorcismus] +3%.
             if (skill.id === "PR_MAGNUS")
@@ -2322,11 +2337,11 @@ const accessory = [
         script: function () {
             equipStats.VCT += 5;
             equipStats.bypass += 20;
-            multipliers.skill_property[FIRE] += 5;
-            multipliers.skill_property[WATER] += 5;
-            multipliers.skill_property[EARTH] += 5;
-            multipliers.skill_property[WIND] += 5;
-            multipliers.skill_property[NEUTRAL] += 5;
+            multipliers.skill_property[property.FIRE] += 5;
+            multipliers.skill_property[property.WATER] += 5;
+            multipliers.skill_property[property.EARTH] += 5;
+            multipliers.skill_property[property.WIND] += 5;
+            multipliers.skill_property[property.NEUTRAL] += 5;
         }
     },
     {
@@ -2408,27 +2423,32 @@ const accessory = [
             // INT +7.
             equipStats.int += 7;
             // Dano mágico contra todos os Tamanhos +10%.
-            multipliers.size[ALL] += 10;
+            multipliers.size[size.ALL] += 10;
             // A cada 5 níveis de base até o 170: Dano de [Onda Psíquica] +1%.
             if (skill.id === 'SO_PSYCHIC_WAVE')
                 multipliers.skill += Math.floor(Math.min(170, stats.baseLv)/5);
             // Ao aprender [Onda Psíquica] nv.5: Pós-conjuração -30%.
-            equipStats.castdelay += 30;
+            if (learned_skills["Onda Psíquica"] === 5)
+                equipStats.castdelay += 30;
             // Ao aprender [Encanto de Órion] nv.5:
-            // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento, Água e Terra +10%.
-            multipliers.property[NEUTRAL] += 10;
-            multipliers.property[FIRE] += 10;
-            multipliers.property[WIND] += 10;
-            multipliers.property[WATER] += 10;
-            multipliers.property[EARTH] += 10;
+            if (learned_skills["Encanto de Órion"] === 5) {
+                // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento, Água e Terra +10%.
+                multipliers.property[property.NEUTRAL] += 10;
+                multipliers.property[property.FIRE] += 10;
+                multipliers.property[property.WIND] += 10;
+                multipliers.property[property.WATER] += 10;
+                multipliers.property[property.EARTH] += 10;
+            }
             // Ao aprender [Maldição de Jormungand] nv.5: Conjuração variável -15%.
-            equipStats.VCT += 15;
+            if (learned_skills["Maldição de Jormungand"] === 5)
+                equipStats.VCT += 15;
             // Ao derrotar monstros com ataques mágicos, regenera 100 de HP e 10 de SP.
             // Ao aprender [Tornado] nv.5:
             // Custo de SP da [Onda Psíquica] -20.
             // Recarga de [Onda Psíquica] -1 segundo.
-            if (skill.id === 'SO_PSYCHIC_WAVE')
-                skill.cooldown += -1;
+            if (learned_skills["Tornado"] === 5)
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    skill.cooldown += -1;
         }
     },
     {
@@ -2438,7 +2458,7 @@ const accessory = [
             // Pós-conjuração -6%.
             equipStats.castdelay += 6;
             // Dano mágico contra todos os Tamanhos +6%.
-            multipliers.size[ALL] += 6;
+            multipliers.size[size.ALL] += 6;
             // Impede que um segundo acc ative efeitos de conjunto
             if (document.getElementById('ac1').value === document.getElementById('ac2').value && currentEquip === 'ac2')
                 return
@@ -2452,13 +2472,13 @@ const accessory = [
             // --------------------------
             // Conjunto [Carta Arquimaga Kathryne]:  Dano mágico contra monstros Chefes +30%.
             if (document.getElementById('top_slot1').value === '4365' || document.getElementById('mid_slot1').value === '4365')
-                multipliers.protocol[BOSS] += 30;
+                multipliers.protocol[type.BOSS] += 30;
             // Conjunto [Carta Professora Celia] Dano mágico contra todas as propriedades +30%.
             if (document.getElementById('arm_slot1').value === '4561')
-                multipliers.property[ALL] += 30;
+                multipliers.property[property.ALL] += 30;
             // Conjunto [Broche da Celine] Dano mágico contra Chefes -50%.
             if (document.getElementById('ac1').value === '28572' || document.getElementById('ac2').value === '28572')
-                multipliers.protocol[BOSS] += -50;
+                multipliers.protocol[type.BOSS] += -50;
         }
     },
     {
@@ -2476,7 +2496,7 @@ const accessory = [
             // Velocidade de ataque +10%.
             equipStats.percentASPD += 10;
             // Dano físico e mágico contra todos os Tamanhos +15%.
-            multipliers.size[ALL] += 15;
+            multipliers.size[size.ALL] += 15;
             // Impede que um segundo acc ative efeitos de conjunto
             if (document.getElementById('ac1').value === document.getElementById('ac2').value && currentEquip === 'ac2')
                 return
