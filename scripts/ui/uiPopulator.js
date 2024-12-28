@@ -1,10 +1,9 @@
-import {monsters} from "../../data/monsters.js";
+import {monsters} from "../core/monsters.js";
 import {race, property} from '../core/constants.js';
 import {updateImage} from "./uiUpdater.js";
 import {cards} from "../../data/cards.js";
 import {enchants} from "../../data/enchants.js";
 
-//
 export function populateItemsSelect(selectId, itemList) {
     const select = document.getElementById(selectId);
     const firstOption = select.options[0];

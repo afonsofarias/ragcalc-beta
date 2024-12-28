@@ -1,4 +1,5 @@
-import {race, type, size, property} from '../scripts/core/constants.js'
+import {race, type, property, size} from "./constants.js";
+
 export const monsters = [
     //
     {

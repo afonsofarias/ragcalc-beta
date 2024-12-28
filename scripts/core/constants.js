@@ -1,4 +1,4 @@
-// Group constants for better organization
+// Constants for better organization
 export const size = {
     ALL: 0,
     SMALL: 1,
@@ -74,6 +74,12 @@ export const weaponClass = {
     // Grenade Launcher
     // Fuuma Shuriken
 }
+const propTableNeutral = [
+    [100, 100, 100, 100, 100, 100, 100, 100,  90, 100],
+    [100, 100, 100, 100, 100, 100, 100, 100,  70, 100],
+    [100, 100, 100, 100, 100, 100, 100, 100,  50, 100],
+    [100, 100, 100, 100, 100, 100, 100, 100,   0, 100]
+];
 
 const propTableHoly = [
     [100, 100, 100, 100, 100,  75,   0, 125, 100, 125],
@@ -89,16 +95,23 @@ const propTableWater = [
     [100,   0, 100, 200,  60, 125, 100, 100, 100, 100]
 ];
 
+const propTableFire = [
+    [100,  90, 150,  25, 100, 150, 100, 100, 100, 125],
+    [100,  80, 175,   0, 100, 150, 100, 100, 100, 150],
+    [100,  70, 200,   0, 100, 125, 100, 100, 100, 175],
+    [100,  60, 200,   0, 100, 125, 100, 100, 100, 200]
+];
+
 // Export property table
 export const propTable = [
-    [],
+    propTableNeutral,
     propTableWater,
-    [],
-    [],
-    [],
-    [],
+    [],// Terra
+    propTableFire,
+    [],// Vento
+    [],// Veneno
     propTableHoly,
-    [],
-    [],
-    [],
+    [],// Sombrio
+    [],// Fanstasma
+    [],// Maldito
 ];

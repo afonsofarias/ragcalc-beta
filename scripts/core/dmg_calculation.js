@@ -63,10 +63,6 @@ export function damage_calculation() {
     let weakness = propTable[skill.property-1][target.property[1] - 1][target.property[0] - 1];
     // Atualiza a % base da skill
     skill.dmg = skills.find((line) => line.id === skill.id).script();
-    // if (skill.id === 'SO_DIAMONDDUST') {
-    //         let selectedSkill = skills.find((line) => line.id === skill.id);
-    //         skill.dmg = selectedSkill.script();
-    //     }
     // Calculo do Dano da Habilidade
     minMATK = Math.floor((Math.floor((Math.floor(minMATK * skill.dmg) * hardMDEF - softMDEF) * (multipliers.skill) / 100) * weakness) / 100);
     maxMATK = Math.floor((Math.floor((Math.floor(maxMATK * skill.dmg) * hardMDEF - softMDEF) * (multipliers.skill) / 100) * weakness) / 100);
@@ -77,12 +73,12 @@ export function damage_calculation() {
         maxMATK = maxMATK * 2;
     }
     // Dilúvio
-    if (buffs.deluge && skill.property===property.WATER) {
+    if (buffs.deluge && skill.property === property.WATER) {
         minMATK = Math.floor(minMATK*1.2);
         maxMATK = Math.floor(maxMATK*1.2);
     }
     // Insignia de Fogo
-    if (buffs.fire_insignia && skill.property===property.WATER) {
+    if (buffs.fire_insignia && skill.property === property.WATER) {
         minMATK = Math.floor(minMATK*1.5);
         maxMATK = Math.floor(maxMATK*1.5);
     }
@@ -98,9 +94,23 @@ export function damage_calculation() {
         maxMATK = maxMATK * skill.hits;
     }
 
+    //
+    let matk = 'ATQM: '+statMATK+' + '+(equipStats.flatMATK+weapon.baseMATK+weapon.upgradeBonus)+" ± "+variance+' + 0~'+over;
+    let castDelay = Math.max(0, (skill.castdelay * (100 - equipStats.castdelay)/100))
+    castDelay = "Pós-Conjuração: "+castDelay.toFixed(2)+' s | '+skill.castdelay.toFixed(1)+' - '+String(equipStats.castdelay).padStart(3, ' ')+'%';
+    let fixedCastTime = Math.max(0,((((skill.fct*10)-(equipStats.flatFCT*10))/10)*(100-equipStats.percentFCT))/100);
+    fixedCastTime = 'Conjuração Fixa: '+fixedCastTime.toFixed(2)+' s | '+skill.fct.toFixed(1)+' - '+equipStats.flatFCT.toFixed(1)+' - '+equipStats.percentFCT+'%';
+    // VCT (seconds) = (BaseVCT - Sum_VCT) × (1 − SQRT[{DEX × 2 + INT} ÷ 530]) × (1 − Sum_GearVCTReduc ÷ 100) × (1 − Sum_SkillVCTReduc ÷ 100)
+    let variableCastTime = skill.vct * ( 1 - Math.sqrt(((dex*2)+int)/530) ) * (1 - equipStats.VCT/100);
+    variableCastTime = Math.max(0, variableCastTime);
+    variableCastTime = 'Conjuração Variável: '+variableCastTime.toFixed(2)+' s | '+skill.vct.toFixed(1)+' - '+equipStats.VCT+'% - √('+(dex*2+int)+'/530)';
     return {
         minDamage: minMATK,
-        maxDamage: maxMATK
+        maxDamage: maxMATK,
+        matk,
+        castDelay,
+        fixedCastTime,
+        variableCastTime
     };
 }
 

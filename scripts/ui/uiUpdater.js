@@ -1,10 +1,18 @@
-import {currentJob, updateJobname, equipStats, skill, weapon, clearState} from "../core/state.js";
-import {monsters} from "../../data/monsters.js"
+import {
+    currentJob,
+    updateJobname,
+    equipStats,
+    skill,
+    weapon,
+    clearState,
+    updateSkillInfo
+} from "../core/state.js";
+import {monsters} from "../core/monsters.js"
 import {populateItemsSelect, populateCostumeShadowSelect} from "./uiPopulator.js";
 import {tops,mid,low,armors,weapons,shields,garments,shoes,accessory} from "../../data/items.js";
 import {c_gar, c_low, c_mid, c_top} from "../../data/costume_enchants.js";
 import {s_armor, s_earring, s_necklace, s_shield, s_shoes, s_weapon} from "../../data/shadows.js";
-import {retrieveBuffs, retrieveEquipBonus, updateLearnedSkills, updateTargetInfo} from "./uiHandler.js";
+import {retrieveBuffs, retrieveEquipBonus, retrieveSkillname, updateLearnedSkills, updateTargetInfo} from "./uiHandler.js";
 import {damage_calculation} from "../core/dmg_calculation.js";
 
 export async function classSelector(job) {
@@ -36,7 +44,8 @@ function updateJobSpecificOptions(job){
             break;
         case "SORCERER":
             options = [
-                { value: "SO_DIAMONDDUST", text: "Pó de Diamante" }
+                { value: "SO_DIAMONDDUST", text: "Pó de Diamante" },
+                { value: "SO_PSYCHIC_WAVE", text: "Onda Psíquica" },
             ];
             break;
         default:
@@ -214,13 +223,14 @@ export function updateImage(position, value) {
 
 export function displayDamage(){
     clearState();
+    updateSkillInfo(retrieveSkillname());
     // Aplica os Bonus dos Equipamentos
     updateLearnedSkills();
     updateTargetInfo();
     retrieveEquipBonus();
     retrieveBuffs();
 
-    let { minDamage, maxDamage } = damage_calculation();
+    let { minDamage, maxDamage, matk, castDelay, fixedCastTime, variableCastTime } = damage_calculation();
     document.getElementById("finalSkillDamage").value = "teste";
     // Atualização do Resultado na Tela
     if (minDamage === maxDamage) {
@@ -236,21 +246,17 @@ export function displayDamage(){
     span[5].innerText = ' + ' + equipStats.int;
     span[6].innerText = ' + ' + equipStats.dex;
     span[7].innerText = ' + ' + equipStats.luk;
+    displayStats(matk, castDelay, fixedCastTime, variableCastTime);
 }
 
-function updateUI(){
+function displayStats(matk, castDelay, fixedCastTime, variableCastTime){
     // Seta na tela o ATQM, Pós-Conjuração, Conjuração Fixa e Conjuração Variável
     // ATQM
-    document.getElementById('matk').innerText = 'ATQM: '+statMATK+' + '+(equipStats.flatMATK+weapon.baseMATK+weapon.upgradeBonus)+" ± "+variance+' + 0~'+over;
+    document.getElementById('matk').innerText = matk;
     // Pós
-    let castDelay = Math.max(0, (skill.castdelay * (100 - equipStats.castdelay)/100))
-    document.getElementById('castDelay').innerText = "Pós-Conjuração: "+castDelay.toFixed(2)+' s | '+skill.castdelay.toFixed(1)+' - '+String(equipStats.castdelay).padStart(3, ' ')+'%';
+    document.getElementById('castDelay').innerText = castDelay;
     // Fixa
-    let fixedCastTime = Math.max(0,((((skill.fct*10)-(equipStats.flatFCT*10))/10)*(100-equipStats.percentFCT))/100);
-    document.getElementById('fixedCastTime').innerText = 'Conjuração Fixa: '+fixedCastTime.toFixed(2)+' s | '+skill.fct.toFixed(1)+' - '+equipStats.flatFCT.toFixed(1)+' - '+equipStats.percentFCT+'%';
+    document.getElementById('fixedCastTime').innerText = fixedCastTime;
     // Variável
-    // VCT (seconds) = (BaseVCT - Sum_VCT) × (1 − SQRT[{DEX × 2 + INT} ÷ 530]) × (1 − Sum_GearVCTReduc ÷ 100) × (1 − Sum_SkillVCTReduc ÷ 100)
-    let variableCastTime = skill.vct * ( 1 - Math.sqrt(((dex*2)+int)/530) ) * (1 - equipStats.VCT/100);
-    variableCastTime = Math.max(0, variableCastTime);
-    document.getElementById('variableCastTime').innerText = 'Conjuração Variável: '+variableCastTime.toFixed(2)+' s | '+skill.vct.toFixed(1)+' - '+equipStats.VCT+'% - √('+(dex*2+int)+'/530)';
+    document.getElementById('variableCastTime').innerText = variableCastTime;
 }

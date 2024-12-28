@@ -66,7 +66,10 @@ export const skills = [
         script() {
             let diamondDustLv = 5;
             let frostWeaponLv = 5;
-            return Math.floor(((diamondDustLv * (stats.int + equipStats.int)) + (frostWeaponLv * 200)) * (stats.baseLv/100))/100;
+            let varuna = 0;
+            if (currentBuffs.varuna)
+                varuna = stats.jobLv * 5;
+            return (Math.floor(((diamondDustLv * (stats.int + equipStats.int)) + (frostWeaponLv * 200)) * (stats.baseLv/100))+varuna)/100;
         },
         property: property.WATER,
         divisibility: 5,
@@ -75,6 +78,21 @@ export const skills = [
         vct: 7,
         castdelay: 1
     },
+    {
+        name: "Onda Psíquica",
+        id: "SO_PSYCHIC_WAVE",
+        script() {
+            let psychicWaveLv = 5;
+            return Math.floor(( (psychicWaveLv * 70) + (3 * (stats.int + equipStats.int)) ) * (stats.baseLv/100) )/100;
+        },
+        property: property.NEUTRAL,
+        divisibility: 1,
+        cooldown: 5,
+        fct: 0.6,
+        vct: 12,
+        castdelay: 1,
+        hits: 1,
+    }
 ]
 
 export const buffs = [
@@ -190,6 +208,64 @@ export const buffs = [
         max_level: 3,
         script() {
             currentBuffs.fire_insignia = true;
+        }
+    },
+    {
+        name: "Invocar Agni",
+        id: "SO_SUMMON_AGNI",
+        max_level: 3,
+        script() {
+            if (skill.id === "SO_PSYCHIC_WAVE")
+                skill.property = property.FIRE;
+        }
+    },
+    {
+        name: "Invocar Varuna",
+        id: "SO_SUMMON_AQUA",
+        max_level: 3,
+        script() {
+            // Varuna nível 2 - Geleira Modo Passivo
+            // ATQM de equipamentos +80.
+            equipStats.flatMATK += 80;
+            // Dano de Pó de Diamante +(Nv. de classe × 5)%
+            currentBuffs.varuna = true;
+            // Chance de infligir Cristalização ao usar Pó de Diamante +(Nv. de classe ÷ 5)%
+            // Efeitos na Onda Psíquica:
+            if (skill.id === "SO_PSYCHIC_WAVE"){
+                // Altera a propriedade de neutro para água.
+                skill.property = property.WATER;
+                // Custo de SP +50%.
+                // Dura 300 segundos e drena 20 de SP do espírito a cada 10 segundos.
+            }
+        }
+    },
+    {
+        name: "Invocar Vayu",
+        id: "SO_SUMMON_VENTUS",
+        max_level: 3,
+        script() {
+            // Velocidade de ataque +5.
+            equipStats.flatASPD += 5;
+            // Conjuração fixa -1 segundo.
+            equipStats.flatFCT += 1;
+            // Dano de Passos de Sílfide +(Nv. de classe ÷ 2)%
+            // Dano de Lanças dos Aesir +(Nv. de classe × 5)%
+
+            // Efeitos na Onda Psíquica:
+            // Altera a propriedade de neutro para vento.
+            // Custo de SP +50%.
+            // Dura 300 segundos e drena 20 de SP do espírito a cada 10 segundos.
+            if (skill.id === "SO_PSYCHIC_WAVE")
+                skill.property = property.WIND;
+        }
+    },
+    {
+        name: "Invocar Chandra",
+        id: "SO_SUMMON_TERA",
+        max_level: 3,
+        script() {
+            if (skill.id === "SO_PSYCHIC_WAVE")
+                skill.property = property.EARTH;
         }
     }
 ]

@@ -17,6 +17,7 @@ async function initializeApp() {
     initializeTabEventListeners();
     initializeEquipmentSelectsEventListeners();
     initializeSpecialEquipmentEventListener();
+    handleSorcererSummonSelection();
     initializePillSelectors()
     // Load saved setup
     await loadSavedCalc();
@@ -138,6 +139,25 @@ function initializePillSelectors() {
 
     pCombatPill.addEventListener("click", function() {
         pillSelector(pCombatPill);
+    });
+}
+
+function handleSorcererSummonSelection() {
+    // Select all input elements related to summons
+    const inputs = document.querySelectorAll('input[name*="SO_SUMMON"]');
+    // Add event listeners to each input
+    inputs.forEach(input => {
+        input.addEventListener('change', () => {
+            if (input.checked) {
+                // Deselect all other summons
+                inputs.forEach(otherInput => {
+                    if (otherInput !== input) {
+                        otherInput.checked = false;
+                    }
+                });
+            } else {
+            }
+        });
     });
 }
 

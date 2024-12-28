@@ -129,16 +129,29 @@ function initialize() {
     weapon.lv = 0;
     weapon.upgradeBonus = 0;
     weapon.class = 0;
-    // Recupera o nv das skills
+    // Zera os buffs e debuffs skills
     buffs.oratio = 0;
     buffs.lex_aeterna = false;
     buffs.mystical_amplification = 0;
     buffs.recognized_spell = false;
     buffs.deluge = false;
     buffs.fire_insignia = false;
-    // updateLearnedSkills();
+    buffs.varuna = false;
     // Seta a skill a ser calculada
-    let selectedSkill = skills.find((line) => line.id === document.getElementById('skill').value);
+
+}
+
+export function retrieveJobStatBonus() {
+    switch(currentJob) {
+        case "ARCHBISHOP":
+            return jobStatBonus.ArchBishop.find((line) => line.level === stats.jobLv);
+        case "SORCERER":
+            return jobStatBonus.Sorcerer.find((line) => line.level === stats.jobLv);
+    }
+}
+
+export function updateSkillInfo(skillId) {
+    let selectedSkill = skills.find((line) => line.id === skillId);
     skill.name = selectedSkill.name;
     skill.id = selectedSkill.id;
     skill.dmg = selectedSkill.script();
@@ -152,13 +165,4 @@ function initialize() {
     skill.fct = selectedSkill.fct;
     skill.vct = selectedSkill.vct;
     skill.castdelay = selectedSkill.castdelay;
-}
-
-export function retrieveJobStatBonus() {
-    switch(currentJob) {
-        case "ARCHBISHOP":
-            return jobStatBonus.ArchBishop.find((line) => line.level === stats.jobLv);
-        case "SORCERER":
-            return jobStatBonus.Sorcerer.find((line) => line.level === stats.jobLv);
-    }
 }

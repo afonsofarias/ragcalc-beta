@@ -102,6 +102,19 @@ export const cards = [
             // Drena 2.000 de SP.
         }
     },
+    {
+        id: '27310',
+        dbname: 'Plaga_Card',
+        name: 'Carta Plaga',
+        position: 'top',
+        tags: 'SORCERER',
+        script: function () {
+            equipStats.flatMATK += 10;
+            multipliers.skill_property[property.NEUTRAL] += 5;
+            if (currentEquip === 'top' && refinement.top >= 9)
+                multipliers.skill_property[property.NEUTRAL] += 5;
+        }
+    },
 
     // armor cards
     {
@@ -598,6 +611,14 @@ export const cards = [
         script: function () {
             multipliers.skill_property[property.WATER] += 20;
             multipliers.skill_property[property.HOLY] += 20;
+        }
+    },
+    {
+        id: '27262', dbname: 'Dy_Card', name: 'Carta Atria', position: 'acc',
+        tags: 'ARCHBISHOP,SORCERER',
+        script: function () {
+            multipliers.skill_property[property.NEUTRAL] += 20;
+            multipliers.skill_property[property.DARK] += 20;
         }
     },
     {

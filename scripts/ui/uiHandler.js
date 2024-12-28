@@ -24,6 +24,10 @@ export function retrieveBaseStats(){
     }
 }
 
+export function retrieveSkillname() {
+    return document.getElementById('skill').value;
+}
+
 export function updateTargetInfo() {
     target.id = document.getElementById('target_name').value;
     target.level = parseInt(document.getElementById('target_level').value);

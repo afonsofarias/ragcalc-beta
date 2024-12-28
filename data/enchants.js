@@ -160,6 +160,35 @@ export const enchants = [
             }
         },
     },
+    {id: '29604', dbname: 'Celia_Memory', name: 'Memória de Celia',
+        script: function () {
+            // Conjunto [Lançarin]
+            // A cada 3 refinos:
+            // Dano de [Fúria da Terra] +7%.
+            // Dano de [Coluna de Pedra] +10%.
+            // --------------------------
+            // Conjunto [Lança Psíquica]
+            if (document.getElementById('wea').value === '26159'){
+                // A cada 3 refinos:
+                // Dano de [Onda Psíquica] +7%.
+                // Recarga de [Lança dos Aesir] -0,2 segundos.
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    multipliers.skill += Math.floor(refinement.weapon/3) * 7;
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    skill.cooldown += -((2 * Math.floor(refinement.weapon/3))/10);
+            }
+            // Conjunto [Castigo Diamante]
+            if (document.getElementById('wea').value === '26160'){
+                // A cada 3 refinos:
+                // Dano de [Pó de Diamante] +5%.
+                // Dano de [Castigo de Nerthus] +7%.
+                if (skill.id === 'SO_DIAMONDDUST')
+                    multipliers.skill += Math.floor(refinement.weapon/3) * 5;
+                if (skill.id === 'SO_EARTHGRAVE')
+                    multipliers.skill += Math.floor(refinement.weapon/3) * 7;
+            }
+        }
+    },
 ];
 
 function sourceRefine(){
