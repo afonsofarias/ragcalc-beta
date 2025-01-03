@@ -27,11 +27,12 @@ export const mid = [
             multipliers.size[size.ALL] += 10;
             if (learned_skills["Maestria Arcana"] === 5)
                 equipStats.castdelay += 15;
-            if (learned_skills["Telecinesia"] === 5)
+            if (learned_skills["Telecinesia"] === 5) {
                 if (skill.id === 'Telecinesia')
                     skill.cooldown += -80;
-            if (skill.id === 'WL_JACKFROST')
-                skill.vct = 0;
+                if (skill.id === 'WL_JACKFROST')
+                    skill.vct = 0;
+            }
         }
     },
     {

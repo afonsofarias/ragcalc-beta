@@ -71,40 +71,72 @@ export const shoes = [
         }
     },
     {
-        id: '22245', dbname: 'Space_shoes_JP_', name: '[MEGA] Botas Espaciais',
+        id: '22245', dbname: 'Space_shoes_JP_', name: '[MEGA] Botas Espaciais [Carta Senhor das Trevas]',
         slot2: lab_sho2,
         slot3: lab_sho3,
         slot4: lab_sho4,
         script: function () {
-            multipliers.protocol[type.BOSS] += 15;
+            // ATQM +50.
             equipStats.flatMATK += 50;
-            //Colocar a pósconjuracao
-            //equipStats.VCT += refinement.shoes * 2;
-            multipliers.property[property.FIRE] += refinement.shoes * 8;
-            //Colocar a pósconjuracao
+            // HP e SP máx. +20%.
+            // Pós-conjuração -10%.
+            equipStats.castdelay += 10;
+            // Dano mágico contra monstros Chefes +15%.
+            multipliers.protocol[type.BOSS] += 15;
+
+            // Conjunto [Carta Senhor das Trevas]
+            // Habilita [Chuva de Meteoros] nv.10.
+            // Desativa a autoconjuração de [Chuva de Meteoros].
+            // Nv. base 99:
+            // A cada refino:
+            // Pós-conjuração -2%.
+            // Dano mágico de propriedade Fogo +3%.
+            // Nv. base 100 ou mais:
+            // A cada refino:
+            // Pós-conjuração -5%.
+            equipStats.castdelay += refinement.shoes * 5;
+            // Dano mágico de propriedade Fogo +8%.
+            multipliers.skill_property[property.FIRE] += refinement.shoes * 8;
         }
-    },{
+    },
+    {
         id: '470049', dbname: 'Pororoca_Shoes_', name: 'Botas da Pororoca', slot1: 'card',
         tags:"WARLOCK",
         script: function () {
-            multipliers.protocol[type.BOSS] += 15;
-            equipStats.flatMATK += 50;
-            //Colocar a pósconjuracao
-            //equipStats.VCT += refinement.shoes * 2;
-            multipliers.property[property.FIRE] += refinement.shoes * 8;
-            //Colocar a pósconjuracao
-
-            
+            // HP e SP máx. +3%.
+            // Dano mágico +2%.
+            multipliers.matk += 2;
+            // Dano mágico de propriedade Água +2%.
+            multipliers.skill_property[property.WATER] += 2;
+            // Refino +5 ou mais:
             if (refinement.shoes >= 7) {
-                multipliers.property[property.WATER] += 10;
-                multipliers.matk += 10;//refinement.weapon * 6;
+                // HP e SP máx. +7% adicional.
+                // Dano mágico +3% adicional.
+                multipliers.matk += 3;
+                // Dano mágico de propriedade Água +3% adicional.
+                multipliers.skill_property[property.WATER] += 3;
             }
-            // Conjunto
-            if (document.getElementById('wea').value === '1646') {;
+
+            // Refino +7 ou mais:
+            if (refinement.shoes >= 7) {
+                // HP e SP máx. +10% adicional.
+                // Dano mágico +5% adicional.
+                multipliers.matk += 5;
+                // Dano mágico de propriedade Água +5% adicional.
+                multipliers.skill_property[property.WATER] += 5;
+            }
+
+            // Conjunto [Bastão de Lágrimas]
+            if (document.getElementById('wea').value === '1646') {
+                // A cada ponto investido em [Esfera d'Água]: Dano de [Esfera d'Água] +30%.
+                // A cada refino da arma: Dano de [Esfera d'Água] +20%.
                 if (skill.id === "WZ_WATERBALL"){
-                    multipliers.skill += Math.floor(refinement.weapon) * 20 + 150;
-                    multipliers.property[property.WATER] += refinement.weapon * 4;
+                    multipliers.skill += (learned_skills["Esfera d'Água"] * 30) + (refinement.weapon * 20);
                 }
+                // A cada refino da arma: Dano mágico de propriedade Água +4%.
+                multipliers.skill_property[property.WATER] += refinement.weapon * 4;
+                // A cada ponto investido em [Congelar]:
+                // Ignora 5% da DEFM de monstros normais, chefes, guardiões e personagens.
                 equipStats.bypass += 50;
             }
         }
@@ -160,7 +192,7 @@ export const shoes = [
         tags: 'ARCHBISHOP',
         script: function () {
             // Ao aprender [Oratio] nv.10:
-            if(learned_skills.oratio >= 10) {
+            if(learned_skills["Oratio"] >= 10) {
                 // Conjuração variável -20%.
                 equipStats.VCT += 20;
                 // Pós-conjuração -10% adicional.

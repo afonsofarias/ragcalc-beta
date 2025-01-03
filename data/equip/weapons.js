@@ -1,4 +1,4 @@
-import {equipStats, multipliers, refinement, skill, weapon} from "../../scripts/core/state.js";
+import {equipStats, learned_skills, multipliers, refinement, skill, weapon} from "../../scripts/core/state.js";
 import {property, race, size, type, weaponClass} from "../../scripts/core/constants.js";
 
 const malangdo = '29446,29445,4827,4826,4812,4813,4761';
@@ -429,13 +429,14 @@ export const weapons = [
             weapon.lv = 4;
             weapon.class = weaponClass.ONE_HANDED_STAFF;
 
-            if (skill.id === 'WL_HELLINFERNOFIRE')
-                multipliers.skill += 100;
-            if (skill.id === 'WL_HELLINFERNODARK')
-                multipliers.skill += 100;
-            if (skill.id === 'WL_HELLINFERNOFIRE')
-                multipliers.skill += 10 * refinement.weapon;
-            if (skill.id === 'WL_HELLINFERNODARK')
+            // Ao aprender [Chamas de Hela] nv. 5:
+            if (learned_skills["Chamas de Hela"] === 5){
+                // Dano de [Chamas de Hela] +100%.
+                if (skill.id === 'WL_HELLINFERNOFIRE' || skill.id === 'WL_HELLINFERNODARK')
+                    multipliers.skill += 100;
+            }
+            // A cada refino: Dano de [Chamas de Hela] +10%.
+            if (skill.id === 'WL_HELLINFERNOFIRE' || skill.id === 'WL_HELLINFERNODARK')
                 multipliers.skill += 10 * refinement.weapon;
             if (refinement.weapon <= 10) {
                 equipStats.bypass += 5* refinement.weapon;
@@ -451,11 +452,16 @@ export const weapons = [
             weapon.baseMATK = 180;
             weapon.lv = 3;
             weapon.class = weaponClass.ONE_HANDED_STAFF;
-            if (refinement.weapon <= 10) {
-                equipStats.bypass += 5* refinement.weapon;
-            }
-            else
-                equipStats.bypass += 50;
+
+            // INT +4.
+            equipStats.int += 4;
+            // A cada refino:
+            // DEFM +1.
+            // Dano de [Nevasca] +1%.
+            if (skill.id === 'WZ_STORMGUST')
+                multipliers.skill += refinement.weapon;
+            // Refino +10 ou mais:
+            // Conjuração variável de [Nevasca] -8%.
         }
     },
 ];

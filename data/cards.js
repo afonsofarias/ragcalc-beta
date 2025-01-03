@@ -491,10 +491,10 @@ export const cards = [
                 equipStats.dex += 10;
                 equipStats.luk += 10;
             }
-            if (document.getElementById('wea_slot1').value === '4685' ||
-                document.getElementById('wea_slot2').value === '4685' ||
-                document.getElementById('wea_slot3').value === '4685' ||
-                document.getElementById('wea_slot4').value === '4685') {
+            if (document.getElementById('wea_slot1').value === '4686' ||
+                document.getElementById('wea_slot2').value === '4686' ||
+                document.getElementById('wea_slot3').value === '4686' ||
+                document.getElementById('wea_slot4').value === '4686') {
                 //equipStats.flatMATK += 100;
 
             }
@@ -540,7 +540,7 @@ export const cards = [
     {
         id: '4576', dbname: 'Gioia_Card', name: 'Carta Gioia', position: 'gar',
         script: function () {
-            // Increases holy and neutral property magical damage by 100%.
+            // Dano mágico de propriedade Vento e Fantasma +100%
             multipliers.skill_property[property.WIND] += 100;
             multipliers.skill_property[property.GHOST] += 100;
         }
@@ -548,7 +548,7 @@ export const cards = [
     {
         id: '300145', dbname: 'ILL_Abysmal_Witch_Card', name: 'Carta Bruxa do Mar', position: 'gar',
         script: function () {
-            // Increases holy and neutral property magical damage by 100%.
+            // Dano mágico de propriedade Fogo e Sombrio +100%
             multipliers.skill_property[property.FIRE] += 100;
             multipliers.skill_property[property.DARK] += 100;
         }

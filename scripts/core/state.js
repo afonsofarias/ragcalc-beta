@@ -137,8 +137,8 @@ function initialize() {
     buffs.deluge = false;
     buffs.fire_insignia = false;
     buffs.varuna = false;
-    // Seta a skill a ser calculada
-
+    buffs.telekinesis = 0;
+    buffs.magicintoxication = 0;
 }
 
 export function retrieveJobStatBonus() {

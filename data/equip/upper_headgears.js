@@ -64,20 +64,22 @@ export const tops = [
         slot4: '4730,4731,4732,4733,4734,4710,4711,4712,4713,4714,4720,4721,4722,4723,4724,4750,4751,4752,4753,4754',
         tags: 'WARLOCK',
         script: function () {
+            // Todos os atributos +1.
             equipStats.str += 1;
             equipStats.agi += 1;
             equipStats.vit += 1;
             equipStats.int += 1;
             equipStats.dex += 1;
             equipStats.luk += 1;
+            // Recarga de [Meteoro Escarlate] -1 segundo.
+            // Adicionar
+            // A cada refino: Dano mágico +1%.
             multipliers.matk += refinement.top;
-            //recarga de meteoro escarlate e HP SP alem da regeneracao de SP
-            
-            
+            // A cada refino: Recarga de [Meteoro Escarlate] -0,1 segundos.
+            // Adicionar
+            // A cada 2 refinos: Dano de [Impacto Espiritual] +5%.
             if (skill.id === "WL_SOULEXPANSION")
                 multipliers.skill += Math.floor(refinement.top / 2) * 5;
-            //if (skill.id === "PR_MAGNUS")
-            //    multipliers.skill += Math.floor(refinement.top / 2) * 10;
         }
     },
     {

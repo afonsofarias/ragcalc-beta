@@ -73,14 +73,11 @@ export function damage_calculation() {
         maxMATK = maxMATK * 2;
     }
     // Telecinesia
-    if (buffs.telekinesis === 5) {
-        //encavalei ifs para tentar saber o motivo de nao ta funcionando o telecinesia
-        if(skill.id === 'HW_NAPALMVULCAN' || skill.id === 'WL_SOULEXPANSION' ){
-            minMATK = Math.floor(minMATK*3);
-            maxMATK = Math.floor(maxMATK*3);
-        }
+    if (buffs.telekinesis > 0 && skill.property === property.GHOST) {
+            minMATK = Math.floor(minMATK*(1+(40*buffs.telekinesis)/100));
+            maxMATK = Math.floor(maxMATK*(1+(40*buffs.telekinesis)/100));
     }
-    // Cometa
+    // Cometa (possivelmente entra no mesmo lugar da fórmula que oratio, confirmar ingame
     if (buffs.magicintoxication === 5 ) {
         minMATK = Math.floor(minMATK*1.5);
         maxMATK = Math.floor(maxMATK*1.5);
@@ -108,15 +105,19 @@ export function damage_calculation() {
     }
 
     //
+    if (learned_skills[skill.name] === 0){
+        minMATK = 0;
+        maxMATK = 0;
+    }
     let matk = 'ATQM: '+statMATK+' + '+(equipStats.flatMATK+weapon.baseMATK+weapon.upgradeBonus)+" ± "+variance+' + 0~'+over;
     let castDelay = Math.max(0, (skill.castdelay * (100 - equipStats.castdelay)/100))
     castDelay = "Pós-Conjuração: "+castDelay.toFixed(2)+' s | '+skill.castdelay.toFixed(1)+' - '+String(equipStats.castdelay).padStart(3, ' ')+'%';
     let fixedCastTime = Math.max(0,((((skill.fct*10)-(equipStats.flatFCT*10))/10)*(100-equipStats.percentFCT))/100);
-    fixedCastTime = 'Conjuração Fixa: '+fixedCastTime.toFixed(2)+' s | '+skill.fct.toFixed(1)+' - '+equipStats.flatFCT.toFixed(1)+' - '+equipStats.percentFCT+'%';
+    fixedCastTime = 'Conjuração Fixa: '+fixedCastTime.toFixed(2)+' s | '+skill.fct.toFixed(2)+' - '+equipStats.flatFCT.toFixed(1)+' - '+equipStats.percentFCT+'%';
     // VCT (seconds) = (BaseVCT - Sum_VCT) × (1 − SQRT[{DEX × 2 + INT} ÷ 530]) × (1 − Sum_GearVCTReduc ÷ 100) × (1 − Sum_SkillVCTReduc ÷ 100)
     let variableCastTime = skill.vct * ( 1 - Math.sqrt(((dex*2)+int)/530) ) * (1 - equipStats.VCT/100);
     variableCastTime = Math.max(0, variableCastTime);
-    variableCastTime = 'Conjuração Variável: '+variableCastTime.toFixed(2)+' s | '+skill.vct.toFixed(1)+' - '+equipStats.VCT+'% - √('+(dex*2+int)+'/530)';
+    variableCastTime = 'Conjuração Variável: '+variableCastTime.toFixed(2)+' s | '+skill.vct.toFixed(2)+' - '+equipStats.VCT+'% - √('+(dex*2+int)+'/530)';
     return {
         minDamage: minMATK,
         maxDamage: maxMATK,

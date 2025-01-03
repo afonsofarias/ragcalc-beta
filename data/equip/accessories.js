@@ -155,9 +155,9 @@ export const accessory = [
             equipStats.castdelay += 5;
             equipStats.VCT += 10;
             // A cada nível de [Impositio Manus]:
-            if(learned_skills.impositio_manus >= 0){
+            if(learned_skills["Impositio Manus"] >= 0){
                 // Dano mágico contra todos os tamanhos +3%.
-                multipliers.size[size.ALL] += 3 * learned_skills.impositio_manus;
+                multipliers.size[size.ALL] += 3 * learned_skills["Impositio Manus"];
             }
             // A cada 2 níveis de base: Dano de [Magnus Exorcismus] +3%.
             if (skill.id === "PR_MAGNUS")
@@ -381,21 +381,26 @@ export const accessory = [
             equipStats.int += 7;
             // Dano mágico contra todos os Tamanhos +10%.
             multipliers.size[size.ALL] += 10;
+            // A cada 7 níveis de base: Dano de [Impacto Espiritual] +1%.
             if (skill.id === 'WL_SOULEXPANSION')
                 multipliers.skill += Math.floor(stats.baseLv/7);
-            if (learned_skills["Maestria Arcana"] === 5)
-                equipStats.castdelay += 30;
+            // Ao aprender [Stasis] nv.5:
             if (learned_skills["Stasis"] === 5) {
-                multipliers.property[property.NEUTRAL] += 10;
-                multipliers.property[property.DARK] += 10;
-                multipliers.property[property.GHOST] += 10;
+                // Dano mágico de propriedade Neutro, Sombrio e Fantasma +10%.
+                multipliers.skill_property[property.NEUTRAL] += 10;
+                multipliers.skill_property[property.DARK] += 10;
+                multipliers.skill_property[property.GHOST] += 10;
             }
-            if (learned_skills["Chamas de Hela"] === 5)
-            // corrigir para velocidade de ataque
-                equipStats.percentASPD += 15;
+            // Ao aprender [Telecinesia] nv.5: Recarga de [Telecinesia] -75 segundos.
             if (learned_skills["Telecinesia"] === 5)
                 if (skill.id === 'WL_TELEKINESIS_INTENSE')
                     skill.cooldown += -75;
+            // Ao aprender [Chamas de Hela] nv.5: Velocidade de ataque +15%.
+            if (learned_skills["Chamas de Hela"] === 5)
+                equipStats.percentASPD += 15;
+            // Ao aprender [Maestria Arcana] nv.5: Pós-conjuração -30%.
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 30;
         }
     },
     {
@@ -412,23 +417,26 @@ export const accessory = [
                 multipliers.skill += Math.floor(stats.baseLv/3);
             if (skill.id === 'WL_CRIMSONROCK')
                 multipliers.skill += Math.floor(stats.baseLv/3);
-            // Ao aprender [Onda Psíquica] nv.5: Pós-conjuração -30%.
+            // Ao aprender [Maestria Arcana] nv.5: Pós-conjuração -30%.
             if (learned_skills["Maestria Arcana"] === 5)
                 equipStats.castdelay += 30;
-            // Ao aprender [Encanto de Órion] nv.5:
-            if (learned_skills["Radius"] === 5) {
-                // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento.
-                multipliers.property[property.NEUTRAL] += 10;
-                multipliers.property[property.FIRE] += 10;
-                multipliers.property[property.WIND] += 10;
+            // Ao aprender [Radius] nv.3:
+            if (learned_skills["Radius"] === 3) {
+                // Dano mágico de propriedade Fogo, Vento e Neutro +10%.
+                multipliers.skill_property[property.NEUTRAL] += 10;
+                multipliers.skill_property[property.FIRE] += 10;
+                multipliers.skill_property[property.WIND] += 10;
             }
-            if (learned_skills["Corrente Elétrica"] === 5)
-            // corrigir de vct para reduzir consumo de sp
-                equipStats.VCT += 15;
+            // Ao aprender [Corrente Elétrica] nv.5: Custo de SP de [Corrente Elétrica] -35.
+            // if (learned_skills["Corrente Elétrica"] === 5)
+            // // corrigir de vct para reduzir consumo de sp
+            //     equipStats.VCT += 15;
+            // Ao aprender [Drenar Vida] nv.5: Conjuração variável -15%.
             if (learned_skills["Drenar Vida"] === 5)
                 equipStats.VCT += 15;
         }
-    },{
+    },
+    {
         id: '490043', dbname: 'HalfBlood_Princess_Ring', name: 'Anel dos 5 Elementos', slot1: 'card', slot4: tumulo,
         tags: 'WARLOCK',
         script: function () {
@@ -439,7 +447,6 @@ export const accessory = [
             equipStats.dex += 15;
             equipStats.luk += 15;
             equipStats.percentASPD += 15;
-            multipliers.size[size.ALL] += 10;
             if (skill.id === 'WL_TETRAVORTEX')
                 multipliers.skill += stats.baseLv;
         }
