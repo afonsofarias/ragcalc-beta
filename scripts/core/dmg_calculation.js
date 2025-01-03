@@ -72,6 +72,19 @@ export function damage_calculation() {
         minMATK = minMATK * 2;
         maxMATK = maxMATK * 2;
     }
+    // Telecinesia
+    if (buffs.telekinesis === 5) {
+        //encavalei ifs para tentar saber o motivo de nao ta funcionando o telecinesia
+        if(skill.id === 'HW_NAPALMVULCAN' || skill.id === 'WL_SOULEXPANSION' ){
+            minMATK = Math.floor(minMATK*3);
+            maxMATK = Math.floor(maxMATK*3);
+        }
+    }
+    // Cometa
+    if (buffs.magicintoxication === 5 ) {
+        minMATK = Math.floor(minMATK*1.5);
+        maxMATK = Math.floor(maxMATK*1.5);
+    }
     // Dilúvio
     if (buffs.deluge && skill.property === property.WATER) {
         minMATK = Math.floor(minMATK*1.2);

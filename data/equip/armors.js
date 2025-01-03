@@ -367,5 +367,37 @@ export const armors = [
             // A cada refino:
             // Dano físico contra oponentes de propriedade Água +5%.
         }
+    },{
+        id: '450226', dbname: 'four_of_a_kind', name: 'Quatrenhum', slot1: 'card',
+        tags: 'WARLOCK',
+        script: function () {
+            //HP e SP máx. +10%;
+            if (refinement.armor >= 9) {
+                    //DEFM +25 ;
+            }
+            if (refinement.armor >= 11) {
+                    //DEFM +25;
+            }
+            if (refinement.armor >= 10) {
+                multipliers.skill_property[property.HOLY] += 15;
+            }
+
+            // A cada nível de [Oratio]:
+            // INT +3. ATQM +15.
+            if(learned_skills.radius > 0){
+                equipStats.int += learned_skills.oratio  * 10;
+                equipStats.flatMATK += learned_skills.oratio  * 50;
+            }
+
+            // A cada nível de [Gênese]:
+            // Dano mágico contra todas as raças +4%.
+            if(learned_skills.tetra_vortex > 0) {
+                multipliers.race[race.ALL] += learned_skills.tetra_vortex * 2;
+            }
+            if(learned_skills.cometa === 5) {
+                //conj fixa de tetra e esquife -100%
+            }
+
+        }
     },
 ];

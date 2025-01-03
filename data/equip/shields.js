@@ -30,7 +30,7 @@ export const shields = [
     },
     {
         id: '460050', dbname: 'Symbol_Of_Eden', name: 'Símbolo do Éden', slot1: 'card',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // A cada refino: HP e SP máx. +1%.
             // Refino +9 ou mais:

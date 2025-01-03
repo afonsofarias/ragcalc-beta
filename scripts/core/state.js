@@ -147,6 +147,8 @@ export function retrieveJobStatBonus() {
             return jobStatBonus.ArchBishop.find((line) => line.level === stats.jobLv);
         case "SORCERER":
             return jobStatBonus.Sorcerer.find((line) => line.level === stats.jobLv);
+        case "WARLOCK":
+            return jobStatBonus.Warlock.find((line) => line.level === stats.jobLv);
     }
 }
 

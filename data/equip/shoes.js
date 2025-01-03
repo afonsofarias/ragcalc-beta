@@ -71,6 +71,45 @@ export const shoes = [
         }
     },
     {
+        id: '22245', dbname: 'Space_shoes_JP_', name: '[MEGA] Botas Espaciais',
+        slot2: lab_sho2,
+        slot3: lab_sho3,
+        slot4: lab_sho4,
+        script: function () {
+            multipliers.protocol[type.BOSS] += 15;
+            equipStats.flatMATK += 50;
+            //Colocar a pósconjuracao
+            //equipStats.VCT += refinement.shoes * 2;
+            multipliers.property[property.FIRE] += refinement.shoes * 8;
+            //Colocar a pósconjuracao
+        }
+    },{
+        id: '470049', dbname: 'Pororoca_Shoes_', name: 'Botas da Pororoca', slot1: 'card',
+        tags:"WARLOCK",
+        script: function () {
+            multipliers.protocol[type.BOSS] += 15;
+            equipStats.flatMATK += 50;
+            //Colocar a pósconjuracao
+            //equipStats.VCT += refinement.shoes * 2;
+            multipliers.property[property.FIRE] += refinement.shoes * 8;
+            //Colocar a pósconjuracao
+
+            
+            if (refinement.shoes >= 7) {
+                multipliers.property[property.WATER] += 10;
+                multipliers.matk += 10;//refinement.weapon * 6;
+            }
+            // Conjunto
+            if (document.getElementById('wea').value === '1646') {;
+                if (skill.id === "WZ_WATERBALL"){
+                    multipliers.skill += Math.floor(refinement.weapon) * 20 + 150;
+                    multipliers.property[property.WATER] += refinement.weapon * 4;
+                }
+                equipStats.bypass += 50;
+            }
+        }
+    },
+    {
         id: '470112', dbname: 'Moaning_of_EvilSpirits', name: 'Botas Decadentes', slot1: 'card',
         script: function () {
             multipliers.matk += 15;

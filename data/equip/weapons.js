@@ -421,4 +421,41 @@ export const weapons = [
             }
         }
     },
+    {
+        id: '1682', dbname: 'Up_Shadow_Staff_K', name: 'Cajado da Magia Oculta', slot1: 'card', slot2: 'card', slot3: malangdo, slot4: malangdo,
+        tags: 'WARLOCK',
+        script: function () {
+            weapon.baseMATK = 130;
+            weapon.lv = 4;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+
+            if (skill.id === 'WL_HELLINFERNOFIRE')
+                multipliers.skill += 100;
+            if (skill.id === 'WL_HELLINFERNODARK')
+                multipliers.skill += 100;
+            if (skill.id === 'WL_HELLINFERNOFIRE')
+                multipliers.skill += 10 * refinement.weapon;
+            if (skill.id === 'WL_HELLINFERNODARK')
+                multipliers.skill += 10 * refinement.weapon;
+            if (refinement.weapon <= 10) {
+                equipStats.bypass += 5* refinement.weapon;
+            }
+            else
+                equipStats.bypass += 50;
+        }
+    },
+    {
+        id: '1646', dbname: 'La\'cryma_Stick', name: 'Bastão de Lágrimas', slot1: 'card', slot2: 'card', slot3: malangdo, slot4: malangdo,
+        tags: 'WARLOCK',
+        script: function () {
+            weapon.baseMATK = 180;
+            weapon.lv = 3;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+            if (refinement.weapon <= 10) {
+                equipStats.bypass += 5* refinement.weapon;
+            }
+            else
+                equipStats.bypass += 50;
+        }
+    },
 ];

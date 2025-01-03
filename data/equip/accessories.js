@@ -298,7 +298,7 @@ export const accessory = [
     },
     {
         id: '490170', dbname: 'Record_Mage2_TW', name: 'Manuscrito dos Magos', slot1: 'card',
-        tags: 'SORCERER',
+        tags:"SORCERER,WARLOCK",
         script: function () {
             // Pós-conjuração -6%.
             equipStats.castdelay += 6;
@@ -371,6 +371,77 @@ export const accessory = [
             // SP máx. +5.
             // ATQ e ATQM +1.
             equipStats.flatMATK += Math.floor(stats.baseLv/2);
+        }
+    },
+    {
+        id: '490079', dbname: 'SoulExpansionRing', name: 'Anel Expansivo', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            // INT +7.
+            equipStats.int += 7;
+            // Dano mágico contra todos os Tamanhos +10%.
+            multipliers.size[size.ALL] += 10;
+            if (skill.id === 'WL_SOULEXPANSION')
+                multipliers.skill += Math.floor(stats.baseLv/7);
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 30;
+            if (learned_skills["Stasis"] === 5) {
+                multipliers.property[property.NEUTRAL] += 10;
+                multipliers.property[property.DARK] += 10;
+                multipliers.property[property.GHOST] += 10;
+            }
+            if (learned_skills["Chamas de Hela"] === 5)
+            // corrigir para velocidade de ataque
+                equipStats.percentASPD += 15;
+            if (learned_skills["Telecinesia"] === 5)
+                if (skill.id === 'WL_TELEKINESIS_INTENSE')
+                    skill.cooldown += -75;
+        }
+    },
+    {
+        id: '490098', dbname: 'Ring_of_Pazuzu', name: 'Anel de Pazuzu', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            // INT +7.
+            equipStats.int += 7;
+            // Dano mágico contra todos os Tamanhos +10%.
+            multipliers.size[size.ALL] += 10;
+            if (skill.id === 'WZ_VERMILION')
+                multipliers.skill += stats.baseLv;
+            if (skill.id === 'WL_CHAINLIGHTNING')
+                multipliers.skill += Math.floor(stats.baseLv/3);
+            if (skill.id === 'WL_CRIMSONROCK')
+                multipliers.skill += Math.floor(stats.baseLv/3);
+            // Ao aprender [Onda Psíquica] nv.5: Pós-conjuração -30%.
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 30;
+            // Ao aprender [Encanto de Órion] nv.5:
+            if (learned_skills["Radius"] === 5) {
+                // Dano mágico contra oponentes de propriedade Neutro, Fogo, Vento.
+                multipliers.property[property.NEUTRAL] += 10;
+                multipliers.property[property.FIRE] += 10;
+                multipliers.property[property.WIND] += 10;
+            }
+            if (learned_skills["Corrente Elétrica"] === 5)
+            // corrigir de vct para reduzir consumo de sp
+                equipStats.VCT += 15;
+            if (learned_skills["Drenar Vida"] === 5)
+                equipStats.VCT += 15;
+        }
+    },{
+        id: '490043', dbname: 'HalfBlood_Princess_Ring', name: 'Anel dos 5 Elementos', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            equipStats.str += 15;
+            equipStats.agi += 15;
+            equipStats.vit += 15;
+            equipStats.int += 15;
+            equipStats.dex += 15;
+            equipStats.luk += 15;
+            equipStats.percentASPD += 15;
+            multipliers.size[size.ALL] += 10;
+            if (skill.id === 'WL_TETRAVORTEX')
+                multipliers.skill += stats.baseLv;
         }
     },
 ];

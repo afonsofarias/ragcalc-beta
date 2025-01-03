@@ -105,8 +105,11 @@ export const garments = [
             if (document.getElementById('wea_slot1').value === '27087' ||
                 document.getElementById('wea_slot2').value === '27087' ||
                 document.getElementById('wea_slot3').value === '27087' ||
-                document.getElementById('wea_slot4').value === '27087')
+                document.getElementById('wea_slot4').value === '27087'){
                 equipStats.int += 40;
+                if (skill.id === 'WZ_SIGHTRASHER')
+                    multipliers.skill += 1500;
+            }
         }
     },
     {

@@ -20,6 +20,21 @@ export const mid = [
         }
     },
     {
+        id: '410130', dbname: 'Phantom_Ears_', name: 'Orelhas Fantasmagóricas', slot1: 'card', slot4: desentupidor,
+        tags: 'WARLOCK',
+        script: function () {
+            // Dano mágico contra todos os Tamanhos +10%
+            multipliers.size[size.ALL] += 10;
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 15;
+            if (learned_skills["Telecinesia"] === 5)
+                if (skill.id === 'Telecinesia')
+                    skill.cooldown += -80;
+            if (skill.id === 'WL_JACKFROST')
+                skill.vct = 0;
+        }
+    },
+    {
         id: '410028',
         dbname: 'Wonder_Egg_Basket_',
         name: 'Cesta das Maravilhas (+10% Tamanho)',
