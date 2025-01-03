@@ -25,12 +25,42 @@ export const cards = [
     },
     {
         id: '4597', dbname: 'LichternB_Card', name: 'Carta Lichtern Laguz', position: 'top',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             equipStats.flatMATK += 10;
             multipliers.skill_property[property.WATER] += 5;
             if (currentEquip === 'top' && refinement.top >= 9)
                 multipliers.skill_property[property.WATER] += 5;
+        }
+    },
+    {
+        id: '4598', dbname: 'LichternY_Card', name: 'Carta Lichtern Anzus', position: 'top',
+        tags: 'SORCERER,WARLOCK',
+        script: function () {
+            equipStats.flatMATK += 10;
+            multipliers.skill_property[property.GHOST] += 5;
+            if (currentEquip === 'top' && refinement.top >= 9)
+                multipliers.skill_property[property.GHOST] += 5;
+        }
+    },
+    {
+        id: '4600', dbname: 'LichternG_Card', name: 'Carta Lichtern Inguz', position: 'top',
+        tags: 'SORCERER,WARLOCK',
+        script: function () {
+            equipStats.flatMATK += 10;
+            multipliers.skill_property[property.EARTH] += 5;
+            if (currentEquip === 'top' && refinement.top >= 9)
+                multipliers.skill_property[property.EARTH] += 5;
+        }
+    },
+    {
+        id: '4599', dbname: 'LichternR_Card', name: 'Carta Lichtern Kenaz', position: 'top',
+        tags: 'SORCERER,WARLOCK',
+        script: function () {
+            equipStats.flatMATK += 10;
+            multipliers.skill_property[property.Fire] += 5;
+            if (currentEquip === 'top' && refinement.top >= 9)
+                multipliers.skill_property[property.Fire] += 5;
         }
     },
     {
@@ -90,7 +120,6 @@ export const cards = [
     },
     {
         id: '4365', dbname: 'B_Katrinn_Card', name: 'Carta Arquimaga Kathryne', position: 'top',
-        tags: 'SORCERER',
         script: function () {
             // Conjuração variável +100%.
             equipStats.VCT += -100;
@@ -119,7 +148,7 @@ export const cards = [
     // armor cards
     {
         id: '27113', dbname: 'AwakenKtullanux_Card', name: 'Carta Ktullanux de Cristal', position: 'arm',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // Dano mágico de propriedade Água +20%.
             multipliers.skill_property[property.WATER] += 20;
@@ -185,7 +214,7 @@ export const cards = [
     },
     {
         id: '4561', dbname: 'Professor_Card', name: 'Carta Professora Celia', position: 'arm',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // Dano mágico +7%.
             multipliers.matk += 7;
@@ -203,6 +232,19 @@ export const cards = [
         tags: 'ARCHBISHOP',
         script: function () {
             if (skill.id === "AB_ADORAMUS") {
+                multipliers.skill += 20;
+                if (refinement.weapon >= 10)
+                    multipliers.skill += 20;
+                if (weapon.lv === 4)
+                    multipliers.skill += 20;
+            }
+        }
+    },
+    {
+        id: '4686', dbname: 'Real_Katrinn_Card', name: 'Carta Alma de Kathryne', position: 'wea',
+        tags: 'WARLOCK',
+        script: function () {
+            if (skill.id === "WL_CRIMSONROCK") {
                 multipliers.skill += 20;
                 if (refinement.weapon >= 10)
                     multipliers.skill += 20;
@@ -233,7 +275,7 @@ export const cards = [
     },
     {
         id: '27324', dbname: 'Brinaranea_Card', name: 'Carta Brinaranha', position: 'wea',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // Dano mágico de propriedade Água +15%.
             multipliers.skill_property[property.WATER] += 15;
@@ -309,7 +351,7 @@ export const cards = [
     },
     {
         id: '27325', dbname: 'Muspellskoll_Card', name: 'Carta Skoll', position: 'shi',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // Conjunto [Carta Brinaranha]
             if (document.getElementById('wea_slot1').value === '27324' ||
@@ -426,6 +468,38 @@ export const cards = [
             }
         }
     },
+    {
+        id: '4678 ', dbname: 'Warlock_Card', name: 'Carta Arcana Kathryne', position: 'gar',
+        tags: 'WARLOCK',
+        script: function () {
+            //Colocar 80 DEFM e 15% matk 
+            multipliers.matk+=15;
+            //status
+            if (refinement.garment >= 10) {
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+            }
+            if (stats.baseLv >= 175) {
+                equipStats.str += 10;
+                equipStats.agi += 10;
+                equipStats.vit += 10;
+                equipStats.int += 10;
+                equipStats.dex += 10;
+                equipStats.luk += 10;
+            }
+            if (document.getElementById('wea_slot1').value === '4686' ||
+                document.getElementById('wea_slot2').value === '4686' ||
+                document.getElementById('wea_slot3').value === '4686' ||
+                document.getElementById('wea_slot4').value === '4686') {
+                //equipStats.flatMATK += 100;
+
+            }
+        }
+    },
     // {
     //     id: '4671 ', dbname: 'Sorcerer_Card', name: 'Carta Feiticeira Celia (Transformação)', position: 'gar',
     //     tags: 'SORCERER',
@@ -463,6 +537,22 @@ export const cards = [
     //         }
     //     }
     // },
+    {
+        id: '4576', dbname: 'Gioia_Card', name: 'Carta Gioia', position: 'gar',
+        script: function () {
+            // Dano mágico de propriedade Vento e Fantasma +100%
+            multipliers.skill_property[property.WIND] += 100;
+            multipliers.skill_property[property.GHOST] += 100;
+        }
+    },
+    {
+        id: '300145', dbname: 'ILL_Abysmal_Witch_Card', name: 'Carta Bruxa do Mar', position: 'gar',
+        script: function () {
+            // Dano mágico de propriedade Fogo e Sombrio +100%
+            multipliers.skill_property[property.FIRE] += 100;
+            multipliers.skill_property[property.DARK] += 100;
+        }
+    },
     {
         id: '27381', dbname: 'C_Himel_Card', name: '(kRO) Phantom of Himmelmez Card', position: 'gar',
         script: function () {
@@ -517,7 +607,6 @@ export const cards = [
     },
     {
         id: '27362', dbname: 'Polluted_Spi_Q_Card', name: 'Carta Aranha Rainha', position: 'gar',
-        tags: 'SORCERER',
         script: function () {
             // Resistência a todas as propriedades -30%.
             // Dano mágico de propriedade Água e Terra +100%.
@@ -527,7 +616,6 @@ export const cards = [
     },
     {
         id: '300201', dbname: 'SLD_P_Spi_Q_Card', name: 'Carta Aranha Rainha Selada', position: 'gar',
-        tags: 'SORCERER',
         script: function () {
             // Resistência a todas as propriedades -60%.
             // Dano mágico de propriedade Água e Terra +50%.
@@ -544,7 +632,7 @@ export const cards = [
     },
     {
         id: '27167', dbname: 'Faceworm_L_Card', name: 'Carta Larva de Verme', position: 'gar',
-        tags: 'SORCERER',
+        tags: 'SORCERER,WARLOCK',
         script: function () {
             // Resistência a propriedade Neutro +15%.
             // A cada refino:
@@ -607,7 +695,7 @@ export const cards = [
     // acc cards
     {
         id: '27125', dbname: 'Headless_Mule_Card', name: 'Carta Mula Sem Cabeça', position: 'acc',
-        tags: 'ARCHBISHOP,SORCERER',
+        tags: 'ARCHBISHOP,SORCERER,WARLOCK',
         script: function () {
             multipliers.skill_property[property.WATER] += 20;
             multipliers.skill_property[property.HOLY] += 20;
@@ -615,9 +703,25 @@ export const cards = [
     },
     {
         id: '27262', dbname: 'Dy_Card', name: 'Carta Atria', position: 'acc',
-        tags: 'ARCHBISHOP,SORCERER',
+        tags: 'ARCHBISHOP,SORCERER,WARLOCK',
         script: function () {
             multipliers.skill_property[property.NEUTRAL] += 20;
+            multipliers.skill_property[property.DARK] += 20;
+        }
+    },
+    {
+        id: '4577', dbname: 'Elvira_Card', name: 'Carta Elvira', position: 'acc',
+        tags: 'ARCHBISHOP,SORCERER,WARLOCK',
+        script: function () {
+            multipliers.skill_property[property.WIND] += 20;
+            multipliers.skill_property[property.GHOST] += 20;
+        }
+    },
+    {
+        id: '27161', dbname: 'Mavka_Card', name: 'Carta Mavka', position: 'acc',
+        tags: 'ARCHBISHOP,SORCERER,WARLOCK',
+        script: function () {
+            multipliers.skill_property[property.FIRE] += 20;
             multipliers.skill_property[property.DARK] += 20;
         }
     },

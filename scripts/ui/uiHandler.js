@@ -137,7 +137,17 @@ export function retrieveBuffs() {
             } else {
                 //run buffs
                 let searchObject = buffs.find((buff) => buff.id === inputs[i].value);
-                searchObject.script(searchObject.max_level);
+
+                let skillLv;
+                if (inputs[i].dataset.info !== undefined) {
+                    skillLv = inputs[i].dataset.info;
+                } else if (learned_skills[searchObject.name] === undefined) {
+                    skillLv = searchObject.max_level;
+                }
+                else {
+                    skillLv = learned_skills[searchObject.name];
+                }
+                searchObject.script(skillLv);
             }
         }
     }

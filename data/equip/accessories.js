@@ -155,9 +155,9 @@ export const accessory = [
             equipStats.castdelay += 5;
             equipStats.VCT += 10;
             // A cada nível de [Impositio Manus]:
-            if(learned_skills.impositio_manus >= 0){
+            if(learned_skills["Impositio Manus"] >= 0){
                 // Dano mágico contra todos os tamanhos +3%.
-                multipliers.size[size.ALL] += 3 * learned_skills.impositio_manus;
+                multipliers.size[size.ALL] += 3 * learned_skills["Impositio Manus"];
             }
             // A cada 2 níveis de base: Dano de [Magnus Exorcismus] +3%.
             if (skill.id === "PR_MAGNUS")
@@ -298,7 +298,7 @@ export const accessory = [
     },
     {
         id: '490170', dbname: 'Record_Mage2_TW', name: 'Manuscrito dos Magos', slot1: 'card',
-        tags: 'SORCERER',
+        tags:"SORCERER,WARLOCK",
         script: function () {
             // Pós-conjuração -6%.
             equipStats.castdelay += 6;
@@ -371,6 +371,84 @@ export const accessory = [
             // SP máx. +5.
             // ATQ e ATQM +1.
             equipStats.flatMATK += Math.floor(stats.baseLv/2);
+        }
+    },
+    {
+        id: '490079', dbname: 'SoulExpansionRing', name: 'Anel Expansivo', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            // INT +7.
+            equipStats.int += 7;
+            // Dano mágico contra todos os Tamanhos +10%.
+            multipliers.size[size.ALL] += 10;
+            // A cada 7 níveis de base: Dano de [Impacto Espiritual] +1%.
+            if (skill.id === 'WL_SOULEXPANSION')
+                multipliers.skill += Math.floor(stats.baseLv/7);
+            // Ao aprender [Stasis] nv.5:
+            if (learned_skills["Stasis"] === 5) {
+                // Dano mágico de propriedade Neutro, Sombrio e Fantasma +10%.
+                multipliers.skill_property[property.NEUTRAL] += 10;
+                multipliers.skill_property[property.DARK] += 10;
+                multipliers.skill_property[property.GHOST] += 10;
+            }
+            // Ao aprender [Telecinesia] nv.5: Recarga de [Telecinesia] -75 segundos.
+            if (learned_skills["Telecinesia"] === 5)
+                if (skill.id === 'WL_TELEKINESIS_INTENSE')
+                    skill.cooldown += -75;
+            // Ao aprender [Chamas de Hela] nv.5: Velocidade de ataque +15%.
+            if (learned_skills["Chamas de Hela"] === 5)
+                equipStats.percentASPD += 15;
+            // Ao aprender [Maestria Arcana] nv.5: Pós-conjuração -30%.
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 30;
+        }
+    },
+    {
+        id: '490098', dbname: 'Ring_of_Pazuzu', name: 'Anel de Pazuzu', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            // INT +7.
+            equipStats.int += 7;
+            // Dano mágico contra todos os Tamanhos +10%.
+            multipliers.size[size.ALL] += 10;
+            if (skill.id === 'WZ_VERMILION')
+                multipliers.skill += stats.baseLv;
+            if (skill.id === 'WL_CHAINLIGHTNING')
+                multipliers.skill += Math.floor(stats.baseLv/3);
+            if (skill.id === 'WL_CRIMSONROCK')
+                multipliers.skill += Math.floor(stats.baseLv/3);
+            // Ao aprender [Maestria Arcana] nv.5: Pós-conjuração -30%.
+            if (learned_skills["Maestria Arcana"] === 5)
+                equipStats.castdelay += 30;
+            // Ao aprender [Radius] nv.3:
+            if (learned_skills["Radius"] === 3) {
+                // Dano mágico de propriedade Fogo, Vento e Neutro +10%.
+                multipliers.skill_property[property.NEUTRAL] += 10;
+                multipliers.skill_property[property.FIRE] += 10;
+                multipliers.skill_property[property.WIND] += 10;
+            }
+            // Ao aprender [Corrente Elétrica] nv.5: Custo de SP de [Corrente Elétrica] -35.
+            // if (learned_skills["Corrente Elétrica"] === 5)
+            // // corrigir de vct para reduzir consumo de sp
+            //     equipStats.VCT += 15;
+            // Ao aprender [Drenar Vida] nv.5: Conjuração variável -15%.
+            if (learned_skills["Drenar Vida"] === 5)
+                equipStats.VCT += 15;
+        }
+    },
+    {
+        id: '490043', dbname: 'HalfBlood_Princess_Ring', name: 'Anel dos 5 Elementos', slot1: 'card', slot4: tumulo,
+        tags: 'WARLOCK',
+        script: function () {
+            equipStats.str += 15;
+            equipStats.agi += 15;
+            equipStats.vit += 15;
+            equipStats.int += 15;
+            equipStats.dex += 15;
+            equipStats.luk += 15;
+            equipStats.percentASPD += 15;
+            if (skill.id === 'WL_TETRAVORTEX')
+                multipliers.skill += stats.baseLv;
         }
     },
 ];

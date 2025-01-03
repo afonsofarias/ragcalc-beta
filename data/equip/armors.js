@@ -233,9 +233,9 @@ export const armors = [
 
             // A cada nível de [Oratio]:
             // INT +3. ATQM +15.
-            if(learned_skills.oratio > 0){
-                equipStats.int += learned_skills.oratio  * 3;
-                equipStats.flatMATK += learned_skills.oratio  * 15;
+            if(learned_skills["Oratio"] > 0){
+                equipStats.int += learned_skills["Oratio"]  * 3;
+                equipStats.flatMATK += learned_skills["Oratio"]  * 15;
             }
 
             // A cada nível de [Gênese]:
@@ -366,6 +366,46 @@ export const armors = [
             // 50% de chance de infligir Congelamento no oponente.
             // A cada refino:
             // Dano físico contra oponentes de propriedade Água +5%.
+        }
+    },
+    {
+        id: '450226', dbname: 'four_of_a_kind', name: 'Quatrenhum', slot1: 'card',
+        tags: 'WARLOCK',
+        script: function () {
+            //HP e SP máx. +10%;
+            if (refinement.armor >= 9) {
+                    //DEFM +25 ;
+            }
+            if (refinement.armor >= 11) {
+                    //DEFM +25;
+            }
+            if (refinement.armor >= 10) {
+                // Dano mágico de propriedade Neutro, Fogo, Vento, Terra e Água +15%.
+                multipliers.skill_property[property.NEUTRAL] += 15;
+                multipliers.skill_property[property.FIRE] += 15;
+                multipliers.skill_property[property.WIND] += 15;
+                multipliers.skill_property[property.EARTH] += 15;
+                multipliers.skill_property[property.WATER] += 15;
+            }
+
+            // A cada nível aprendido de [Radius]:
+            // INT +10. ATQM +50.
+            if(learned_skills["Radius"] > 0){
+                equipStats.int += learned_skills["Radius"]  * 10;
+                equipStats.flatMATK += learned_skills["Radius"]  * 50;
+            }
+
+            // A cada nível aprendido de [Tetra Vortex]:
+            // Dano mágico de todas as raças +2%.
+            if(learned_skills["Tetra Vortex"] > 0) {
+                multipliers.race[race.ALL] += learned_skills["Tetra Vortex"] * 2;
+            }
+            // Ao aprender [Cometa] nv.5:
+            if(learned_skills["Cometa"] === 5) {
+                // Conjuração fixa de [Tetra Vortex] e [Esquife de Gelo] -100%.
+                if (skill.id === "WL_TETRAVORTEX" || skill.id === "WL_JACKFROST")
+                    skill.fct = 0;
+            }
         }
     },
 ];

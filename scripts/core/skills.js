@@ -92,6 +92,204 @@ export const skills = [
         vct: 12,
         castdelay: 1,
         hits: 1,
+    },
+    {
+        name: "Meteoro Escarlate",
+        id: "WL_CRIMSONROCK",
+        script() {
+            let crimsonrockLv = learned_skills["Meteoro Escarlate"];
+            return Math.floor((crimsonrockLv * 600 + 700) * (stats.baseLv/100) )/100;
+        },
+        property: property.FIRE,
+        divisibility: 7,
+        cooldown: 5,
+        fct: 1,
+        vct: 5,
+        castdelay: 0.5,
+        hits: 1,
+    },
+    {
+        name: "Impacto Espiritual",
+        id: "WL_SOULEXPANSION",
+        script() {
+            let soulexpansionLv = learned_skills["Impacto Espiritual"];
+            return Math.floor(((soulexpansionLv+5)* 150 + stats.int) * (stats.baseLv/100) )/100;
+        },
+        property: property.GHOST,
+        divisibility: 2,
+        cooldown: 0,
+        fct: 0,
+        vct: 2,
+        castdelay: 0.5,
+        hits: 1,
+    },
+    {
+        name: "Chamas de Hela (Sombrio)",
+        id: "WL_HELLINFERNODARK",
+        script() {
+            let hellinfernoLv = learned_skills["Chamas de Hela"];
+            return Math.floor((hellinfernoLv * 600) * (stats.baseLv/100) )/100;
+        },
+        property: property.DARK,
+        divisibility: 3,
+        cooldown: 3,
+        fct: 1,
+        vct: 3,
+        castdelay: 0.5,
+        hits: 1,
+    }
+    ,{
+        name: "Chamas de Hela (Fogo)",
+        id: "WL_HELLINFERNOFIRE",
+        script() {
+            let hellinfernoLv = learned_skills["Chamas de Hela"];
+            return Math.floor((hellinfernoLv * 400) * (stats.baseLv/100) )/100;
+        },
+        property: property.FIRE,
+        divisibility: 1,
+        cooldown: 3,
+        fct: 1,
+        vct: 3,
+        castdelay: 0.5,
+        hits: 1,
+    },
+    {
+        name: "Corrente Elétrica",
+        id: "WL_CHAINLIGHTNING",
+        script() {
+            let chainlightningLv = learned_skills["Corrente Elétrica"];
+            return Math.floor((500 + (chainlightningLv*100) ) * (stats.baseLv/100) )/100;
+        },
+        property: property.WIND,
+        divisibility: 1,
+        cooldown: 0,
+        fct: 1,
+        vct: 5.5,
+        castdelay: 3,
+        hits: 1,
+    },
+    {
+        name: "Cometa",
+        id: "WL_COMET",
+        script() {
+            let cometLv = learned_skills["Cometa"];
+            return Math.floor(( (cometLv * 500) + 2500 ) * (stats.baseLv/100) )/100;
+        },
+        property: property.NEUTRAL,
+        divisibility: 10,
+        cooldown: 20,
+        fct: 2,
+        vct: 10,
+        castdelay: 1.5,
+        hits: 1,
+    },
+    {
+        name: "Tetra Vortex",
+        id: "WL_TETRAVORTEX",
+        script() {
+            let tetravortexLv = 10;
+            if (tetravortexLv <= 5)
+                return Math.floor(( (tetravortexLv * 500) + 500 ) )/100;//* (stats.baseLv/100) )/100;
+            else 
+                return Math.floor(( (tetravortexLv-5)*200 + 3000 ) )/100 ;//* (stats.baseLv/100) )/100;
+        },
+        property: property.NEUTRAL,
+        divisibility: 1,
+        cooldown: 15,
+        fct: 1,
+        vct: 14,
+        castdelay: 0,
+        hits: 4,
+    },
+    {
+        name: "Vulcão Napalm",
+        id: "HW_NAPALMVULCAN",
+        script() {
+            let vulcaonapalmLv = learned_skills["Vulcão Napalm"];
+            return Math.floor((vulcaonapalmLv * 70) )* (stats.baseLv/100)/100;
+        },
+        property: property.GHOST,
+        divisibility: 5,
+        cooldown: 1,
+        fct: 0.2,
+        vct: 0.8,
+        castdelay: 0.5,
+        hits: 5,
+    },
+    {
+        name: "Campo Gravitacional",
+        id: "HW_GRAVITATION",
+        script() {
+            let campogravitacionalLv = learned_skills["Campo Gravitacional"];
+            return Math.floor((campogravitacionalLv * 50) )* (stats.baseLv/100)/100;
+        },
+        property: property.NEUTRAL,
+        divisibility: 18,
+        cooldown: 5,
+        fct: 1,
+        vct: 5,
+        castdelay: 1,
+        hits: 1,
+    },
+    {
+        name: "Supernova",
+        id: "WZ_SIGHTRASHER",
+        script() {
+            let supernovaLv = learned_skills["Supernova"];
+            return Math.floor((supernovaLv * 20)+100)* (stats.baseLv/100)/100;
+        },
+        property: property.FIRE,
+        divisibility: 1,
+        cooldown: 0,
+        fct: 0.08,
+        vct: 0.32,
+        castdelay: 2,
+        hits: 1,
+    },
+    {
+        name: "Ira de Thor",
+        id: "WZ_VERMILION",
+        script() {
+            let iradethorLv = learned_skills["Ira de Thor"];
+            return Math.floor((iradethorLv * 100)+400) /**(stats.baseLv/100)*//100;
+        },
+        property: property.WIND,
+        divisibility: 20,
+        cooldown: 5,
+        fct: 1.5,
+        vct: 4.5,
+        castdelay: 1,
+        hits: 1,
+    },
+    {
+        name: "Nevasca",
+        id: "WZ_STORMGUST",
+        script() {
+            let nevascaLv = learned_skills["Nevasca"];
+            return Math.floor((nevascaLv * 50)+70) /**(stats.baseLv/100)*//100;
+        },
+        property: property.WATER,
+        divisibility: 1,
+        cooldown: 6,
+        fct: 1.5,
+        vct: 6.3,
+        castdelay: 1,
+        hits: 1,
+    },
+    {
+        name: "Esfera d'Água",
+        id: "WZ_WATERBALL",
+        script() {
+            let esferaaguaLv = learned_skills["Esfera d'Água"];
+            return Math.floor(( (esferaaguaLv * 30) + 100 ) )/100;
+        },
+        property: property.NEUTRAL,
+        divisibility: 1,
+        cooldown: 0,
+        fct: 0.8,
+        vct: 3.2,
+        castdelay: 0,
+        hits: 1,
     }
 ]
 
@@ -121,8 +319,8 @@ export const buffs = [
         name: "Oratio",
         id: "AB_ORATIO",
         max_level: 10,
-        script(){
-            currentBuffs.oratio = learned_skills.oratio;
+        script(level){
+            currentBuffs.oratio = level;
         },
     },
     {
@@ -137,8 +335,8 @@ export const buffs = [
         name: "Impositio Manus",
         id: "PR_IMPOSITIO",
         max_level: 5,
-        script(){
-            equipStats.flatMATK += learned_skills.impositio_manus * 5;
+        script(level){
+            equipStats.flatMATK += level * 5;
         },
     },
     {
@@ -180,9 +378,25 @@ export const buffs = [
     {
         name: "Amplificação Mística",
         id: "HW_MAGICPOWER",
-        max_level: 5,
+        max_level: 10,
         script(level){
             currentBuffs.mystical_amplification = level;
+        },
+    },
+    {
+        name: "Telecinesia",
+        id: "WL_TELEKINESIS_INTENSE",
+        max_level: 5,
+        script(level){
+            currentBuffs.telekinesis = level;
+        },
+    },
+    {
+        name: "Cometa",
+        id: "WL_COMET",
+        max_level: 5,
+        script(level){
+            currentBuffs.magicintoxication = level;
         },
     },
     {

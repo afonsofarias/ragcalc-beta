@@ -48,6 +48,23 @@ function updateJobSpecificOptions(job){
                 { value: "SO_PSYCHIC_WAVE", text: "Onda Psíquica" },
             ];
             break;
+        case "WARLOCK":
+                options = [
+                    { value: "WL_CRIMSONROCK", text: "Meteoro Escarlate" },
+                    { value: "WL_SOULEXPANSION", text: "Impacto Espiritual" },
+                    { value: "WL_HELLINFERNODARK", text: "Chamas de Hela (Sombrio)" },
+                    { value: "WL_HELLINFERNOFIRE", text: "Chamas de Hela (Fogo)" },
+                    // { value: "WL_CHAINLIGHTNING", text: "Corrente Elétrica" },
+                    { value: "WL_COMET", text: "Cometa" },
+                    { value: "WL_TETRAVORTEX", text: "Tetra Vortex (Neutro)" },
+                    { value: "WZ_SIGHTRASHER", text: "Supernova" },
+                    { value: "WZ_WATERBALL", text: "Esfera d'Água" },
+                    { value: "WZ_VERMILION", text: "Ira de Thor" },
+                    { value: "WZ_STORMGUST", text: "Nevasca" },
+                    // { value: "HW_GRAVITATION", text: "Campo Gravitacional" },
+                    { value: "HW_NAPALMVULCAN", text: "Vulcão Napalm" },
+                ];
+                break;
         default:
             options = [
                 { value: "", text: "ERRO!" }
@@ -84,6 +101,9 @@ function updateJobSpecificOptions(job){
             break;
         case "SORCERER":
             document.getElementById("buffsTableSorcerer").style.display = "table";
+            break;
+        case "WARLOCK":
+            document.getElementById("buffsTableWarlock").style.display = "table";
             break;
     }
 

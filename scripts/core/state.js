@@ -137,8 +137,8 @@ function initialize() {
     buffs.deluge = false;
     buffs.fire_insignia = false;
     buffs.varuna = false;
-    // Seta a skill a ser calculada
-
+    buffs.telekinesis = 0;
+    buffs.magicintoxication = 0;
 }
 
 export function retrieveJobStatBonus() {
@@ -147,6 +147,8 @@ export function retrieveJobStatBonus() {
             return jobStatBonus.ArchBishop.find((line) => line.level === stats.jobLv);
         case "SORCERER":
             return jobStatBonus.Sorcerer.find((line) => line.level === stats.jobLv);
+        case "WARLOCK":
+            return jobStatBonus.Warlock.find((line) => line.level === stats.jobLv);
     }
 }
 
