@@ -222,7 +222,7 @@ const Warlock = [
     {level: 68, bonus: [1, 7, 7, 14, 8, 3]},
     {level: 69, bonus: [1, 7, 7, 14, 8, 3]},
     // Verificado
-    {level: 70, bonus: [1, 7, 7, 14, 8, 3]},
+    {level: 70, bonus: [1, 7, 8, 15, 8, 4]},
 ];
 
 export const jobStatBonus = {

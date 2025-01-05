@@ -3,9 +3,7 @@ import {
     stats,
     equipStats,
     refinement,
-    s_refinement,
     weapon,
-    currentEquip,
     skill,
     multipliers,
     buffs,
@@ -67,15 +65,16 @@ export function damage_calculation() {
     minMATK = Math.floor((Math.floor((Math.floor(minMATK * skill.dmg) * hardMDEF - softMDEF) * (multipliers.skill) / 100) * weakness) / 100);
     maxMATK = Math.floor((Math.floor((Math.floor(maxMATK * skill.dmg) * hardMDEF - softMDEF) * (multipliers.skill) / 100) * weakness) / 100);
 
+    // Telecinesia
+    if (buffs.telekinesis > 0 && skill.property === property.GHOST) {
+        minMATK = Math.floor(minMATK*(1+(40*buffs.telekinesis)/100));
+        maxMATK = Math.floor(maxMATK*(1+(40*buffs.telekinesis)/100));
+    }
+
     // Lex aeterna
     if (buffs.lex_aeterna){
         minMATK = minMATK * 2;
         maxMATK = maxMATK * 2;
-    }
-    // Telecinesia
-    if (buffs.telekinesis > 0 && skill.property === property.GHOST) {
-            minMATK = Math.floor(minMATK*(1+(40*buffs.telekinesis)/100));
-            maxMATK = Math.floor(maxMATK*(1+(40*buffs.telekinesis)/100));
     }
     // Cometa (possivelmente entra no mesmo lugar da fórmula que oratio, confirmar ingame
     if (buffs.magicintoxication === 5 ) {

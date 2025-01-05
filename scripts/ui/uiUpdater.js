@@ -54,7 +54,7 @@ function updateJobSpecificOptions(job){
                     { value: "WL_SOULEXPANSION", text: "Impacto Espiritual" },
                     { value: "WL_HELLINFERNODARK", text: "Chamas de Hela (Sombrio)" },
                     { value: "WL_HELLINFERNOFIRE", text: "Chamas de Hela (Fogo)" },
-                    // { value: "WL_CHAINLIGHTNING", text: "Corrente Elétrica" },
+                    { value: "WL_CHAINLIGHTNING", text: "Corrente Elétrica (1º hit)" },
                     { value: "WL_COMET", text: "Cometa" },
                     { value: "WL_TETRAVORTEX", text: "Tetra Vortex (Neutro)" },
                     { value: "WZ_SIGHTRASHER", text: "Supernova" },

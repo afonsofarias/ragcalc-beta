@@ -113,7 +113,7 @@ export const skills = [
         id: "WL_SOULEXPANSION",
         script() {
             let soulexpansionLv = learned_skills["Impacto Espiritual"];
-            return Math.floor(((soulexpansionLv+5)* 150 + stats.int) * (stats.baseLv/100) )/100;
+            return Math.floor((((soulexpansionLv+5)* 150) + (stats.int+equipStats.int)) * (stats.baseLv/100) )/100;
         },
         property: property.GHOST,
         divisibility: 2,
@@ -158,7 +158,10 @@ export const skills = [
         id: "WL_CHAINLIGHTNING",
         script() {
             let chainlightningLv = learned_skills["Corrente Elétrica"];
-            return Math.floor((500 + (chainlightningLv*100) ) * (stats.baseLv/100) )/100;
+            // 1º hit
+            return Math.floor((500 + (chainlightningLv*100) + (400) ) * (stats.baseLv/100) )/100;
+            // Segundo hit:
+            //return Math.floor((500 + (chainlightningLv*100) + (350) ) * (stats.baseLv/100) )/100;
         },
         property: property.WIND,
         divisibility: 1,
@@ -236,7 +239,7 @@ export const skills = [
         id: "WZ_SIGHTRASHER",
         script() {
             let supernovaLv = learned_skills["Supernova"];
-            return Math.floor((supernovaLv * 20)+100)* (stats.baseLv/100)/100;
+            return Math.floor((supernovaLv * 20)+100)/100;
         },
         property: property.FIRE,
         divisibility: 1,
