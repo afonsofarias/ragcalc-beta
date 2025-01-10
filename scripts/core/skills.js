@@ -159,9 +159,9 @@ export const skills = [
         script() {
             let chainlightningLv = learned_skills["Corrente Elétrica"];
             // 1º hit
-            return Math.floor((500 + (chainlightningLv*100) + (400) ) * (stats.baseLv/100) )/100;
+            return Math.floor(((500 + (chainlightningLv*100)) * (stats.baseLv/100)) + 800)/100;
             // Segundo hit:
-            //return Math.floor((500 + (chainlightningLv*100) + (350) ) * (stats.baseLv/100) )/100;
+            //return Math.floor(((500 + (chainlightningLv*100)) * (stats.baseLv/100)) + 700)/100;
         },
         property: property.WIND,
         divisibility: 1,
@@ -212,7 +212,7 @@ export const skills = [
             return Math.floor((vulcaonapalmLv * 70) )* (stats.baseLv/100)/100;
         },
         property: property.GHOST,
-        divisibility: 5,
+        divisibility: 1,
         cooldown: 1,
         fct: 0.2,
         vct: 0.8,
@@ -227,12 +227,12 @@ export const skills = [
             return Math.floor((campogravitacionalLv * 50) )* (stats.baseLv/100)/100;
         },
         property: property.NEUTRAL,
-        divisibility: 18,
+        divisibility: 1,
         cooldown: 5,
         fct: 1,
         vct: 5,
         castdelay: 1,
-        hits: 1,
+        hits: 18,
     },
     {
         name: "Supernova",
