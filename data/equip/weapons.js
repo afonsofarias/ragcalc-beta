@@ -176,6 +176,101 @@ export const weapons = [
         }
     },
     {
+        id: '550013 ', dbname: 'Up_Freezing_Rod', name: 'Feitiço Primordial (12% Água)', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 195;
+            weapon.lv = 4;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+            // Random Options
+            multipliers.skill_property[property.WATER] += 12;
+            // A cada 2 refinos: ATQM +15.
+            equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 15;
+            // A cada 3 refinos: Dano de [Pó de Diamante] +12%.
+            if (skill.id === 'SO_DIAMONDDUST')
+                multipliers.skill += Math.floor(refinement.weapon / 3) * 12;
+            // Refino +7 ou mais:
+            if (refinement.weapon >= 7){
+                // Dano de [Lanças dos Aesir] +15%.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 15;
+                // Dano mágico contra oponentes de todas as propriedades +15%.
+                multipliers.property[property.ALL] += 15;
+            }
+            // Refino +9 ou mais:
+            if (refinement.weapon >= 9){
+                // Conjuração variável -7%.
+                equipStats.VCT += 7;
+                // Dano de [Lanças dos Aesir] +20% adicional.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 20;
+            }
+            // Refino +11 ou mais:
+            if (refinement.weapon >= 11){
+                // Conjuração variável -8% adicional.
+                equipStats.VCT += 8;
+                // Recarga de [Lanças dos Aesir] -2 segundos.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    skill.cooldown += -2;
+            }
+            // Conjunto [Botas Primordiais]
+            if (document.getElementById('sho').value === '22238'){
+                // INT +10.
+                equipStats.int += 10;
+                // Dano mágico +7%.
+                multipliers.matk += 7;
+            }
+        }
+    },
+    {
+        id: '550013  ', dbname: 'Up_Freezing_Rod', name: 'Feitiço Primordial (12% Água/12% Chefe)', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 195;
+            weapon.lv = 4;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+            // Random Options
+            multipliers.protocol[type.BOSS] += 12;
+            multipliers.skill_property[property.WATER] +=12;
+            // A cada 2 refinos: ATQM +15.
+            equipStats.flatMATK += Math.floor(refinement.weapon / 2) * 15;
+            // A cada 3 refinos: Dano de [Pó de Diamante] +12%.
+            if (skill.id === 'SO_DIAMONDDUST')
+                multipliers.skill += Math.floor(refinement.weapon / 3) * 12;
+            // Refino +7 ou mais:
+            if (refinement.weapon >= 7){
+                // Dano de [Lanças dos Aesir] +15%.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 15;
+                // Dano mágico contra oponentes de todas as propriedades +15%.
+                multipliers.property[property.ALL] += 15;
+            }
+            // Refino +9 ou mais:
+            if (refinement.weapon >= 9){
+                // Conjuração variável -7%.
+                equipStats.VCT += 7;
+                // Dano de [Lanças dos Aesir] +20% adicional.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    multipliers.skill += 20;
+            }
+            // Refino +11 ou mais:
+            if (refinement.weapon >= 11){
+                // Conjuração variável -8% adicional.
+                equipStats.VCT += 8;
+                // Recarga de [Lanças dos Aesir] -2 segundos.
+                if (skill.id === 'SO_VARETYR_SPEAR')
+                    skill.cooldown += -2;
+            }
+            // Conjunto [Botas Primordiais]
+            if (document.getElementById('sho').value === '22238'){
+                // INT +10.
+                equipStats.int += 10;
+                // Dano mágico +7%.
+                multipliers.matk += 7;
+            }
+        }
+    },
+    {
         id: '1584', dbname: 'Chilly_Spell_Book', name: 'Livro de Feitiços do Frio', slot1: 'card', slot2: 'card',
         tags: 'SORCERER',
         script: function () {
@@ -385,6 +480,97 @@ export const weapons = [
             weapon.lv = 4;
             weapon.class = weaponClass.ONE_HANDED_STAFF;
 
+            // A cada 2 refinos: ATQM +15.
+            equipStats.flatMATK += 15 * Math.floor(refinement.weapon/2);
+            // A cada 3 refinos: Dano de [Castigo de Nerthus] +12%.
+            if (skill.id === 'SO_EARTHGRAVE')
+                multipliers.skill += 12 * Math.floor(refinement.weapon/3);
+            // Refino +7 ou mais:
+            if (refinement.weapon >= 7) {
+                //Dano mágico de propriedade Neutro e Terra +15%.
+                multipliers.skill_property[property.NEUTRAL] += 15;
+                multipliers.skill_property[property.EARTH] += 15;
+            }
+            // Refino +9 ou mais:
+            if (refinement.weapon >= 9){
+                // Conjuração variável -7%.
+                equipStats.VCT += 7
+                // Dano de [Onda Psíquica] +25%.
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    multipliers.skill += 25;
+            }
+            // Refino +11 ou mais:
+            if (refinement.weapon >= 11){
+                // Recarga de [Onda Psíquica] -1 segundo.
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    skill.cooldown += -1;
+                // Conjuração variável -8% adicional.
+                equipStats.VCT += 8;
+            }
+            // Conjunto [Botas Primordiais]
+            if (document.getElementById('sho').value === '22238') {
+                // INT +10.
+                equipStats.int += 10;
+                // Dano mágico +7%.
+                multipliers.matk += 7;
+            }
+        }
+    },
+    {
+        id: '550012 ', dbname: 'Up_Shadow_Staff_K', name: 'Cajado Primordial (12% Neutro)', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 195;
+            weapon.lv = 4;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+            // Random Options
+            multipliers.skill_property[property.NEUTRAL] +=12;
+            // A cada 2 refinos: ATQM +15.
+            equipStats.flatMATK += 15 * Math.floor(refinement.weapon/2);
+            // A cada 3 refinos: Dano de [Castigo de Nerthus] +12%.
+            if (skill.id === 'SO_EARTHGRAVE')
+                multipliers.skill += 12 * Math.floor(refinement.weapon/3);
+            // Refino +7 ou mais:
+            if (refinement.weapon >= 7) {
+                //Dano mágico de propriedade Neutro e Terra +15%.
+                multipliers.skill_property[property.NEUTRAL] += 15;
+                multipliers.skill_property[property.EARTH] += 15;
+            }
+            // Refino +9 ou mais:
+            if (refinement.weapon >= 9){
+                // Conjuração variável -7%.
+                equipStats.VCT += 7
+                // Dano de [Onda Psíquica] +25%.
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    multipliers.skill += 25;
+            }
+            // Refino +11 ou mais:
+            if (refinement.weapon >= 11){
+                // Recarga de [Onda Psíquica] -1 segundo.
+                if (skill.id === 'SO_PSYCHIC_WAVE')
+                    skill.cooldown += -1;
+                // Conjuração variável -8% adicional.
+                equipStats.VCT += 8;
+            }
+            // Conjunto [Botas Primordiais]
+            if (document.getElementById('sho').value === '22238') {
+                // INT +10.
+                equipStats.int += 10;
+                // Dano mágico +7%.
+                multipliers.matk += 7;
+            }
+        }
+    },
+    {
+        id: '550012  ', dbname: 'Up_Shadow_Staff_K', name: 'Cajado Primordial (12% Neutro/12% Chefe)', slot1: 'card', slot2: 'card',
+        tags: 'SORCERER',
+        script: function () {
+            weapon.baseMATK = 195;
+            weapon.lv = 4;
+            weapon.class = weaponClass.ONE_HANDED_STAFF;
+            // Random Options
+            multipliers.protocol[type.BOSS] += 12;
+            multipliers.skill_property[property.NEUTRAL] +=12;
             // A cada 2 refinos: ATQM +15.
             equipStats.flatMATK += 15 * Math.floor(refinement.weapon/2);
             // A cada 3 refinos: Dano de [Castigo de Nerthus] +12%.
