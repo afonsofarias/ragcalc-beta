@@ -59,6 +59,10 @@ export function damage_calculation() {
     hardMDEF = (1000 + hardMDEF) / (1000 + (hardMDEF * 10));
     // let weakness = properties[target.property[1] - 1][target.property[0] - 1];
     let weakness = propTable[skill.property-1][target.property[1] - 1][target.property[0] - 1];
+    // Dilúvio
+    if (buffs.deluge && skill.property === property.WATER) {
+        weakness = weakness + 20;
+    }
     // Atualiza a % base da skill
     skill.dmg = skills.find((line) => line.id === skill.id).script();
     // Calculo do Dano da Habilidade
@@ -82,10 +86,10 @@ export function damage_calculation() {
         maxMATK = Math.floor(maxMATK*1.5);
     }
     // Dilúvio
-    if (buffs.deluge && skill.property === property.WATER) {
-        minMATK = Math.floor(minMATK*1.2);
-        maxMATK = Math.floor(maxMATK*1.2);
-    }
+    // if (buffs.deluge && skill.property === property.WATER) {
+    //     minMATK = Math.floor(minMATK*1.2);
+    //     maxMATK = Math.floor(maxMATK*1.2);
+    // }
     // Insignia de Fogo
     if (buffs.fire_insignia && skill.property === property.WATER) {
         minMATK = Math.floor(minMATK*1.5);
