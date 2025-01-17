@@ -311,6 +311,32 @@ export const cards = [
         }
     },
     {
+        id: '300009', dbname: 'Plasma_Spt_Card', name: 'Carta Plasma Espectral', position: 'wea',
+        tags: 'WARLOCK',
+        script: function () {
+            if (weapon.class === weaponClass.ONE_HANDED_STAFF || weapon.class === weaponClass.TWO_HANDED_STAFF){
+                multipliers.skill_property[property.GHOST] += 10;
+                if (refinement.weapon >= 10)
+                    multipliers.skill_property[property.GHOST] += 10;
+                if (refinement.weapon >= 14)
+                    multipliers.skill_property[property.GHOST] += 10;
+            }
+        }
+    },
+    {
+        id: '300010', dbname: 'Plasma_Arch_Card', name: 'Carta Plasma Angelical', position: 'wea',
+        tags: 'SORCERER,WARLOCK',
+        script: function () {
+            if (weapon.class === weaponClass.ONE_HANDED_STAFF || weapon.class === weaponClass.TWO_HANDED_STAFF){
+                multipliers.skill_property[property.WIND] += 10;
+                if (refinement.weapon >= 10)
+                    multipliers.skill_property[property.WIND] += 10;
+                if (refinement.weapon >= 14)
+                    multipliers.skill_property[property.WIND] += 10;
+            }
+        }
+    },
+    {
         id: '300011', dbname: 'Holy_Frus_Card', name: 'Carta Frus Angelical', position: 'wea',
         tags: 'ARCHBISHOP',
         script: function () {
