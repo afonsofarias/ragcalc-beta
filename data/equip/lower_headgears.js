@@ -1,4 +1,4 @@
-import {equipStats, learned_skills, multipliers, stats} from "../../scripts/core/state.js";
+import {equipStats, learned_skills, multipliers, skill, stats} from "../../scripts/core/state.js";
 import {property, race, size} from "../../scripts/core/constants.js";
 
 export const low = [
