@@ -2,6 +2,70 @@ import {equipStats, learned_skills, multipliers, refinement, skill, stats, targe
 import {property, race, size, type} from "../../scripts/core/constants.js";
 
 export const armors = [
+
+    {
+        id: '450242', dbname: 'Elemental_Possession', name: 'Possessão Elemental', slot1: 'card',
+        script: function () {
+            // HP e SP máx. +10%.
+            equipStats.hp += 10;
+            equipStats.sp += 10;
+
+            // Refino +5 ou mais: INT +15.
+            if (refinement.armor >= 5) {
+                equipStats.int += 15;
+            }
+
+            // Refino +7 ou mais: INT +15 adicional.
+            if (refinement.armor >= 7) {
+                equipStats.int += 15;
+            }
+
+            // Refino +10 ou mais:
+            if (refinement.armor >= 10) {
+                // Armadura indestrutível
+                equipStats.unbreakableArmor = true;
+                // Dano Mágico de propriedades
+                multipliers.skill_property[property.NEUTRAL] += 15;
+                multipliers.skill_property[property.FIRE] += 15;
+                multipliers.skill_property[property.WATER] += 15;
+                multipliers.skill_property[property.WIND] += 15;
+                multipliers.skill_property[property.EARTH] += 15;
+                multipliers.skill_property[property.POISON] += 15;
+            }
+
+            // Se nível de [Lanças do Aesir] for 10:
+            if (learned_skills["Lanças do Aesir"] === 10) {
+                if (skill.id === "EL_SEARING" /* Lanças do Aesir */) {
+                    skill.cooldown -= 1;
+                }
+                if (learned_skills["Invocar Vayu"] > 0) {
+                    // Redução de recarga de Invocar Vayu
+                    // A verificação de skill.id pode ser feita conforme necessário
+                    // Por padrão, reduz 25 segundos da recarga
+                    if (skill.id === "EL_WIND_STEP") {
+                        skill.cooldown -= 25;
+                    }
+                }
+            }
+
+            // A cada nível aprendido de [Invocar Agni], [Invocar Varuna], [Invocar Vayu], [Invocar Chandra]
+            const summons = ["Invocar Agni", "Invocar Varuna", "Invocar Vayu", "Invocar Chandra"];
+            let totalSummonLevels = 0;
+            for (const skillName of summons) {
+                if (learned_skills[skillName] > 0) {
+                    totalSummonLevels += learned_skills[skillName];
+                }
+            }
+            equipStats.percentASPD += totalSummonLevels;
+            equipStats.flatMATK += totalSummonLevels * 15;
+
+            // A cada nível aprendido de [Empatia Elemental]
+            if (learned_skills["Empatia Elemental"] > 0) {
+                multipliers.race[race.ALL] += learned_skills["Empatia Elemental"] * 14;
+            }
+        }
+    },
+
     {
         id: '450179', dbname: 'Celine_Dress', name: 'Vestido Mágico da Celine', slot1: 'card',
         script: function () {
