@@ -3,7 +3,7 @@ import {property, race, size} from "../../scripts/core/constants.js";
 
 export const low = [
     {
-        id: '420110', dbname: 'ScarfOfHero_J', name: 'Cachecol Camuflado', script: function () {
+        id: '420110', dbname: 'ScarfOfHero_J', name: 'Cachecol Camuflado', slot1: 'card', script: function () {
             multipliers.size[size.ALL] += Math.floor(stats.baseLv / 10);
         }
     },
