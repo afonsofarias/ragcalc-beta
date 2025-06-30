@@ -86,6 +86,15 @@ export const cards = [
         }
     },
     {
+        id: '4403',
+        dbname: 'Kiel_Card',
+        name: 'Carta Kiel-D-01',
+        position: 'low',
+        script: function () {
+            equipStats.castdelay += 30;
+        }
+    },    
+    {
         id: '4556',
         dbname: 'Fenrir_Card',
         name: 'Carta Fenrir',
