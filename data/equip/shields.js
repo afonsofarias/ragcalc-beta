@@ -69,6 +69,26 @@ export const shields = [
                 equipStats.castdelay += 5;
         }
     },
+        {
+        id: '28946', dbname: 'Bloody_Knight_Shield__', name: 'Sanguinário Purificado (60% Bypass Chefe)', slot1: 'card',
+        script: function () {
+            if (target.type === type.BOSS)
+                equipStats.bypass += 60;
+            // Dano mágico +5%.
+            multipliers.matk += 5;
+            // Velocidade de ataque +10%.
+            equipStats.percentASPD += 10;
+            // Refino +7 ou mais: ATQ e ATQM +20.
+            if (refinement.shield >= 7)
+                equipStats.flatMATK += 20;
+            // Refino +9 ou mais: Velocidade de ataque +2.
+            if (refinement.shield >= 9)
+                equipStats.flatASPD += 2;
+            // Refino +12 ou mais: Pós-conjuração -5%.
+            if (refinement.shield >= 12)
+                equipStats.castdelay += 5;
+        }
+    },
     {
         id: '460015', dbname: 'Auto_Shield_A', name: 'Escudo Ilusión C', slot1: 'card',
         script: function () {
